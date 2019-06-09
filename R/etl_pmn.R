@@ -27,7 +27,7 @@ etl_pmn <- function(refresh_data = FALSE){
     file.remove(filename_accessed_datetime)
     download_generic(filename_roots = filename_roots,
                      filename_accessed_datetime = filename_accessed_datetime)
-    # Clean the data ----------
+    # Clean the data -----------------------------------------------------------
     # Before we read this in as a delim file, submission K010142 includes a
     # quote character in the record that messes things up. Let's remove those.
 
@@ -55,7 +55,7 @@ etl_pmn <- function(refresh_data = FALSE){
   if(!is.null(errors)){
     stop(paste(errors, collapse = "\n"))
   }
-  # Read the file --------
+  # Read the file --------------------------------------------------------------
   # Set the column types
   col_types <- readr::cols(
     KNUMBER = readr::col_character(),
@@ -82,7 +82,7 @@ etl_pmn <- function(refresh_data = FALSE){
     DEVICENAME = readr::col_character()
   )
 
-  # Read the file
+  # Read the file --------------------------------------------------------------
   message(paste("Reading in the cleaned data from ",
                 filename_pmn_clean_txt, sep = ""))
   data <- readr::read_delim(
@@ -94,7 +94,7 @@ etl_pmn <- function(refresh_data = FALSE){
   panels <- read_panels()
   decisions <- read_decisions()
 
-  # Rename the fields
+  # Rename the fields ----------------------------------------------------------
   data <- data %>%
     dplyr::rename(
       Submission_Number = KNUMBER,
@@ -118,7 +118,7 @@ etl_pmn <- function(refresh_data = FALSE){
       Device = DEVICENAME
     )
 
-  # Clean up the fields --------
+  # Clean up the fields --------------------------------------------------------
   data <- data %>%
     # Identify submission type
     dplyr::mutate(Type = dplyr::case_when(
@@ -160,7 +160,6 @@ etl_pmn <- function(refresh_data = FALSE){
 #' }
 # Helper functions -------------------------------------------------------------
 read_panels <- function() {
-  # Get a list of panels
   file_path <- system.file("extdata",
                            "panels.csv",
                            package = "fdadata",
@@ -192,7 +191,6 @@ read_panels <- function() {
 #' @importFrom readr "cols"
 #' @importFrom readr "col_character"
 read_decisions <- function(){
-  # Get a list of decisions
   file_path <- system.file("extdata",
                            "decisions.csv",
                            package = "fdadata",

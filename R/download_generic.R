@@ -24,7 +24,7 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
                sep = "\n"))
   }
 
-  # Download & unzip --------
+  # Download & unzip -----------------------------------------------------------
   lapply(filename_roots, function(roots){
     zipname <- paste(roots, ".zip", sep = "")
     message(paste("Downloading ", zipname, "...", sep = ""))
@@ -55,6 +55,7 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
                paste(files_missing$Name, collapse = "\n"),
                sep = "\n"))
   }
+  # Declare success! -----------------------------------------------------------
   message("Download(s) successful!")
   TRUE
 }
