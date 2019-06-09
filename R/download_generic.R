@@ -1,0 +1,60 @@
+#' Download premarket from the FDA website and store in the local directory
+#' as text files.
+#'
+#' @param filename_roots A vector of filenames (without extensions)
+#' to download from the FDA website. For example, for 510(k)s:
+#' c("pmn7680", "pmn8185", ' "pmn8690", "pmn9195", "pmn96cur").
+#' @return Boolean. TRUE if downloads are successful.
+#' @export
+download_generic <- function(filename_roots, filename_accessed_datetime){
+  # Set some initial values ----------------------------------------------------
+  filename_txt <- paste(filename_roots, ".txt", sep = "")
+  files_exist <- tibble::tibble(Name = filename_txt) %>%
+    dplyr::mutate(Exists = file.exists(Name)) %>%
+    dplyr::filter(Exists == TRUE) %>%
+    dplyr::select(Name)
+  url_fda_data <- "http://www.accessdata.fda.gov/premarket/ftparea/"
+
+  # Make sure the file doesn't exist already -----------------------------------
+
+  if(length(files_exist$Name) > 0){
+    stop(paste("Download files already exist! Aborting download.",
+               "Delete the following files and retry: ",
+               paste(files_exist$Name, collapse = "\n"),
+               sep = "\n"))
+  }
+
+  # Download & unzip --------
+  lapply(filename_roots, function(roots){
+    zipname <- paste(roots, ".zip", sep = "")
+    message(paste("Downloading ", zipname, "...", sep = ""))
+    url_full <- paste(url_fda_data, zipname, sep = "")
+    curl::curl_download(url_full,
+                  zipname,
+                  quiet = FALSE)
+    message(paste("Unzipping ", zipname, "...", sep = ""))
+    utils::unzip(zipname, overwrite = TRUE)
+    file.remove(zipname)
+  })
+
+  # Document date data was accessed --------------------------------------------
+  # Delete previous versions of the file if they exist.
+  if(file.exists(filename_accessed_datetime)){
+    file.remove(filename_accessed_datetime)
+  }
+  write(paste(lubridate::now()), filename_accessed_datetime)
+
+  # Check that we got everything -----------------------------------------------
+  files_missing <- tibble::tibble(Name = filename_txt) %>%
+    dplyr::mutate(Exists = file.exists(Name)) %>%
+    dplyr::filter(Exists == FALSE) %>%
+    dplyr::select(Name)
+
+  if(length(files_missing$Name) >0){
+    stop(paste("Unable to download all data. Missing: ",
+               paste(files_missing$Name, collapse = "\n"),
+               sep = "\n"))
+  }
+  message("Download(s) successful!")
+  TRUE
+}
