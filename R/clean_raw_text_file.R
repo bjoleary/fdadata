@@ -5,12 +5,8 @@
 #' @export
 #'
 clean_raw_text_file <- function(filepath){
-  # Load dependencies ----------
-  library(readr)
-
-  # Do the work
   message("Cleaning string from ", filepath, sep = "")
-  dirty_string <- readLines(filepath, skipNul = TRUE)
+  dirty_string <- readr::readLines(filepath, skipNul = TRUE)
   dirty_string <- gsub("\"", "", readr::read_lines(dirty_string, skip = 1))
   clean_string <- dirty_string
 }
