@@ -11,6 +11,10 @@ download_generic(filename_roots, filename_accessed_datetime)
 \item{filename_roots}{A vector of filenames (without extensions)
 to download from the FDA website. For example, for 510(k)s:
 c("pmn7680", "pmn8185", ' "pmn8690", "pmn9195", "pmn96cur").}
+
+\item{filename_accessed_datetime}{The file path and name of the file where
+you would like the function to write-out the date when the files were
+downloaded.}
 }
 \value{
 Boolean. TRUE if downloads are successful.
