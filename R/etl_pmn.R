@@ -167,9 +167,9 @@ read_panels <- function() {
 
   panels <- readr::read_delim(file = file_path,
                               delim = ";",
-                              col_types = cols(
-                                Panel_Code = col_character(),
-                                Panel = col_character()
+                              col_types = readr::cols(
+                                Panel_Code = readr::col_character(),
+                                Panel = readr::col_character()
                               )
   )
 }
@@ -198,10 +198,10 @@ read_decisions <- function(){
 
   decisions <- readr::read_delim(file = file_path,
                               delim = "|",
-                              col_types = cols(
-                                Decision_Code = col_character(),
-                                Decision_Category = col_character(),
-                                Decision = col_character()
+                              col_types = readr::cols(
+                                Decision_Code = readr::col_character(),
+                                Decision_Category = readr::col_character(),
+                                Decision = readr::col_character()
                               )
   )
 }

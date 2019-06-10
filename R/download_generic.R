@@ -33,7 +33,7 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
                   zipname,
                   quiet = FALSE)
     message(paste("Unzipping ", zipname, "...", sep = ""))
-    utils::unzip(zipname, overwrite = TRUE)
+    unzip(zipname, overwrite = TRUE)
     file.remove(zipname)
   })
 
