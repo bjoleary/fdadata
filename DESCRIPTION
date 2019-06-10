@@ -12,6 +12,7 @@ License: "Proprietary"
 Encoding: UTF-8
 LazyData: true
 Imports:
+    magrittr,
     dplyr,
     readr,
     stringr,
