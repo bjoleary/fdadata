@@ -22,9 +22,9 @@ etl_pmn <- function(refresh_data = FALSE){
   # Refresh the data if appropriate --------------------------------------------
   if(refresh_data == TRUE){
     message(paste("Deleting old download files..."))
-    lapply(filename_pmn_txt, function(x){file.remove(x)})
-    file.remove(filename_pmn_clean_txt)
-    file.remove(filename_accessed_datetime)
+    lapply(filename_pmn_txt, function(x){file_remove(x)})
+    file_remove(filename_pmn_clean_txt)
+    file_remove(filename_accessed_datetime)
     download_generic(filename_roots = filename_roots,
                      filename_accessed_datetime = filename_accessed_datetime)
     # Clean the data -----------------------------------------------------------
@@ -204,4 +204,17 @@ read_decisions <- function(){
                                 Decision = readr::col_character()
                               )
   )
+}
+
+#' Check for and remove a file
+#'
+#' Used so that when \code{file.remove()} is run it is only run on files that exist.
+#' This avoids warnings.
+#'
+#' @param filepath The expected path of the file you want to look for and
+#' remove if present.
+file_remove <- function(filepath){
+  if(file.exists(filepath)){
+    file.remove(filepath)
+  }
 }

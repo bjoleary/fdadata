@@ -34,14 +34,12 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
                   quiet = FALSE)
     message(paste("Unzipping ", zipname, "...", sep = ""))
     unzip(zipname, overwrite = TRUE)
-    file.remove(zipname)
+    file_remove(zipname)
   })
 
   # Document date data was accessed --------------------------------------------
   # Delete previous versions of the file if they exist.
-  if(file.exists(filename_accessed_datetime)){
-    file.remove(filename_accessed_datetime)
-  }
+  file_remove(filename_accessed_datetime)
   write(paste(lubridate::now()), filename_accessed_datetime)
 
   # Check that we got everything -----------------------------------------------
