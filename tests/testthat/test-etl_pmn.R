@@ -2,7 +2,7 @@
 #
 
 test_that("refreshing the data from file works", {
-  # testthat::skip("Skipping refresh of data")
+  testthat::skip("Skipping refresh of data")
   filename_roots = c(
     "pmn7680",
     "pmn8185",

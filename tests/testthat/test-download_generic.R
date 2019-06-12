@@ -1,6 +1,6 @@
 library(testthat)
 test_that("510(k) downloads work", {
-  # skip("Skipping check of 510(k) downloads...")
+  skip("Skipping check of 510(k) downloads...")
   # Set up filenames for 510(k)
   filename_roots = c(
     "pmn7680",
