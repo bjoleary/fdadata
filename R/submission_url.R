@@ -36,11 +36,7 @@ submission_url <- function(Submission_Number) {
     stringr::str_to_upper(stringr::str_sub(Submission_Number,1,1)) == "Z" ~
       paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRES/res",
             ".cfm?start_search=1&recallnumber=", Submission_Number, sep = ""),
-    TRUE ~ "UNKNOWN"
+    TRUE ~ "Unknown"
     )
-  if(url_return == "UNKNOWN"){
-    stop(paste("Unable to parse submission number: ", Submission_Number,
-               sep = ""))
-  }
   url_return
 }
