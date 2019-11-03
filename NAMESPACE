@@ -2,6 +2,7 @@
 
 export(clean_raw_text_file)
 export(download_generic)
+export(etl_pma)
 export(etl_pmn)
 export(submission_url)
 importFrom(magrittr,"%>%")
