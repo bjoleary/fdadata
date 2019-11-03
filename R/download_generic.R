@@ -13,9 +13,9 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
   # Set some initial values ----------------------------------------------------
   filename_txt <- paste(filename_roots, ".txt", sep = "")
   files_exist <- tibble::tibble(Name = filename_txt) %>%
-    dplyr::mutate(Exists = file.exists(Name)) %>%
-    dplyr::filter(Exists == TRUE) %>%
-    dplyr::select(Name)
+    dplyr::mutate(Exists = file.exists(.data$Name)) %>%
+    dplyr::filter(.data$Exists == TRUE) %>%
+    dplyr::select(.data$Name)
   url_fda_data <- "http://www.accessdata.fda.gov/premarket/ftparea/"
 
   # Make sure the file doesn't exist already -----------------------------------
@@ -35,7 +35,7 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
                   zipname,
                   quiet = FALSE)
     message(paste("Unzipping ", zipname, "...", sep = ""))
-    unzip(zipname, overwrite = TRUE)
+    utils::unzip(zipname, overwrite = TRUE)
     file_remove(zipname)
   })
 
@@ -46,9 +46,9 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
 
   # Check that we got everything -----------------------------------------------
   files_missing <- tibble::tibble(Name = filename_txt) %>%
-    dplyr::mutate(Exists = file.exists(Name)) %>%
-    dplyr::filter(Exists == FALSE) %>%
-    dplyr::select(Name)
+    dplyr::mutate(Exists = file.exists(.data$Name)) %>%
+    dplyr::filter(.data$Exists == FALSE) %>%
+    dplyr::select(.data$Name)
 
   if(length(files_missing$Name) >0){
     stop(paste("Unable to download all data. Missing: ",
