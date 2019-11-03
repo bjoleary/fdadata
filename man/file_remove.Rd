@@ -11,6 +11,6 @@ file_remove(filepath)
 remove if present.}
 }
 \description{
-Used so that when \code{file.remove()} is run it is only run on files that exist.
-This avoids warnings.
+Used so that when \code{file.remove()} is run it is only run on files that
+exist. This avoids warnings.
 }
