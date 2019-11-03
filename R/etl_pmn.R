@@ -6,6 +6,7 @@
 #' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
 #' @export
 #' @importFrom magrittr "%>%"
+#' @importFrom rlang ".data"
 etl_pmn <- function(refresh_data = FALSE){
   # Set some initial values ----------------------------------------------------
   filename_roots = c(
@@ -97,56 +98,56 @@ etl_pmn <- function(refresh_data = FALSE){
   # Rename the fields ----------------------------------------------------------
   data <- data %>%
     dplyr::rename(
-      Submission_Number = KNUMBER,
-      Sponsor = APPLICANT,
-      Contact = CONTACT,
-      Address_Line_1 = STREET1,
-      Address_Line_2 = STREET2,
-      City = CITY,
-      State = STATE,
-      Zip_Code = ZIP,
-      Country = COUNTRY_CODE,
-      Date_Start = DATERECEIVED,
-      Date_Decision = DECISIONDATE,
-      Decision_Code = DECISION,
-      Panel_Code = REVIEWADVISECOMM,
-      Product_Code = PRODUCTCODE,
-      Summary = STATEORSUMM,
-      Track = TYPE,
-      Third_Party_Review = THIRDPARTY,
-      Expedited = EXPEDITEDREVIEW,
-      Device = DEVICENAME
+      Submission_Number = .data$KNUMBER,
+      Sponsor = .data$APPLICANT,
+      Contact = .data$CONTACT,
+      Address_Line_1 = .data$STREET1,
+      Address_Line_2 = .data$STREET2,
+      City = .data$CITY,
+      State = .data$STATE,
+      Zip_Code = .data$ZIP,
+      Country = .data$COUNTRY_CODE,
+      Date_Start = .data$DATERECEIVED,
+      Date_Decision = .data$DECISIONDATE,
+      Decision_Code = .data$DECISION,
+      Panel_Code = .data$REVIEWADVISECOMM,
+      Product_Code = .data$PRODUCTCODE,
+      Summary = .data$STATEORSUMM,
+      Track = .data$TYPE,
+      Third_Party_Review = .data$THIRDPARTY,
+      Expedited = .data$EXPEDITEDREVIEW,
+      Device = .data$DEVICENAME
     )
 
   # Clean up the fields --------------------------------------------------------
   data <- data %>%
     # Identify submission type
     dplyr::mutate(Type = dplyr::case_when(
-      stringr::str_detect(Submission_Number, "DEN") ~ "De Novo",
-      stringr::str_detect(Submission_Number, "K") ~ "510(k)"
+      stringr::str_detect(.data$Submission_Number, "DEN") ~ "De Novo",
+      stringr::str_detect(.data$Submission_Number, "K") ~ "510(k)"
     )) %>%
     # Clean up expedited column
     dplyr::mutate(Expedited = as.factor(
       dplyr::case_when(
-        Expedited == "Y" ~ "Expedited"
+        .data$Expedited == "Y" ~ "Expedited"
       )
     )) %>%
     # Replace panel codes with names
     dplyr::left_join(y = panels, by = c("Panel_Code" = "Panel_Code")) %>%
-    dplyr::select(-Panel_Code) %>%
-    dplyr::mutate(Panel = as.factor(Panel)) %>%
+    dplyr::select(-.data$Panel_Code) %>%
+    dplyr::mutate(Panel = as.factor(.data$Panel)) %>%
     # Add Third Party to the Track
     dplyr::mutate(Track = dplyr::case_when(
-      Third_Party_Review == "Y" ~ paste("Third Party", Track, sep = " "),
-      TRUE ~ Track
+      .data$Third_Party_Review == "Y" ~ paste("Third Party", Track, sep = " "),
+      TRUE ~ .data$Track
     )) %>%
-    dplyr::mutate(Track = as.factor(Track)) %>%
+    dplyr::mutate(Track = as.factor(.data$Track)) %>%
     # Add Decisions
     dplyr::left_join(y = decisions,
                      by = c("Decision_Code" = "Decision_Code")) %>%
-    dplyr::mutate(Decision_Code = as.factor(Decision_Code)) %>%
-    dplyr::mutate(Decision_Category = as.factor(Decision_Category)) %>%
-    dplyr::mutate(Decision = as.factor(Decision))
+    dplyr::mutate(Decision_Code = as.factor(.data$Decision_Code)) %>%
+    dplyr::mutate(Decision_Category = as.factor(.data$Decision_Category)) %>%
+    dplyr::mutate(Decision = as.factor(.data$Decision))
 }
 
 #' Read in a table of FDA panel codes and panels
