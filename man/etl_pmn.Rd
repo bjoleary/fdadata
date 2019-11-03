@@ -2,7 +2,7 @@
 % Please edit documentation in R/etl_pmn.R
 \name{etl_pmn}
 \alias{etl_pmn}
-\title{ETL 510(k) data from the FDA website.}
+\title{ETL 510(k) and De Novo data from the FDA website.}
 \source{
 Data is downloaded from \url{https://go.usa.gov/xEKmh}.
 }
@@ -14,8 +14,8 @@ etl_pmn(refresh_data = FALSE)
 fda.gov. When \code{FALSE}, data is read in from a text file on the disk.}
 }
 \value{
-510(k) data as a tibble
+510(k) and De Novo data as a tibble
 }
 \description{
-ETL 510(k) data from the FDA website.
+ETL 510(k) and De Novo data from the FDA website.
 }

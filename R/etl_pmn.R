@@ -1,8 +1,8 @@
-#' ETL 510(k) data from the FDA website.
+#' ETL 510(k) and De Novo data from the FDA website.
 #'
 #' @param refresh_data Boolean. When \code{TRUE}, fresh data is downloaded from
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
-#' @return 510(k) data as a tibble
+#' @return 510(k) and De Novo data as a tibble
 #' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
 #' @export
 #' @importFrom magrittr "%>%"
