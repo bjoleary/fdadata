@@ -19,7 +19,6 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
   url_fda_data <- "http://www.accessdata.fda.gov/premarket/ftparea/"
 
   # Make sure the file doesn't exist already -----------------------------------
-
   if(length(files_exist$Name) > 0){
     stop(paste("Download files already exist! Aborting download.",
                "Delete the following files and retry: ",

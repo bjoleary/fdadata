@@ -208,8 +208,8 @@ read_decisions <- function(){
 
 #' Check for and remove a file
 #'
-#' Used so that when \code{file.remove()} is run it is only run on files that exist.
-#' This avoids warnings.
+#' Used so that when \code{file.remove()} is run it is only run on files that
+#' exist. This avoids warnings.
 #'
 #' @param filepath The expected path of the file you want to look for and
 #' remove if present.
