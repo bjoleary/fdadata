@@ -3,7 +3,7 @@
 #' @param submission_number The unique identifier of the submission
 #' @return A url to the public summary of the submission
 #'
-public_summary_link <- function(submission_number){
+public_summary_link <- function(submission_number) {
   year <- extract_submission_year(submission_number)
   url_base <- "https://www.accessdata.fda.gov/cdrh_docs/pdf"
   url_extension <- ".pdf"
@@ -12,7 +12,7 @@ public_summary_link <- function(submission_number){
   # 2010, etc. Let's get those numbers:
   year_characters <- dplyr::case_when(
     # For 2009 and below, grab last digit
-    year <= 2009 ~ stringr::str_sub(as.character(year), 4,4),
+    year <= 2009 ~ stringr::str_sub(as.character(year), 4, 4),
     # For 2010 and above, grab last two digits
     year >= 2010 ~ stringr::str_sub(as.character(year), 3, 4)
   )
@@ -21,17 +21,19 @@ public_summary_link <- function(submission_number){
   url_return <- dplyr::case_when(
     # Folders started in 2002, so nothing fancy needed before then:
     year <= 2001 ~ paste(url_base,
-                         "/",
-                         submission_number,
-                         url_extension,
-                         sep = ""),
+      "/",
+      submission_number,
+      url_extension,
+      sep = ""
+    ),
     # 2002 and up:
     year >= 2002 ~ paste(url_base,
-                         year_characters,
-                         "/",
-                         submission_number,
-                         url_extension,
-                         sep = "")
+      year_characters,
+      "/",
+      submission_number,
+      url_extension,
+      sep = ""
+    )
   )
   url_return
 }
@@ -45,7 +47,7 @@ public_summary_link <- function(submission_number){
 #' on the submission number since that is how FDA files the associated documents
 #' on its website.
 #'
-extract_submission_year <- function(submission_number){
+extract_submission_year <- function(submission_number) {
   # Find the string of characters that includes the calendar year indicators in
   # the submission number. these are capital letters from A-Z, excluding S
   # (which is used for Supplements) and followed by two digits.
@@ -58,6 +60,6 @@ extract_submission_year <- function(submission_number){
   year <- as.numeric(year_string)
   year <- dplyr::case_when(
     year < 76 ~ 2000 + year,
-    year >=76 ~ 1900 + year
+    year >= 76 ~ 1900 + year
   )
 }

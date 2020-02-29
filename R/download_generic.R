@@ -9,7 +9,7 @@
 #' downloaded.
 #' @return Boolean. TRUE if downloads are successful.
 #' @export
-download_generic <- function(filename_roots, filename_accessed_datetime){
+download_generic <- function(filename_roots, filename_accessed_datetime) {
   # Set some initial values ----------------------------------------------------
   filename_txt <- paste(filename_roots, ".txt", sep = "")
   files_exist <- tibble::tibble(Name = filename_txt) %>%
@@ -19,21 +19,23 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
   url_fda_data <- "http://www.accessdata.fda.gov/premarket/ftparea/"
 
   # Make sure the file doesn't exist already -----------------------------------
-  if(length(files_exist$Name) > 0){
+  if (length(files_exist$Name) > 0) {
     stop(paste("Download files already exist! Aborting download.",
-               "Delete the following files and retry: ",
-               paste(files_exist$Name, collapse = "\n"),
-               sep = "\n"))
+      "Delete the following files and retry: ",
+      paste(files_exist$Name, collapse = "\n"),
+      sep = "\n"
+    ))
   }
 
   # Download & unzip -----------------------------------------------------------
-  lapply(filename_roots, function(roots){
+  lapply(filename_roots, function(roots) {
     zipname <- paste(roots, ".zip", sep = "")
     message(paste("Downloading ", zipname, "...", sep = ""))
     url_full <- paste(url_fda_data, zipname, sep = "")
     curl::curl_download(url_full,
-                  zipname,
-                  quiet = FALSE)
+      zipname,
+      quiet = FALSE
+    )
     message(paste("Unzipping ", zipname, "...", sep = ""))
     utils::unzip(zipname, overwrite = TRUE)
     file_remove(zipname)
@@ -50,10 +52,11 @@ download_generic <- function(filename_roots, filename_accessed_datetime){
     dplyr::filter(.data$Exists == FALSE) %>%
     dplyr::select(.data$Name)
 
-  if(length(files_missing$Name) >0){
+  if (length(files_missing$Name) > 0) {
     stop(paste("Unable to download all data. Missing: ",
-               paste(files_missing$Name, collapse = "\n"),
-               sep = "\n"))
+      paste(files_missing$Name, collapse = "\n"),
+      sep = "\n"
+    ))
   }
   # Declare success! -----------------------------------------------------------
   message("Download(s) successful!")

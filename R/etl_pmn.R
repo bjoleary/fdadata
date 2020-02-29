@@ -7,27 +7,32 @@
 #' @export
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ".data"
-etl_pmn <- function(refresh_data = FALSE){
+etl_pmn <- function(refresh_data = FALSE) {
   # Set some initial values ----------------------------------------------------
-  filename_roots = c(
+  filename_roots <- c(
     "pmn7680",
     "pmn8185",
     "pmn8690",
     "pmn9195",
-    "pmn96cur")
+    "pmn96cur"
+  )
 
   filename_pmn_txt <- paste(filename_roots, ".txt", sep = "")
   filename_pmn_clean_txt <- "pmn_clean.txt"
   filename_accessed_datetime <- "pmn_accessed.txt"
 
   # Refresh the data if appropriate --------------------------------------------
-  if(refresh_data == TRUE){
+  if (refresh_data == TRUE) {
     message(paste("Deleting old download files..."))
-    lapply(filename_pmn_txt, function(x){file_remove(x)})
+    lapply(filename_pmn_txt, function(x) {
+      file_remove(x)
+    })
     file_remove(filename_pmn_clean_txt)
     file_remove(filename_accessed_datetime)
-    download_generic(filename_roots = filename_roots,
-                     filename_accessed_datetime = filename_accessed_datetime)
+    download_generic(
+      filename_roots = filename_roots,
+      filename_accessed_datetime = filename_accessed_datetime
+    )
     # Clean the data -----------------------------------------------------------
     # Before we read this in as a delim file, submission K010142 includes a
     # quote character in the record that messes things up. Let's remove those.
@@ -39,7 +44,7 @@ etl_pmn <- function(refresh_data = FALSE){
     write(header_string, file = filename_pmn_clean_txt, append = FALSE)
     remove(header_string)
 
-    lapply(filename_pmn_txt, function(x){
+    lapply(filename_pmn_txt, function(x) {
       data_string <- clean_raw_text_file(x)
       write(data_string, file = filename_pmn_clean_txt, append = TRUE)
     })
@@ -47,13 +52,13 @@ etl_pmn <- function(refresh_data = FALSE){
 
   # Check for the file we need -------------------------------------------------
   files <- c(filename_pmn_clean_txt, filename_accessed_datetime)
-  errors <- lapply(files, function(x){
-    if(!file.exists(x)){
+  errors <- lapply(files, function(x) {
+    if (!file.exists(x)) {
       value <- paste("\n\tMissing file:", x)
     }
   }) %>%
     unlist()
-  if(!is.null(errors)){
+  if (!is.null(errors)) {
     stop(paste(errors, collapse = "\n"))
   }
   # Read the file --------------------------------------------------------------
@@ -85,7 +90,9 @@ etl_pmn <- function(refresh_data = FALSE){
 
   # Read the file --------------------------------------------------------------
   message(paste("Reading in the cleaned data from ",
-                filename_pmn_clean_txt, sep = ""))
+    filename_pmn_clean_txt,
+    sep = ""
+  ))
   data <- readr::read_delim(
     file = filename_pmn_clean_txt,
     delim = "|",
@@ -143,8 +150,10 @@ etl_pmn <- function(refresh_data = FALSE){
     )) %>%
     dplyr::mutate(track = as.factor(.data$track)) %>%
     # Add decisions
-    dplyr::left_join(y = decisions,
-                     by = c("decision_code" = "decision_code")) %>%
+    dplyr::left_join(
+      y = decisions,
+      by = c("decision_code" = "decision_code")
+    ) %>%
     dplyr::mutate(decision_code = as.factor(.data$decision_code)) %>%
     dplyr::mutate(decision_category = as.factor(.data$decision_category)) %>%
     dplyr::mutate(decision = as.factor(.data$decision))
@@ -162,16 +171,18 @@ etl_pmn <- function(refresh_data = FALSE){
 # Helper functions -------------------------------------------------------------
 read_panels <- function() {
   file_path <- system.file("extdata",
-                           "panels.csv",
-                           package = "fdadata",
-                           mustWork = TRUE)
+    "panels.csv",
+    package = "fdadata",
+    mustWork = TRUE
+  )
 
-  panels <- readr::read_delim(file = file_path,
-                              delim = ";",
-                              col_types = readr::cols(
-                                panel_code = readr::col_character(),
-                                panel = readr::col_character()
-                              )
+  panels <- readr::read_delim(
+    file = file_path,
+    delim = ";",
+    col_types = readr::cols(
+      panel_code = readr::col_character(),
+      panel = readr::col_character()
+    )
   )
 }
 
@@ -191,19 +202,21 @@ read_panels <- function() {
 #' }
 #' @importFrom readr "cols"
 #' @importFrom readr "col_character"
-read_decisions <- function(){
+read_decisions <- function() {
   file_path <- system.file("extdata",
-                           "decisions.csv",
-                           package = "fdadata",
-                           mustWork = TRUE)
+    "decisions.csv",
+    package = "fdadata",
+    mustWork = TRUE
+  )
 
-  decisions <- readr::read_delim(file = file_path,
-                              delim = "|",
-                              col_types = readr::cols(
-                                decision_code = readr::col_character(),
-                                decision_category = readr::col_character(),
-                                decision = readr::col_character()
-                              )
+  decisions <- readr::read_delim(
+    file = file_path,
+    delim = "|",
+    col_types = readr::cols(
+      decision_code = readr::col_character(),
+      decision_category = readr::col_character(),
+      decision = readr::col_character()
+    )
   )
 }
 
@@ -214,8 +227,8 @@ read_decisions <- function(){
 #'
 #' @param filepath The expected path of the file you want to look for and
 #' remove if present.
-file_remove <- function(filepath){
-  if(file.exists(filepath)){
+file_remove <- function(filepath) {
+  if (file.exists(filepath)) {
     file.remove(filepath)
   }
 }

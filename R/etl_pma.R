@@ -5,22 +5,26 @@
 #' @return PMA data as a tibble
 #' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
 #' @export
-etl_pma <- function(refresh_data = FALSE){
+etl_pma <- function(refresh_data = FALSE) {
   # Set some initial values ----------------------------------------------------
-  filename_roots = c("pma")
+  filename_roots <- c("pma")
 
   filename_pma_txt <- paste(filename_roots, ".txt", sep = "")
   filename_pma_clean_txt <- "pma_clean.txt"
   filename_accessed_datetime <- "pma_accessed.txt"
 
   # Refresh the data if appropriate --------------------------------------------
-  if(refresh_data == TRUE){
+  if (refresh_data == TRUE) {
     message(paste("Deleting old download files..."))
-    lapply(filename_pma_txt, function(x){file_remove(x)})
+    lapply(filename_pma_txt, function(x) {
+      file_remove(x)
+    })
     file_remove(filename_pma_clean_txt)
     file_remove(filename_accessed_datetime)
-    download_generic(filename_roots = filename_roots,
-                     filename_accessed_datetime = filename_accessed_datetime)
+    download_generic(
+      filename_roots = filename_roots,
+      filename_accessed_datetime = filename_accessed_datetime
+    )
     # Clean the data -----------------------------------------------------------
     # Before we read this in as a delim file, submission K010142 includes a
     # quote character in the record that messes things up. Let's remove those.
@@ -32,7 +36,7 @@ etl_pma <- function(refresh_data = FALSE){
     write(header_string, file = filename_pma_clean_txt, append = FALSE)
     remove(header_string)
 
-    lapply(filename_pma_txt, function(x){
+    lapply(filename_pma_txt, function(x) {
       data_string <- clean_raw_text_file(x)
       write(data_string, file = filename_pma_clean_txt, append = TRUE)
     })
@@ -40,13 +44,13 @@ etl_pma <- function(refresh_data = FALSE){
 
   # Check for the file we need -------------------------------------------------
   files <- c(filename_pma_clean_txt, filename_accessed_datetime)
-  errors <- lapply(files, function(x){
-    if(!file.exists(x)){
+  errors <- lapply(files, function(x) {
+    if (!file.exists(x)) {
       value <- paste("\n\tMissing file:", x)
     }
   }) %>%
     unlist()
-  if(!is.null(errors)){
+  if (!is.null(errors)) {
     stop(paste(errors, collapse = "\n"))
   }
   # Read the file --------------------------------------------------------------
@@ -78,7 +82,9 @@ etl_pma <- function(refresh_data = FALSE){
 
   # Read the file --------------------------------------------------------------
   message(paste("Reading in the cleaned data from ",
-                filename_pma_clean_txt, sep = ""))
+    filename_pma_clean_txt,
+    sep = ""
+  ))
   data <- readr::read_delim(
     file = filename_pma_clean_txt,
     delim = "|",
@@ -92,9 +98,9 @@ etl_pma <- function(refresh_data = FALSE){
   data <- data %>%
     dplyr::mutate(Submission_Number = dplyr::case_when(
       !is.na(.data$SUPPLEMENTNUMBER) ~
-        paste(.data$PMANUMBER, .data$SUPPLEMENTNUMBER, sep = "/"),
+      paste(.data$PMANUMBER, .data$SUPPLEMENTNUMBER, sep = "/"),
       TRUE ~ .data$PMANUMBER
-      )) %>%
+    )) %>%
     dplyr::select(
       submission_number = .data$Submission_Number,
       sponsor = .data$APPLICANT,
@@ -121,8 +127,10 @@ etl_pma <- function(refresh_data = FALSE){
     dplyr::mutate(panel = as.factor(.data$panel)) %>%
     dplyr::mutate(track = as.factor(.data$track)) %>%
     # Add Decisions
-    dplyr::left_join(y = decisions,
-                     by = c("decision_code" = "decision_code")) %>%
+    dplyr::left_join(
+      y = decisions,
+      by = c("decision_code" = "decision_code")
+    ) %>%
     dplyr::mutate(decision_code = as.factor(.data$decision_code)) %>%
     dplyr::mutate(decision_category = as.factor(.data$decision_category)) %>%
     dplyr::mutate(decision = as.factor(.data$decision))
