@@ -12,7 +12,7 @@ A table with 3 columns:
 \item{\code{Decision_Code}}{The two or four letter code stored in FDA's
 database}
 \item{\code{Decision_Category}}{The broader category grouping of the
-decision, such as \code{Substantially Equivalent'' or }De Novo Granted''}
+decision, such as \verb{Substantially Equivalent'' or }De Novo Granted''}
 \item{\code{Decision}}{The full, human-readable decision}
 }
 }

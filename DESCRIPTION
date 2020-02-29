@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: Allows the user to access and explore US FDA data on medical 
     devices. 
-License: Proprietary
+License: file LICENSE
 Suggests: 
     testthat
 Encoding: UTF-8
@@ -24,4 +24,4 @@ Imports:
     lubridate,
     tibble
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
