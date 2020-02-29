@@ -30,9 +30,9 @@ test_that("refreshing the data from file works", {
 test_that("able to read in the decisions csv", {
   decisions <- read_decisions()
   decisions <- decisions[1, ] %>% unlist()
-  first_line <- c("Decision_Code" = "SESE",
-                  "Decision_Category" = "Substantially Equivalent",
-                  "Decision" = "Substantially Equivalent")
+  first_line <- c("decision_code" = "SESE",
+                  "decision_category" = "Substantially Equivalent",
+                  "decision" = "Substantially Equivalent")
   expect_equal(first_line, decisions)
 }
 )

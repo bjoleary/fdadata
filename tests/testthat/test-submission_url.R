@@ -3,14 +3,14 @@ test_that("public database links are correct", {
   links <- readr::read_delim("links.csv",
                              delim = ",",
                              col_types = readr::cols(
-                               Submission_Number = readr::col_character(),
-                               Database_Link_Verified = readr::col_character(),
-                               Summary_Link_Verified = readr::col_skip()
+                               submission_number = readr::col_character(),
+                               database_link_verified = readr::col_character(),
+                               summary_link_verified = readr::col_skip()
                              )) %>%
     # Calculate expected values
-    dplyr::mutate(Database_Link = submission_url(Submission_Number))
+    dplyr::mutate(database_link = submission_url(submission_number))
 
-  expect_equal(links$Database_Link_Verified, links$Database_Link)
+  expect_equal(links$database_link_verified, links$database_link)
 })
 
 test_that("database URL for 510(k)s", {

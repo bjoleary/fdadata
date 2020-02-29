@@ -5,10 +5,10 @@
 \title{Return the URL of the submission in the fda database.
 Currently handles 510(k)s, De Novos, PMAs, HDEs, CRs, CWs, and Recalls.}
 \usage{
-submission_url(Submission_Number)
+submission_url(submission_number)
 }
 \arguments{
-\item{Submission_Number}{The submission number}
+\item{submission_number}{The submission number}
 }
 \value{
 The URL of the submission in the database

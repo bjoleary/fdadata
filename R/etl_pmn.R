@@ -98,56 +98,56 @@ etl_pmn <- function(refresh_data = FALSE){
   # Rename the fields ----------------------------------------------------------
   data <- data %>%
     dplyr::rename(
-      Submission_Number = .data$KNUMBER,
-      Sponsor = .data$APPLICANT,
-      Contact = .data$CONTACT,
-      Address_Line_1 = .data$STREET1,
-      Address_Line_2 = .data$STREET2,
-      City = .data$CITY,
-      State = .data$STATE,
-      Zip_Code = .data$ZIP,
-      Country = .data$COUNTRY_CODE,
-      Date_Start = .data$DATERECEIVED,
-      Date_Decision = .data$DECISIONDATE,
-      Decision_Code = .data$DECISION,
-      Panel_Code = .data$REVIEWADVISECOMM,
-      Product_Code = .data$PRODUCTCODE,
-      Summary = .data$STATEORSUMM,
-      Track = .data$TYPE,
-      Third_Party_Review = .data$THIRDPARTY,
-      Expedited = .data$EXPEDITEDREVIEW,
-      Device = .data$DEVICENAME
+      submission_number = .data$KNUMBER,
+      sponsor = .data$APPLICANT,
+      contact = .data$CONTACT,
+      address_line_1 = .data$STREET1,
+      address_line_2 = .data$STREET2,
+      city = .data$CITY,
+      state = .data$STATE,
+      zip_code = .data$ZIP,
+      country = .data$COUNTRY_CODE,
+      date_start = .data$DATERECEIVED,
+      date_decision = .data$DECISIONDATE,
+      decision_code = .data$DECISION,
+      panel_code = .data$REVIEWADVISECOMM,
+      product_code = .data$PRODUCTCODE,
+      summary = .data$STATEORSUMM,
+      track = .data$TYPE,
+      third_party_review = .data$THIRDPARTY,
+      expedited = .data$EXPEDITEDREVIEW,
+      device = .data$DEVICENAME
     )
 
   # Clean up the fields --------------------------------------------------------
   data <- data %>%
     # Identify submission type
     dplyr::mutate(Type = dplyr::case_when(
-      stringr::str_detect(.data$Submission_Number, "DEN") ~ "De Novo",
-      stringr::str_detect(.data$Submission_Number, "K") ~ "510(k)"
+      stringr::str_detect(.data$submission_number, "DEN") ~ "De Novo",
+      stringr::str_detect(.data$submission_number, "K") ~ "510(k)"
     )) %>%
     # Clean up expedited column
-    dplyr::mutate(Expedited = as.factor(
+    dplyr::mutate(expedited = as.factor(
       dplyr::case_when(
-        .data$Expedited == "Y" ~ "Expedited"
+        .data$expedited == "Y" ~ "Expedited"
       )
     )) %>%
     # Replace panel codes with names
-    dplyr::left_join(y = panels, by = c("Panel_Code" = "Panel_Code")) %>%
-    dplyr::select(-.data$Panel_Code) %>%
-    dplyr::mutate(Panel = as.factor(.data$Panel)) %>%
+    dplyr::left_join(y = panels, by = c("panel_code" = "panel_code")) %>%
+    dplyr::select(-.data$panel_code) %>%
+    dplyr::mutate(panel = as.factor(.data$panel)) %>%
     # Add Third Party to the Track
-    dplyr::mutate(Track = dplyr::case_when(
-      .data$Third_Party_Review == "Y" ~ paste("Third Party", Track, sep = " "),
-      TRUE ~ .data$Track
+    dplyr::mutate(track = dplyr::case_when(
+      .data$third_party_review == "Y" ~ paste("Third Party", track, sep = " "),
+      TRUE ~ .data$track
     )) %>%
-    dplyr::mutate(Track = as.factor(.data$Track)) %>%
-    # Add Decisions
+    dplyr::mutate(track = as.factor(.data$track)) %>%
+    # Add decisions
     dplyr::left_join(y = decisions,
-                     by = c("Decision_Code" = "Decision_Code")) %>%
-    dplyr::mutate(Decision_Code = as.factor(.data$Decision_Code)) %>%
-    dplyr::mutate(Decision_Category = as.factor(.data$Decision_Category)) %>%
-    dplyr::mutate(Decision = as.factor(.data$Decision))
+                     by = c("decision_code" = "decision_code")) %>%
+    dplyr::mutate(decision_code = as.factor(.data$decision_code)) %>%
+    dplyr::mutate(decision_category = as.factor(.data$decision_category)) %>%
+    dplyr::mutate(decision = as.factor(.data$decision))
 }
 
 #' Read in a table of FDA panel codes and panels
@@ -156,8 +156,8 @@ etl_pmn <- function(refresh_data = FALSE){
 #'
 #' @return A table with two columns:
 #' \describe{
-#' \item{\code{Panel_Code}}{The two letter code stored in FDA's database}
-#' \item{\code{Panel}}{The full, human-readable panel}
+#' \item{\code{panel_code}}{The two letter code stored in FDA's database}
+#' \item{\code{panel}}{The full, human-readable panel}
 #' }
 # Helper functions -------------------------------------------------------------
 read_panels <- function() {
@@ -169,8 +169,8 @@ read_panels <- function() {
   panels <- readr::read_delim(file = file_path,
                               delim = ";",
                               col_types = readr::cols(
-                                Panel_Code = readr::col_character(),
-                                Panel = readr::col_character()
+                                panel_code = readr::col_character(),
+                                panel = readr::col_character()
                               )
   )
 }
@@ -183,11 +183,11 @@ read_panels <- function() {
 #'
 #' @return A table with 3 columns:
 #' \describe{
-#' \item{\code{Decision_Code}}{The two or four letter code stored in FDA's
+#' \item{\code{decision_code}}{The two or four letter code stored in FDA's
 #' database}
-#' \item{\code{Decision_Category}}{The broader category grouping of the
+#' \item{\code{decision_category}}{The broader category grouping of the
 #' decision, such as ``Substantially Equivalent'' or ``De Novo Granted''}
-#' \item{\code{Decision}}{The full, human-readable decision}
+#' \item{\code{decision}}{The full, human-readable decision}
 #' }
 #' @importFrom readr "cols"
 #' @importFrom readr "col_character"
@@ -200,9 +200,9 @@ read_decisions <- function(){
   decisions <- readr::read_delim(file = file_path,
                               delim = "|",
                               col_types = readr::cols(
-                                Decision_Code = readr::col_character(),
-                                Decision_Category = readr::col_character(),
-                                Decision = readr::col_character()
+                                decision_code = readr::col_character(),
+                                decision_category = readr::col_character(),
+                                decision = readr::col_character()
                               )
   )
 }

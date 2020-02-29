@@ -96,34 +96,34 @@ etl_pma <- function(refresh_data = FALSE){
       TRUE ~ .data$PMANUMBER
       )) %>%
     dplyr::select(
-      .data$Submission_Number,
-      Sponsor = .data$APPLICANT,
-      Address_Line_1 = .data$STREET_1,
-      Address_Line_2 = .data$STREET_2,
-      City = .data$CITY,
-      State = .data$STATE,
-      Zip_Code = .data$ZIP,
-      Date_Start = .data$DATERECEIVED,
-      Date_Decision = .data$DECISIONDATE,
-      Decision_Code = .data$DECISIONCODE,
-      Panel_Code = .data$ADVISORYCOMMITTEE,
-      Product_Code = .data$PRODUCTCODE,
-      Track = .data$SUPPLEMENTTYPE,
-      Reason = .data$SUPPLEMENTREASON,
-      Device = .data$TRADENAME
+      submission_number = .data$Submission_Number,
+      sponsor = .data$APPLICANT,
+      address_line_1 = .data$STREET_1,
+      address_line_2 = .data$STREET_2,
+      city = .data$CITY,
+      state = .data$STATE,
+      zip_code = .data$ZIP,
+      date_start = .data$DATERECEIVED,
+      date_decision = .data$DECISIONDATE,
+      decision_code = .data$DECISIONCODE,
+      panel_code = .data$ADVISORYCOMMITTEE,
+      product_code = .data$PRODUCTCODE,
+      track = .data$SUPPLEMENTTYPE,
+      reason = .data$SUPPLEMENTREASON,
+      device = .data$TRADENAME
     )
 
   # Clean up the fields --------------------------------------------------------
   data <- data %>%
     # Replace panel codes with names
-    dplyr::left_join(y = panels, by = c("Panel_Code" = "Panel_Code")) %>%
-    dplyr::select(-.data$Panel_Code) %>%
-    dplyr::mutate(Panel = as.factor(.data$Panel)) %>%
-    dplyr::mutate(Track = as.factor(.data$Track)) %>%
+    dplyr::left_join(y = panels, by = c("panel_code" = "panel_code")) %>%
+    dplyr::select(-.data$panel_code) %>%
+    dplyr::mutate(panel = as.factor(.data$panel)) %>%
+    dplyr::mutate(track = as.factor(.data$track)) %>%
     # Add Decisions
     dplyr::left_join(y = decisions,
-                     by = c("Decision_Code" = "Decision_Code")) %>%
-    dplyr::mutate(Decision_Code = as.factor(.data$Decision_Code)) %>%
-    dplyr::mutate(Decision_Category = as.factor(.data$Decision_Category)) %>%
-    dplyr::mutate(Decision = as.factor(.data$Decision))
+                     by = c("decision_code" = "decision_code")) %>%
+    dplyr::mutate(decision_code = as.factor(.data$decision_code)) %>%
+    dplyr::mutate(decision_category = as.factor(.data$decision_category)) %>%
+    dplyr::mutate(decision = as.factor(.data$decision))
 }

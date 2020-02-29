@@ -4,10 +4,10 @@
 \alias{extract_submission_year}
 \title{Determine the calendar year the submission was numbered}
 \usage{
-extract_submission_year(Submission_Number)
+extract_submission_year(submission_number)
 }
 \arguments{
-\item{Submission_Number}{The unique identifier of the submission}
+\item{submission_number}{The unique identifier of the submission}
 }
 \value{
 The calendar year the submission was assigned a number. Note that the

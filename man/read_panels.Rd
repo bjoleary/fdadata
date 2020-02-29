@@ -9,8 +9,8 @@ read_panels()
 \value{
 A table with two columns:
 \describe{
-\item{\code{Panel_Code}}{The two letter code stored in FDA's database}
-\item{\code{Panel}}{The full, human-readable panel}
+\item{\code{panel_code}}{The two letter code stored in FDA's database}
+\item{\code{panel}}{The full, human-readable panel}
 }
 }
 \description{

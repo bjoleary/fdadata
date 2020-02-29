@@ -3,12 +3,12 @@ test_that("public summary links are correct", {
   links <- readr::read_delim("links.csv",
                     delim = ",",
                     col_types = readr::cols(
-                      Submission_Number = readr::col_character(),
-                      Database_Link_Verified = readr::col_skip(),
-                      Summary_Link_Verified = readr::col_character()
+                      submission_number = readr::col_character(),
+                      database_link_verified = readr::col_skip(),
+                      summary_link_verified = readr::col_character()
                     )) %>%
     # Calculate expected values
-    dplyr::mutate(Summary_Link = public_summary_link(Submission_Number))
+    dplyr::mutate(summary_link = public_summary_link(submission_number))
 
-  expect_equal(links$Summary_Link_Verified, links$Summary_Link)
+  expect_equal(links$summary_link_verified, links$summary_link)
 })

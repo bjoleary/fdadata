@@ -1,10 +1,10 @@
 #' Return a link to the summary
 #'
-#' @param Submission_Number The unique identifier of the submission
+#' @param submission_number The unique identifier of the submission
 #' @return A url to the public summary of the submission
 #'
-public_summary_link <- function(Submission_Number){
-  year <- extract_submission_year(Submission_Number)
+public_summary_link <- function(submission_number){
+  year <- extract_submission_year(submission_number)
   url_base <- "https://www.accessdata.fda.gov/cdrh_docs/pdf"
   url_extension <- ".pdf"
   # Starting in 2002, FDA started filing submissions in folders corresponding
@@ -22,14 +22,14 @@ public_summary_link <- function(Submission_Number){
     # Folders started in 2002, so nothing fancy needed before then:
     year <= 2001 ~ paste(url_base,
                          "/",
-                         Submission_Number,
+                         submission_number,
                          url_extension,
                          sep = ""),
     # 2002 and up:
     year >= 2002 ~ paste(url_base,
                          year_characters,
                          "/",
-                         Submission_Number,
+                         submission_number,
                          url_extension,
                          sep = "")
   )
@@ -39,19 +39,19 @@ public_summary_link <- function(Submission_Number){
 
 #' Determine the calendar year the submission was numbered
 #'
-#' @param Submission_Number The unique identifier of the submission
+#' @param submission_number The unique identifier of the submission
 #' @return The calendar year the submission was assigned a number. Note that the
 #' start date may correspond to a different year, so this is calculated based
 #' on the submission number since that is how FDA files the associated documents
 #' on its website.
 #'
-extract_submission_year <- function(Submission_Number){
+extract_submission_year <- function(submission_number){
   # Find the string of characters that includes the calendar year indicators in
   # the submission number. these are capital letters from A-Z, excluding S
   # (which is used for Supplements) and followed by two digits.
   #
   regular_expression <- "[A-RT-Z]\\d\\d"
-  year_string <- stringr::str_extract(Submission_Number, regular_expression)
+  year_string <- stringr::str_extract(submission_number, regular_expression)
   # Now remove the letter
   year_string <- stringr::str_sub(year_string, 2, 3)
   # Convert to number to simplify logic below

@@ -9,11 +9,11 @@ read_decisions()
 \value{
 A table with 3 columns:
 \describe{
-\item{\code{Decision_Code}}{The two or four letter code stored in FDA's
+\item{\code{decision_code}}{The two or four letter code stored in FDA's
 database}
-\item{\code{Decision_Category}}{The broader category grouping of the
+\item{\code{decision_category}}{The broader category grouping of the
 decision, such as \verb{Substantially Equivalent'' or }De Novo Granted''}
-\item{\code{Decision}}{The full, human-readable decision}
+\item{\code{decision}}{The full, human-readable decision}
 }
 }
 \description{

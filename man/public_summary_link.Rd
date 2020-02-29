@@ -4,10 +4,10 @@
 \alias{public_summary_link}
 \title{Return a link to the summary}
 \usage{
-public_summary_link(Submission_Number)
+public_summary_link(submission_number)
 }
 \arguments{
-\item{Submission_Number}{The unique identifier of the submission}
+\item{submission_number}{The unique identifier of the submission}
 }
 \value{
 A url to the public summary of the submission
