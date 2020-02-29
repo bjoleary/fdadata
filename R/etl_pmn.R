@@ -54,7 +54,7 @@ etl_pmn <- function(refresh_data = FALSE) {
   files <- c(filename_pmn_clean_txt, filename_accessed_datetime)
   errors <- lapply(files, function(x) {
     if (!file.exists(x)) {
-      value <- paste("\n\tMissing file:", x)
+      paste("\n\tMissing file:", x)
     }
   }) %>%
     unlist()
