@@ -3,7 +3,7 @@
 #' @param submission_number The unique identifier of the submission
 #' @return A url to the public summary of the submission
 #'
-public_summary_link <- function(submission_number) {
+public_link_summary <- function(submission_number) {
   year <- extract_submission_year(submission_number)
   url_base <- "https://www.accessdata.fda.gov/cdrh_docs/pdf"
   url_extension <- ".pdf"
@@ -38,7 +38,32 @@ public_summary_link <- function(submission_number) {
   url_return
 }
 
+#' Return a link to the FDA review
+#'
+#' @param submission_number The unique identifier of the submission
+#' @return A url to the public FDA review of the submission
+#'
+public_link_review <- function(submission_number) {
+  url_base <- "https://www.accessdata.fda.gov/cdrh_docs/reviews/"
+  url_extension <- ".pdf"
+  paste0(url_base, submission_number, url_extension)
+}
 
+#' Return a link to the FOIA-Redacted Submission
+#'
+#' @param submission_number The unique identifier of the submission
+#' @return A url to the public FOIA-redacted submission
+#'
+public_link_submission <- function(submission_number) {
+  if (stringr::str_detect(submission_number,
+                          stringr::fixed("K",
+                                         ignore_case = TRUE))) {
+    url_submission <- paste0("https://www.accessdata.fda.gov/CDRH510K/",
+           submission_number,
+           ".pdf")
+  }
+  url_submission
+}
 #' Determine the calendar year the submission was numbered
 #'
 #' @param submission_number The unique identifier of the submission

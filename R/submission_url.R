@@ -11,12 +11,12 @@ submission_url <- function(submission_number) {
 
   url_return <- dplyr::case_when(
     stringr::str_to_upper(stringr::str_sub(submission_number, 1, 1)) == "K" ~
-    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfPMN/pmn.cfm",
+    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm",
       "?id=", submission_number,
       sep = ""
     ),
     stringr::str_to_upper(stringr::str_sub(submission_number, 1, 1)) == "P" ~
-    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfPMA/pma.cfm",
+    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm",
       "?id=", submission_number,
       sep = ""
     ),
@@ -31,24 +31,24 @@ submission_url <- function(submission_number) {
       sep = ""
     ),
     stringr::str_to_upper(stringr::str_sub(submission_number, 1, 1)) == "N" ~
-    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfPMA/pma.cfm",
+    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm",
       "?id=", submission_number,
       sep = ""
     ),
     stringr::str_to_upper(stringr::str_sub(submission_number, 1, 2)) == "CR" ~
-    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfClia/Results",
+    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfclia/Results",
       ".cfm?start_search=1&Document_Number=",
       submission_number,
       sep = ""
     ),
     stringr::str_to_upper(stringr::str_sub(submission_number, 1, 2)) == "CW" ~
-    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfClia/Results",
+    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfclia/Results",
       ".cfm?start_search=1&Document_Number=",
       submission_number,
       sep = ""
     ),
     stringr::str_to_upper(stringr::str_sub(submission_number, 1, 1)) == "Z" ~
-    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRES/res",
+    paste("https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfres/res",
       ".cfm?start_search=1&recallnumber=", submission_number,
       sep = ""
     ),
