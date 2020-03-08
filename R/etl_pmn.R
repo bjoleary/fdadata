@@ -160,7 +160,8 @@ etl_pmn <- function(refresh_data = FALSE,
     ) %>%
     dplyr::mutate(decision_code = as.factor(.data$decision_code)) %>%
     dplyr::mutate(decision_category = as.factor(.data$decision_category)) %>%
-    dplyr::mutate(decision = as.factor(.data$decision))
+    dplyr::mutate(decision = as.factor(.data$decision)) %>%
+    dplyr::arrange(.data$date_start, .data$submission_number)
 }
 
 #' Read in a table of FDA panel codes and panels
