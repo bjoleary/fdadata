@@ -14,7 +14,7 @@ download_generic <- function(filename_roots, filename_accessed_datetime,
                              download_directory = "data/") {
   # Prepare the download directory ---------------------------------------------
   # Check if the download directory exists
-  if(!dir.exists(download_directory)) {
+  if (!dir.exists(download_directory)) {
     # If not, create it
     dir.create(download_directory)
   }
@@ -45,8 +45,10 @@ download_generic <- function(filename_roots, filename_accessed_datetime,
       quiet = FALSE
     )
     message(paste("Unzipping ", zipname, "...", sep = ""))
-    utils::unzip(zipname, overwrite = TRUE,
-                 exdir = download_directory)
+    utils::unzip(zipname,
+      overwrite = TRUE,
+      exdir = download_directory
+    )
     file_remove(zipname)
   })
 
