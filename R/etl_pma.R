@@ -2,16 +2,18 @@
 #'
 #' @param refresh_data Boolean. When \code{TRUE}, fresh data is downloaded from
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
+#' @param download_directory Defaults to \code{data/}.
 #' @return PMA data as a tibble
 #' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
 #' @export
-etl_pma <- function(refresh_data = FALSE) {
+etl_pma <- function(refresh_data = FALSE,
+                    download_directory = "data/") {
   # Set some initial values ----------------------------------------------------
   filename_roots <- c("pma")
 
-  filename_pma_txt <- paste(filename_roots, ".txt", sep = "")
-  filename_pma_clean_txt <- "pma_clean.txt"
-  filename_accessed_datetime <- "pma_accessed.txt"
+  filename_pma_txt <- paste0(download_directory, filename_roots, ".txt")
+  filename_pma_clean_txt <- paste0(download_directory, "pma_clean.txt")
+  filename_accessed_datetime <- paste0(download_directory, "pma_accessed.txt")
 
   # Refresh the data if appropriate --------------------------------------------
   if (refresh_data == TRUE) {
@@ -23,7 +25,8 @@ etl_pma <- function(refresh_data = FALSE) {
     file_remove(filename_accessed_datetime)
     download_generic(
       filename_roots = filename_roots,
-      filename_accessed_datetime = filename_accessed_datetime
+      filename_accessed_datetime = filename_accessed_datetime,
+      download_directory = "data/"
     )
     # Clean the data -----------------------------------------------------------
     # Before we read this in as a delim file, submission K010142 includes a

@@ -5,7 +5,11 @@
 \title{Download premarket from the FDA website and store in the local directory
 as text files.}
 \usage{
-download_generic(filename_roots, filename_accessed_datetime)
+download_generic(
+  filename_roots,
+  filename_accessed_datetime,
+  download_directory = "data/"
+)
 }
 \arguments{
 \item{filename_roots}{A vector of filenames (without extensions)
@@ -15,6 +19,8 @@ c("pmn7680", "pmn8185", ' "pmn8690", "pmn9195", "pmn96cur").}
 \item{filename_accessed_datetime}{The file path and name of the file where
 you would like the function to write-out the date when the files were
 downloaded.}
+
+\item{download_directory}{Defaults to \code{data/}.}
 }
 \value{
 Boolean. TRUE if downloads are successful.

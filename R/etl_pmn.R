@@ -2,12 +2,14 @@
 #'
 #' @param refresh_data Boolean. When \code{TRUE}, fresh data is downloaded from
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
+#' @param download_directory Defaults to \code{data/}.
 #' @return 510(k) and De Novo data as a tibble
 #' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
 #' @export
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ".data"
-etl_pmn <- function(refresh_data = FALSE) {
+etl_pmn <- function(refresh_data = FALSE,
+                    download_directory = "data/") {
   # Set some initial values ----------------------------------------------------
   filename_roots <- c(
     "pmn7680",
@@ -17,9 +19,10 @@ etl_pmn <- function(refresh_data = FALSE) {
     "pmn96cur"
   )
 
-  filename_pmn_txt <- paste(filename_roots, ".txt", sep = "")
-  filename_pmn_clean_txt <- "pmn_clean.txt"
-  filename_accessed_datetime <- "pmn_accessed.txt"
+  filename_pmn_txt <-
+    paste(download_directory, filename_roots, ".txt", sep = "")
+  filename_pmn_clean_txt <- paste0(download_directory, "pmn_clean.txt")
+  filename_accessed_datetime <- paste0(download_directory, "pmn_accessed.txt")
 
   # Refresh the data if appropriate --------------------------------------------
   if (refresh_data == TRUE) {
@@ -31,7 +34,8 @@ etl_pmn <- function(refresh_data = FALSE) {
     file_remove(filename_accessed_datetime)
     download_generic(
       filename_roots = filename_roots,
-      filename_accessed_datetime = filename_accessed_datetime
+      filename_accessed_datetime = filename_accessed_datetime,
+      download_directory = "data/"
     )
     # Clean the data -----------------------------------------------------------
     # Before we read this in as a delim file, submission K010142 includes a

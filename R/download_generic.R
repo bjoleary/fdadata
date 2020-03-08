@@ -7,11 +7,19 @@
 #' @param filename_accessed_datetime The file path and name of the file where
 #' you would like the function to write-out the date when the files were
 #' downloaded.
+#' @param download_directory Defaults to \code{data/}.
 #' @return Boolean. TRUE if downloads are successful.
 #' @export
-download_generic <- function(filename_roots, filename_accessed_datetime) {
+download_generic <- function(filename_roots, filename_accessed_datetime,
+                             download_directory = "data/") {
+  # Prepare the download directory ---------------------------------------------
+  # Check if the download directory exists
+  if(!dir.exists(download_directory)) {
+    # If not, create it
+    dir.create(download_directory)
+  }
   # Set some initial values ----------------------------------------------------
-  filename_txt <- paste(filename_roots, ".txt", sep = "")
+  filename_txt <- paste(download_directory, filename_roots, ".txt", sep = "")
   files_exist <- tibble::tibble(Name = filename_txt) %>%
     dplyr::mutate(Exists = file.exists(.data$Name)) %>%
     dplyr::filter(.data$Exists == TRUE) %>%
@@ -29,15 +37,16 @@ download_generic <- function(filename_roots, filename_accessed_datetime) {
 
   # Download & unzip -----------------------------------------------------------
   lapply(filename_roots, function(roots) {
-    zipname <- paste(roots, ".zip", sep = "")
-    message(paste("Downloading ", zipname, "...", sep = ""))
-    url_full <- paste(url_fda_data, zipname, sep = "")
+    zipname <- paste(download_directory, roots, ".zip", sep = "")
+    message(paste("Downloading ", roots, ".zip", "...", sep = ""))
+    url_full <- paste(url_fda_data, roots, ".zip", sep = "")
     curl::curl_download(url_full,
       zipname,
       quiet = FALSE
     )
     message(paste("Unzipping ", zipname, "...", sep = ""))
-    utils::unzip(zipname, overwrite = TRUE)
+    utils::unzip(zipname, overwrite = TRUE,
+                 exdir = download_directory)
     file_remove(zipname)
   })
 

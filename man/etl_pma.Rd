@@ -7,11 +7,13 @@
 Data is downloaded from \url{https://go.usa.gov/xEKmh}.
 }
 \usage{
-etl_pma(refresh_data = FALSE)
+etl_pma(refresh_data = FALSE, download_directory = "data/")
 }
 \arguments{
 \item{refresh_data}{Boolean. When \code{TRUE}, fresh data is downloaded from
 fda.gov. When \code{FALSE}, data is read in from a text file on the disk.}
+
+\item{download_directory}{Defaults to \code{data/}.}
 }
 \value{
 PMA data as a tibble
