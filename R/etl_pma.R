@@ -127,15 +127,20 @@ etl_pma <- function(refresh_data = FALSE,
     # Replace panel codes with names
     dplyr::left_join(y = panels, by = c("panel_code" = "panel_code")) %>%
     dplyr::select(-.data$panel_code) %>%
-    dplyr::mutate(panel = as.factor(.data$panel)) %>%
-    dplyr::mutate(track = as.factor(.data$track)) %>%
+    dplyr::mutate(
+      type = "PMA",
+      track = as.factor(.data$track),
+      panel = as.factor(.data$panel)
+    ) %>%
     # Add Decisions
     dplyr::left_join(
       y = decisions,
       by = c("decision_code" = "decision_code")
     ) %>%
-    dplyr::mutate(decision_code = as.factor(.data$decision_code)) %>%
-    dplyr::mutate(decision_category = as.factor(.data$decision_category)) %>%
-    dplyr::mutate(decision = as.factor(.data$decision)) %>%
+    dplyr::mutate(
+      decision_code = as.factor(.data$decision_code),
+      decision_category = as.factor(.data$decision_category),
+      decision = as.factor(.data$decision)
+    ) %>%
     dplyr::arrange(.data$date_start, .data$submission_number)
 }

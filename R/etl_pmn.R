@@ -133,7 +133,7 @@ etl_pmn <- function(refresh_data = FALSE,
   # Clean up the fields --------------------------------------------------------
   data <- data %>%
     # Identify submission type
-    dplyr::mutate(Type = dplyr::case_when(
+    dplyr::mutate(type = dplyr::case_when(
       stringr::str_detect(.data$submission_number, "DEN") ~ "De Novo",
       stringr::str_detect(.data$submission_number, "K") ~ "510(k)"
     )) %>%
