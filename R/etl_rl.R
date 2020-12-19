@@ -305,19 +305,24 @@ etl_rl <- function(refresh_data = FALSE,
     ) %>%
     rl_cleanup()
 
-  # estabtypes <-
-  #   readr::read_delim(
-  #     file = paste0(download_directory, "clean_estabtypes.txt"),
-  #     delim = "|",
-  #     col_types =
-  #       readr::cols(
-  #         `1` = readr::col_character(),
-  #         `Manufacture Medical Device for Another Party (Contract Manufacturer)` =
-  #           readr::col_character(),
-  #         `Contract Manufacturer` = readr::col_character()
-  #       )
-  #   ) %>%
-  #   rl_cleanup()
+  estabtypes <-
+    readr::read_delim(
+      file = paste0(download_directory, "clean_estabtypes.txt"),
+      delim = "|",
+      col_names =
+        c(
+          "establishment_type_id",
+          "establishment_activity",
+          "establishment_type"
+        ),
+      col_types =
+        readr::cols(
+          establishment_type_id = readr::col_character(),
+          establishment_activity = readr::col_character(),
+          establishment_type = readr::col_character()
+        )
+    ) %>%
+    rl_cleanup()
 
   # non_reg_imp_id_by_manu <-
   #   readr::read_delim(
@@ -380,7 +385,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   list(
     "contact_addresses" = contact_addresses,
-    # "estabtypes" = estabtypes,
+    "estabtypes" = estabtypes,
     "listing_estabtypes" = listing_estabtypes,
     "listing_pcd" = listing_pcd,
     "listing_proprietary_name" = listing_proprietary_name,
