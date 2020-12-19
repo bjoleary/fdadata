@@ -22,6 +22,7 @@ Imports:
     stringr,
     curl,
     lubridate,
-    tibble
+    tibble,
+    snakecase
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

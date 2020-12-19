@@ -8,5 +8,14 @@ clean_raw_text_file <- function(filepath) {
   message("Cleaning string from ", filepath, sep = "")
   cleaner_string <- readLines(filepath, skipNul = TRUE)
   cleaner_string <- gsub("\"", "", readr::read_lines(cleaner_string, skip = 1))
-  cleaner_string
+  # Remove carriage return, keep line feed
+  cleaner_string <-
+    stringr::str_remove_all(
+      string = cleaner_string,
+      pattern =
+        stringr::fixed(
+          pattern = "^M",
+          ignore_case = TRUE
+        )
+    )
 }
