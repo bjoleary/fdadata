@@ -81,7 +81,10 @@ check_big_companies <- function(string) {
         prep_regex(),
       "philips" =
         c(
+          "biotelemetry",
+          "blue willow systems",
           "koninkilijke",
+          "medumo",
           "philips"
         ) %>%
         prep_regex(),
