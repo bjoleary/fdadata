@@ -776,12 +776,16 @@ check_big_companies <- function(string) {
 #'
 #' @param string A company name with unspecified case,
 #' punctuation, and suffixes (e.g. "LLC", "Corp").
+#' @param thorough A boolean (defaults to \code{FALSE}) for deciding whether to
+#' check the company names against a list of known large manufacturers,
+#' including their acquisitions. Selecting \code{TRUE} slows down the operation
+#' significantly, taking about 4.8 seconds per thousand company names.
 #'
 #' @return An all-caps company name without extraneous characters,
 #' punctuation, and terms removed.
 #' @export
 #'
-clean_company_names <- function(string) {
+clean_company_names <- function(string, thorough = FALSE) {
   # Common company suffixes ----------------------------------------------------
   co <-
     c(
@@ -820,7 +824,8 @@ clean_company_names <- function(string) {
     prep_regex()
 
   # Put it together ------------------------------------------------------------
-  string %>%
+  result <-
+    string %>%
     # Remove certain punctuation
     stringr::str_remove_all(., pattern = ",|\\.|\\[|\\]|\\(|\\)|\\;|\\:") %>%
     # Remove common company suffixes
@@ -843,7 +848,13 @@ clean_company_names <- function(string) {
     stringr::str_remove(., pattern = "AND$") %>%
     # If you do remove an "AND", you may be left with white space at the end of
     # the string. Let's remove that.
-    stringr::str_squish(.) %>%
+    stringr::str_squish(.)
+
+  if (thorough == TRUE) {
     # Check the result against our list of big companies
-    check_big_companies(.)
+    result %>%
+      check_big_companies(.)
+  } else {
+    result
+  }
 }

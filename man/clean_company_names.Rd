@@ -4,11 +4,16 @@
 \alias{clean_company_names}
 \title{Clean Company Names}
 \usage{
-clean_company_names(string)
+clean_company_names(string, thorough = FALSE)
 }
 \arguments{
 \item{string}{A company name with unspecified case,
 punctuation, and suffixes (e.g. "LLC", "Corp").}
+
+\item{thorough}{A boolean (defaults to \code{FALSE}) for deciding whether to
+check the company names against a list of known large manufacturers,
+including their acquisitions. Selecting \code{TRUE} slows down the operation
+significantly, taking about 4.8 seconds per thousand company names.}
 }
 \value{
 An all-caps company name without extraneous characters,
