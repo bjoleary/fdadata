@@ -750,7 +750,9 @@ check_big_companies <- function(string) {
       }
     }
     result
-  })
+  },
+  USE.NAMES = FALSE
+  )
 
   # This method: Benchmark on 1000 premarket documents: 4.8s
   # sapply(string, function(x) { # TODO: Make this a vapply
@@ -848,7 +850,7 @@ clean_company_names <- function(string, thorough = FALSE) {
     stringr::str_to_upper(.) %>%
     # Remove trailing "AND" (from, e.g. "ACME LLC AND CO" where "LLC" and "CO"
     # have been removed above).
-    stringr::str_remove(., pattern = "AND$") %>%
+    stringr::str_remove(., pattern = "\\bAND$") %>%
     # If you do remove an "AND", you may be left with white space at the end of
     # the string. Let's remove that.
     stringr::str_squish(.)
