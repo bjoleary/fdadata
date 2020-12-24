@@ -56,9 +56,6 @@ test_that("review links are correct", {
 })
 
 test_that("submission links are correct", {
-  # TODO: testthat is throwing a warning that this test is returning more
-  # than one value. Need to look into this.
-
   # Read in known values from file
   links <- readr::read_delim("links.csv",
     delim = ",",

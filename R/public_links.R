@@ -55,19 +55,15 @@ public_link_review <- function(submission_number) {
 #' @return A url to the public FOIA-redacted submission
 #'
 public_link_submission <- function(submission_number) {
-  if (stringr::str_detect(
-    submission_number,
-    stringr::fixed("K",
-      ignore_case = TRUE
-    )
-  )) {
-    url_submission <- paste0(
-      "https://www.accessdata.fda.gov/CDRH510K/",
-      submission_number,
-      ".pdf"
-    )
-  }
-  url_submission
+  dplyr::case_when(
+    stringr::str_starts(submission_number, "K|k") ~
+      paste0(
+        "https://www.accessdata.fda.gov/CDRH510K/",
+        submission_number,
+        ".pdf"
+      ),
+    TRUE ~ NA_character_
+  )
 }
 #' Determine the calendar year the submission was numbered
 #'
