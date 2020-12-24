@@ -156,6 +156,26 @@ etl_rl <- function(refresh_data = FALSE,
     stop(paste(errors, collapse = "\n"))
   }
   # Read the files -------------------------------------------------------------
+
+  estabtypes <-
+    readr::read_delim(
+      file = paste0(download_directory, "clean_estabtypes.txt"),
+      delim = "|",
+      col_names =
+        c(
+          "establishment_type_id",
+          "establishment_activity",
+          "establishment_type"
+        ),
+      col_types =
+        readr::cols(
+          establishment_type_id = readr::col_character(),
+          establishment_activity = readr::col_character(),
+          establishment_type = readr::col_character()
+        )
+    ) %>%
+    rl_cleanup()
+
   contact_addresses <-
     readr::read_delim(
       file = paste0(download_directory, "clean_contact_addresses.txt"),
@@ -186,7 +206,13 @@ etl_rl <- function(refresh_data = FALSE,
           ESTABLISHMENT_TYPE_ID  = readr::col_character()
         )
     ) %>%
-    rl_cleanup()
+    rl_cleanup() %>%
+    dplyr::left_join(
+      y = estabtypes,
+      by = c(
+        "establishment_type_id" = "establishment_type_id"
+      )
+    )
 
   listing_pcd <-
     readr::read_delim(
@@ -258,7 +284,7 @@ etl_rl <- function(refresh_data = FALSE,
           FEI_NUMBER = readr::col_character(),
           REG_STATUS_ID = readr::col_character(),
           INITIAL_IMPORTER_FLAG = readr::col_character(),
-          REG_EXPIRY_DATE_YEAR = readr::col_character(),
+          REG_EXPIRY_DATE_YEAR = readr::col_integer(),
           ADDRESS_TYPE_ID = readr::col_character(),
           NAME = readr::col_character(),
           ADDRESS_LINE_1 = readr::col_character(),
@@ -270,7 +296,31 @@ etl_rl <- function(refresh_data = FALSE,
           POSTAL_CODE = readr::col_character()
         )
     ) %>%
-    rl_cleanup()
+    rl_cleanup() %>%
+    dplyr::mutate(
+      reg_status =
+        dplyr::case_when(
+          .data$reg_status_id == "1" ~ "Active",
+          .data$reg_status_id == "5" ~
+            "Active; Awaiting assignment of registration number",
+          TRUE ~ .data$reg_status_id
+        ) %>%
+        forcats::as_factor(),
+      initial_importer_flag =
+        dplyr::case_when(
+          .data$initial_importer_flag == "Y" ~ "Yes",
+          .data$initial_importer_flag == "N" ~ "No",
+          TRUE ~ .data$initial_importer_flag
+        ) %>%
+        forcats::as_factor(),
+      address_type =
+        dplyr::case_when(
+          .data$address_type_id == "U" ~ "US Agent",
+          .data$address_type_id == "F" ~ "Facility",
+          TRUE ~ .data$address_type_id
+        ) %>%
+        forcats::as_factor()
+    )
 
   registration_listing <-
     readr::read_delim(
@@ -301,25 +351,6 @@ etl_rl <- function(refresh_data = FALSE,
           FAX_AREA_CODE = readr::col_character(),
           FAX_NUM = readr::col_character(),
           EMAIL_ADDRESS = readr::col_character()
-        )
-    ) %>%
-    rl_cleanup()
-
-  estabtypes <-
-    readr::read_delim(
-      file = paste0(download_directory, "clean_estabtypes.txt"),
-      delim = "|",
-      col_names =
-        c(
-          "establishment_type_id",
-          "establishment_activity",
-          "establishment_type"
-        ),
-      col_types =
-        readr::cols(
-          establishment_type_id = readr::col_character(),
-          establishment_activity = readr::col_character(),
-          establishment_type = readr::col_character()
         )
     ) %>%
     rl_cleanup()
