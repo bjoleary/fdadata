@@ -6,7 +6,7 @@ Authors@R:
            family = "O'Leary",
            role = c("aut", "cre"),
            email = "brendan@boleary.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "0000-0001-8753-917X"))
 Description: Allows the user to access and explore US FDA data on medical 
     devices. 
 License: file LICENSE
