@@ -27,25 +27,3 @@ test_that("refreshing the data from file works", {
   data <- etl_pmn(FALSE)
   expect_equal(data, TRUE)
 })
-
-test_that("able to read in the decisions csv", {
-  decisions <- read_decisions()
-  decisions <- decisions[1, ] %>% unlist()
-  first_line <- c(
-    "decision_code" = "SESE",
-    "decision_category" = "Substantially Equivalent",
-    "decision" = "Substantially Equivalent"
-  )
-  expect_equal(first_line, decisions)
-})
-test_that("all the expected column names are present", {
-  skip("Skipping check of column names...")
-})
-
-test_that("all panel names have been found", {
-  skip("Skipping check of panel names...")
-})
-
-test_that("all decisions have been found", {
-  skip("Skipping check of decisions...")
-})

@@ -97,17 +97,13 @@ etl_pmn <- function(refresh_data = FALSE,
     filename_pmn_clean_txt,
     sep = ""
   ))
-  data <- readr::read_delim(
-    file = filename_pmn_clean_txt,
-    delim = "|",
-    col_types = col_types
-  )
-
-  panels <- read_panels()
-  decisions <- read_decisions()
-
-  # Rename the fields ----------------------------------------------------------
-  data <- data %>%
+  data <-
+    readr::read_delim(
+      file = filename_pmn_clean_txt,
+      delim = "|",
+      col_types = col_types
+    ) %>%
+    # Rename the fields
     dplyr::rename(
       submission_number = .data$KNUMBER,
       sponsor = .data$APPLICANT,
@@ -128,112 +124,38 @@ etl_pmn <- function(refresh_data = FALSE,
       third_party_review = .data$THIRDPARTY,
       expedited = .data$EXPEDITEDREVIEW,
       device = .data$DEVICENAME
-    )
-
-  # Clean up the fields --------------------------------------------------------
-  data <- data %>%
-    # Identify submission type
-    dplyr::mutate(type = dplyr::case_when(
-      stringr::str_detect(.data$submission_number, "DEN") ~ "De Novo",
-      stringr::str_detect(.data$submission_number, "K") ~ "510(k)"
-    )) %>%
-    # Clean up expedited column
-    dplyr::mutate(expedited = as.factor(
-      dplyr::case_when(
-        .data$expedited == "Y" ~ "Expedited"
-      )
-    )) %>%
-    # Replace panel codes with names
-    dplyr::left_join(y = panels, by = c("panel_code" = "panel_code")) %>%
-    dplyr::select(-.data$panel_code) %>%
-    dplyr::mutate(panel = as.factor(.data$panel)) %>%
-    # Add Third Party to the Track
-    dplyr::mutate(track = dplyr::case_when(
-      .data$third_party_review == "Y" ~ paste("Third Party", track, sep = " "),
-      TRUE ~ .data$track
-    )) %>%
-    dplyr::mutate(track = as.factor(.data$track)) %>%
-    # Add decisions
-    dplyr::left_join(
-      y = decisions,
-      by = c("decision_code" = "decision_code")
     ) %>%
-    dplyr::mutate(decision_code = as.factor(.data$decision_code)) %>%
-    dplyr::mutate(decision_category = as.factor(.data$decision_category)) %>%
-    dplyr::mutate(decision = as.factor(.data$decision)) %>%
+    # Clean up the fields
+    dplyr::mutate(
+      # Identify submission type
+      type =
+        dplyr::case_when(
+          stringr::str_detect(.data$submission_number, "DEN") ~ "De Novo",
+          stringr::str_detect(.data$submission_number, "K") ~ "510(k)",
+          TRUE ~ NA_character_
+        ) %>%
+        forcats::as_factor(),
+      # Clean up expedited column
+      expedited =
+        dplyr::case_when(
+          .data$expedited == "Y" ~ "Expedited",
+          !is.na(.data$expedited) ~ .data$expedited,
+          TRUE ~ NA_character_
+        ) %>%
+        forcats::as_factor(),
+      # Replace panel codes with names
+      panel = expand_panels(.data$panel_code),
+      # Add Third Party to the Track
+      track =
+        dplyr::case_when(
+          .data$third_party_review == "Y" ~
+            paste("Third Party", .data$track, sep = " "),
+          TRUE ~ .data$track
+        ) %>%
+        forcats::as_factor(),
+      # Determine the decision
+      decision = decode_decision(.data$decision_code),
+      decision_category = categorize_decision(.data$decision_code)
+    ) %>%
     dplyr::arrange(.data$date_start, .data$submission_number)
-}
-
-#' Read in a table of FDA panel codes and panels
-#'
-#' Can be used to convert two letter panel codes to human readable panel names.
-#'
-#' @return A table with two columns:
-#' \describe{
-#' \item{\code{panel_code}}{The two letter code stored in FDA's database}
-#' \item{\code{panel}}{The full, human-readable panel}
-#' }
-# Helper functions -------------------------------------------------------------
-read_panels <- function() {
-  file_path <- system.file("extdata",
-    "panels.csv",
-    package = "fdadata",
-    mustWork = TRUE
-  )
-
-  panels <- readr::read_delim(
-    file = file_path,
-    delim = ";",
-    col_types = readr::cols(
-      panel_code = readr::col_character(),
-      panel = readr::col_character()
-    )
-  )
-}
-
-#' Read in a table of FDA decision codes, categories, and decisions
-#'
-#' Can be used to convert two- and four-letter decision codes to human readable
-#' decisions and grouped decision categories (e.g. ``Substantially
-#' Equivalent''.)
-#'
-#' @return A table with 3 columns:
-#' \describe{
-#' \item{\code{decision_code}}{The two or four letter code stored in FDA's
-#' database}
-#' \item{\code{decision_category}}{The broader category grouping of the
-#' decision, such as ``Substantially Equivalent'' or ``De Novo Granted''}
-#' \item{\code{decision}}{The full, human-readable decision}
-#' }
-#' @importFrom readr "cols"
-#' @importFrom readr "col_character"
-read_decisions <- function() {
-  file_path <- system.file("extdata",
-    "decisions.csv",
-    package = "fdadata",
-    mustWork = TRUE
-  )
-
-  decisions <- readr::read_delim(
-    file = file_path,
-    delim = "|",
-    col_types = readr::cols(
-      decision_code = readr::col_character(),
-      decision_category = readr::col_character(),
-      decision = readr::col_character()
-    )
-  )
-}
-
-#' Check for and remove a file
-#'
-#' Used so that when \code{file.remove()} is run it is only run on files that
-#' exist. This avoids warnings.
-#'
-#' @param filepath The expected path of the file you want to look for and
-#' remove if present.
-file_remove <- function(filepath) {
-  if (file.exists(filepath)) {
-    file.remove(filepath)
-  }
 }
