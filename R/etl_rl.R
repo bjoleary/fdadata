@@ -71,11 +71,10 @@ etl_rl <- function(refresh_data = FALSE,
       download_directory = "data/"
     )
     # Clean the data -----------------------------------------------------------
-    for (i in c(1:length(filename_rl_txt))) {
+    for (i in seq_along(filename_rl_txt)) {
       header_string <- readr::read_lines(filename_rl_txt[i], n_max = 1)
       data_string <- clean_raw_text_file(filename_rl_txt[i])
       if (filename_roots[i] == "contact_addresses") {
-        message("Made it into the conditional...")
         # Line 38470 has extra pipe characters as of 2020-12-19
         data_string <-
           stringr::str_replace(
@@ -101,7 +100,6 @@ etl_rl <- function(refresh_data = FALSE,
           ) %>%
           # Line 17055 has extra pipe characters as of 2020-12-19
           stringr::str_replace(
-            string = .,
             pattern =
               stringr::fixed(
                 pattern =
@@ -115,7 +113,6 @@ etl_rl <- function(refresh_data = FALSE,
           ) %>%
           # Line 41953 has extra pipe characters as of 2020-12-19
           stringr::str_replace(
-            string = .,
             pattern =
               stringr::fixed(
                 pattern = "| Milford, OH |||Day Heights|OH|",
@@ -430,4 +427,3 @@ etl_rl <- function(refresh_data = FALSE,
     "us_agent" = us_agent
   )
 }
-

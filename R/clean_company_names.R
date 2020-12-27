@@ -5,13 +5,11 @@
 #' @return A regular expression, including word boundary characters
 #'
 prep_regex <- function(vector) {
-  vector %>%
-    # Put a word boundary on each side of the term:
-    paste0("\\b", ., "\\b") %>%
+  # Put a word boundary on each side of the term:
+  paste0("\\b", vector, "\\b") %>%
     # Separate with the pipe character for "or"
     paste(collapse = "|") %>%
     stringr::regex(
-      pattern = .,
       ignore_case = TRUE
     )
 }
@@ -743,7 +741,7 @@ check_big_companies <- function(string) {
         # We found a match among the big companies, and now it is time to
         # return the name of that company
         match_found <- TRUE
-        result <- names(big_companies[i]) %>% stringr::str_to_upper(.)
+        result <- names(big_companies[i]) %>% stringr::str_to_upper()
       } else {
         # Try the next big company
         next
@@ -753,28 +751,6 @@ check_big_companies <- function(string) {
   },
   USE.NAMES = FALSE
   )
-
-  # This method: Benchmark on 1000 premarket documents: 4.8s
-  # sapply(string, function(x) { # TODO: Make this a vapply
-  #   match_list <-
-  #     lapply(seq_along(big_companies), function(i){
-  #       if (stringr::str_detect(string = x, pattern = big_companies[[i]])) {
-  #         # We found a match among the big companies, and now it is time to
-  #         # return the name of that company
-  #         names(big_companies[i]) %>% stringr::str_to_upper(.)
-  #       } else {
-  #         # Return NULL
-  #         NULL
-  #       }
-  #     }) %>%
-  #     Filter(Negate(is.null), .) %>%
-  #     unlist()
-  #   if (is.null(match_list)) {
-  #     x
-  #   } else {
-  #     match_list[[1]]
-  #   }
-  # })
 }
 
 #' Clean Company Names
@@ -832,33 +808,31 @@ clean_company_names <- function(string, thorough = FALSE) {
   result <-
     string %>%
     # Remove certain punctuation
-    stringr::str_remove_all(., pattern = ",|\\.|\\[|\\]|\\(|\\)|\\;|\\:") %>%
+    stringr::str_remove_all(pattern = ",|\\.|\\[|\\]|\\(|\\)|\\;|\\:") %>%
     # Remove common company suffixes
     stringr::str_remove_all(
-      string = .,
       pattern = co
     ) %>%
     # Replace ampersands
     stringr::str_replace_all(
-      string = .,
       pattern = stringr::fixed("&"),
       replacement = "AND"
     ) %>%
     # Remove white space
-    stringr::str_squish(.) %>%
+    stringr::str_squish() %>%
     # Capitalize
-    stringr::str_to_upper(.) %>%
+    stringr::str_to_upper() %>%
     # Remove trailing "AND" (from, e.g. "ACME LLC AND CO" where "LLC" and "CO"
     # have been removed above).
-    stringr::str_remove(., pattern = "\\bAND$") %>%
+    stringr::str_remove(pattern = "\\bAND$") %>%
     # If you do remove an "AND", you may be left with white space at the end of
     # the string. Let's remove that.
-    stringr::str_squish(.)
+    stringr::str_squish()
 
   if (thorough == TRUE) {
     # Check the result against our list of big companies
     result %>%
-      check_big_companies(.)
+      check_big_companies()
   } else {
     result
   }
