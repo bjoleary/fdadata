@@ -16,6 +16,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/bjoleary/fdadata/workflows/R-CMD-check/badge.svg)](https://github.com/bjoleary/fdadata/actions)
+[![test-coverage](https://github.com/bjoleary/fdadata/workflows/test-coverage/badge.svg)](https://github.com/bjoleary/fdadata/actions)
+[![lint](https://github.com/bjoleary/fdadata/workflows/lint/badge.svg)](https://github.com/bjoleary/fdadata/actions)
+[![render-rmarkdown](https://github.com/bjoleary/fdadata/workflows/render-rmarkdown/badge.svg)](https://github.com/bjoleary/fdadata/actions)
 <!-- badges: end -->
 
 The goal of fdadata is to access public information from the [FDA website](https://www.fda.gov).
