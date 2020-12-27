@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/bjoleary/fdadata/workflows/R-CMD-check/badge.svg)](https://github.com/bjoleary/fdadata/actions)
-[![test-coverage](https://github.com/bjoleary/fdadata/workflows/test-coverage/badge.svg)](https://github.com/bjoleary/fdadata/actions)
+[![codecov](https://codecov.io/gh/bjoleary/fdadata/branch/main/graph/badge.svg?token=1AZQLVTB0B)](https://codecov.io/gh/bjoleary/fdadata)
 [![lint](https://github.com/bjoleary/fdadata/workflows/lint/badge.svg)](https://github.com/bjoleary/fdadata/actions)
 [![render-rmarkdown](https://github.com/bjoleary/fdadata/workflows/render-rmarkdown/badge.svg)](https://github.com/bjoleary/fdadata/actions)
 <!-- badges: end -->
