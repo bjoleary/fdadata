@@ -3,6 +3,8 @@
 #' @param submission_number The unique identifier of the submission
 #' @return A url to the public summary of the submission
 #'
+#' @export
+#'
 public_link_summary <- function(submission_number) {
   url_return <-
     paste0(
@@ -30,8 +32,12 @@ public_link_summary <- function(submission_number) {
 
 #' Return a link to the FDA review
 #'
+#' Works for PMAs and 510(k)s
+#'
 #' @param submission_number The unique identifier of the submission
 #' @return A url to the public FDA review of the submission
+#'
+#' @export
 #'
 public_link_review <- function(submission_number) {
   dplyr::case_when(
@@ -60,6 +66,8 @@ public_link_review <- function(submission_number) {
 
 #' Return a link to the FOIA-Redacted Submission
 #'
+#' Only works for 510(k)s
+#'
 #' @param submission_number The unique identifier of the submission
 #' @return A url to the public FOIA-redacted submission
 #'
@@ -71,6 +79,21 @@ public_link_submission <- function(submission_number) {
         submission_number,
         ".pdf"
       ),
+    TRUE ~ NA_character_
+  )
+}
+
+#' Return a link to the Device Labeling
+#'
+#' Only works for original PMAs
+#'
+#' @param submission_number The unique identifier of the submission
+#' @return A url to the device labeling
+#'
+#' @export
+#'
+public_link_labeling <- function(submission_number) {
+  dplyr::case_when(
     stringr::str_starts(submission_number, "P|p") ~
       paste0(
         "https://www.accessdata.fda.gov/cdrh_docs/",
@@ -81,6 +104,7 @@ public_link_submission <- function(submission_number) {
     TRUE ~ NA_character_
   )
 }
+
 #' Determine the calendar year the submission was numbered
 #'
 #' @param submission_number The unique identifier of the submission

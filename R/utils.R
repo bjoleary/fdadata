@@ -30,7 +30,32 @@ expand_panels <- function(panel_code) {
     panel_code == "MG" ~ "Molecular Genetics",
     TRUE ~ NA_character_
   ) %>%
-    forcats::as_factor()
+    forcats::as_factor() %>%
+    forcats::fct_expand(
+      f = .,
+      c(
+        "Anesthesiology",
+        "Cardiovascular",
+        "Clinical Chemistry",
+        "Dental",
+        "Ear, Nose, & Throat",
+        "Gastroenterology & ",
+        "General Hospital",
+        "Hematology",
+        "Immunology",
+        "Microbiology",
+        "Neurology",
+        "Obstetrics/Gynecology",
+        "Ophthalmic",
+        "Orthopedic",
+        "Pathology",
+        "Physical Medicine",
+        "Radiology",
+        "General & Plastic Surgery",
+        "Clinical Toxicology",
+        "Molecular Genetics"
+      )
+    )
 }
 
 #' Decode Decision
@@ -63,7 +88,29 @@ decode_decision <- function(decision_code) {
     decision_code == "APCB" ~ "Approved - Unknown",
     TRUE ~ decision_code
   ) %>%
-    forcats::as_factor()
+    forcats::as_factor() %>%
+    forcats::fct_expand(
+      f = .,
+      c(
+        "Substantially Equivalent",
+        "Substantially Equivalent - PostMarket Surveillance Required",
+        "Substantially Equivalent - Subject to Tracking and Surveillance",
+        "Substantially Equivalent with Drug",
+        "Substantially Equivalent for Some Indications",
+        "Substantially Equivalent - Kit with Drugs",
+        "Substantially Equivalent - Kit",
+        "Substantially Equivalent - Market after Inspection",
+        "Substantially Equivalent - Subject to Tracking",
+        "Substantially Equivalent - With Limitations",
+        "De Novo Granted",
+        "Approved",
+        "Approved - Converted",
+        "Approved - Withdrawn",
+        "Approved - Reclassified",
+        "Accepted",
+        "Approved - Unknown"
+      )
+    )
 }
 
 #' Categorize a Decision
@@ -75,6 +122,14 @@ decode_decision <- function(decision_code) {
 #'
 categorize_decision <- function(decision) {
   dplyr::case_when(
+    stringr::str_detect(
+      string = decision,
+      pattern =
+        stringr::fixed(
+          pattern = "substantially equivalent",
+          ignore_case = TRUE
+        )
+    ) ~ "Substantially Equivalent",
     decision %in% c(
       "SESE",
       "SESP",
@@ -99,6 +154,14 @@ categorize_decision <- function(decision) {
     ) ~
       "Substantially Equivalent",
     decision %in% c("DENG", "De Novo Granted") ~ "Granted",
+    stringr::str_detect(
+      string = decision,
+      pattern =
+        stringr::regex(
+          pattern = "\\bapproved\\b",
+          ignore_case = TRUE
+        )
+    ) ~ "Approved",
     decision %in% c(
       "APPR",
       "APCV",
@@ -115,7 +178,16 @@ categorize_decision <- function(decision) {
     decision %in% c("OK30", "Accepted") ~ "Accepted",
     TRUE ~ decision
   ) %>%
-    forcats::as_factor()
+    forcats::as_factor() %>%
+    forcats::fct_expand(
+      f = .,
+      c(
+        "Substantially Equivalent",
+        "Granted",
+        "Approved",
+        "Accepted"
+      )
+    )
 }
 
 #' Check for and remove a file
