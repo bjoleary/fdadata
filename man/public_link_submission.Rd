@@ -13,5 +13,5 @@ public_link_submission(submission_number)
 A url to the public FOIA-redacted submission
 }
 \description{
-Return a link to the FOIA-Redacted Submission
+Only works for 510(k)s
 }
