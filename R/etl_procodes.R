@@ -11,47 +11,26 @@ etl_procodes <- function(refresh_data = FALSE,
   # Set some initial values ----------------------------------------------------
   filename_root <- "foiclass"
 
-  filename_procode_txt <- paste0(download_directory, filename_root, ".txt")
-  filename_procode_clean_txt <- paste0(download_directory, "procode_clean.txt")
-  filename_accessed_datetime <-
-    paste0(download_directory, "procode_accessed.txt")
-
+  # Refresh data if appropriate ------------------------------------------------
   if (refresh_data == TRUE) {
-    message(paste("Deleting old download files..."))
-    file_remove(filename_procode_txt)
-    file_remove(filename_procode_clean_txt)
-    file_remove(filename_accessed_datetime)
-    download_generic(
-      filename_roots = c(filename_root),
-      filename_accessed_datetime = filename_accessed_datetime,
-      download_directory = "data/"
+    refresh_files(
+      filenames_root = c(filename_root),
+      download_directory = download_directory
     )
-    # Clean the data -----------------------------------------------------------
-    # Get the header row from one of the input files
-    header_string <- readr::read_lines(filename_procode_txt, n_max = 1)
-
-    # Put that header row into the clean output file
-    write(header_string, file = filename_procode_clean_txt, append = FALSE)
-    remove(header_string)
-
-    clean_raw_text_file(filename_procode_txt) %>%
-      write(file = filename_procode_clean_txt, append = TRUE)
   }
-  # Check for the file we need -------------------------------------------------
-  files <- c(filename_procode_clean_txt, filename_accessed_datetime)
-  errors <- lapply(files, function(x) {
-    if (!file.exists(x)) {
-      paste("\n\tMissing file:", x)
-    }
-  }) %>%
-    unlist()
-  if (!is.null(errors)) {
-    stop(paste(errors, collapse = "\n"))
-  }
-
-  message("Reading in the cleaned data from ", filename_procode_clean_txt)
+  message(
+    "Reading in the cleaned data from ",
+    path_clean(
+      filenames_root = filename_root,
+      download_directory = download_directory
+    )
+  )
   data <- readr::read_delim(
-    file = filename_procode_clean_txt,
+    file =
+      path_clean(
+        filenames_root = filename_root,
+        download_directory = download_directory
+      ),
     delim = "|",
     col_types =
       readr::cols(

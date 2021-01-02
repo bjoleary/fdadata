@@ -110,3 +110,68 @@ test_that("removing real files works", {
   expect_true(file.exists("a_test_file_to_delete.deleteme"))
   expect_true(file_remove("a_test_file_to_delete.deleteme"))
 })
+
+test_that("determining filenames and paths works", {
+  filenames_root <-
+    c(
+      "foiclass",
+      "pmn7680",
+      "pmn8185",
+      "pmn8690",
+      "pmn9195",
+      "pmn96cur"
+    )
+  download_directory <- "data/"
+  filenames_zip <-
+    c(
+      "data/foiclass.zip",
+      "data/pmn7680.zip",
+      "data/pmn8185.zip",
+      "data/pmn8690.zip",
+      "data/pmn9195.zip",
+      "data/pmn96cur.zip"
+    )
+  filenames_raw <-
+    c(
+      "data/foiclass.txt",
+      "data/pmn7680.txt",
+      "data/pmn8185.txt",
+      "data/pmn8690.txt",
+      "data/pmn9195.txt",
+      "data/pmn96cur.txt"
+    )
+  filenames_clean <-
+    c(
+      "data/foiclass_clean.txt",
+      "data/pmn7680_clean.txt",
+      "data/pmn8185_clean.txt",
+      "data/pmn8690_clean.txt",
+      "data/pmn9195_clean.txt",
+      "data/pmn96cur_clean.txt"
+    )
+  filenames_accessed <-
+    c(
+      "data/foiclass_accessed.txt",
+      "data/pmn7680_accessed.txt",
+      "data/pmn8185_accessed.txt",
+      "data/pmn8690_accessed.txt",
+      "data/pmn9195_accessed.txt",
+      "data/pmn96cur_accessed.txt"
+    )
+  expect_equal(
+    object = path_zip(filenames_root),
+    expected = filenames_zip
+  )
+  expect_equal(
+    object = path_raw(filenames_root),
+    expected = filenames_raw
+  )
+  expect_equal(
+    object = path_clean(filenames_root),
+    expected = filenames_clean
+  )
+  expect_equal(
+    object = path_accessed(filenames_root),
+    expected = filenames_accessed
+  )
+})

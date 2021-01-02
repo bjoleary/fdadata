@@ -9,54 +9,24 @@
 etl_pma <- function(refresh_data = FALSE,
                     download_directory = "data/") {
   # Set some initial values ----------------------------------------------------
-  filename_roots <- c("pma")
+  filename_root <- "pma"
 
-  filename_pma_txt <- paste0(download_directory, filename_roots, ".txt")
-  filename_pma_clean_txt <- paste0(download_directory, "pma_clean.txt")
-  filename_accessed_datetime <- paste0(download_directory, "pma_accessed.txt")
-
-  # Refresh the data if appropriate --------------------------------------------
+  # Refresh data if appropriate ------------------------------------------------
   if (refresh_data == TRUE) {
-    message(paste("Deleting old download files..."))
-    lapply(filename_pma_txt, function(x) {
-      file_remove(x)
-    })
-    file_remove(filename_pma_clean_txt)
-    file_remove(filename_accessed_datetime)
-    download_generic(
-      filename_roots = filename_roots,
-      filename_accessed_datetime = filename_accessed_datetime,
-      download_directory = "data/"
+    refresh_files(
+      filenames_root = c(filename_root),
+      download_directory = download_directory
     )
-    # Clean the data -----------------------------------------------------------
-    # Before we read this in as a delim file, submission K010142 includes a
-    # quote character in the record that messes things up. Let's remove those.
-
-    # Get the header row from one of the input files
-    header_string <- readr::read_lines(filename_pma_txt[1], n_max = 1)
-
-    # Put that header row into the clean output file
-    write(header_string, file = filename_pma_clean_txt, append = FALSE)
-    remove(header_string)
-
-    lapply(filename_pma_txt, function(x) {
-      data_string <- clean_raw_text_file(x)
-      write(data_string, file = filename_pma_clean_txt, append = TRUE)
-    })
-  }
-
-  # Check for the file we need -------------------------------------------------
-  files <- c(filename_pma_clean_txt, filename_accessed_datetime)
-  errors <- lapply(files, function(x) {
-    if (!file.exists(x)) {
-      paste("\n\tMissing file:", x)
-    }
-  }) %>%
-    unlist()
-  if (!is.null(errors)) {
-    stop(paste(errors, collapse = "\n"))
   }
   # Read the file --------------------------------------------------------------
+  message(
+    "Reading in the cleaned data from ",
+    path_clean(
+      filenames_root = filename_root,
+      download_directory = download_directory
+    )
+  )
+
   # Set the column types
   col_types <- readr::cols(
     PMANUMBER = readr::col_character(),
@@ -83,14 +53,13 @@ etl_pma <- function(refresh_data = FALSE,
     AOSTATEMENT = readr::col_character()
   )
 
-  # Read the file --------------------------------------------------------------
-  message(paste("Reading in the cleaned data from ",
-    filename_pma_clean_txt,
-    sep = ""
-  ))
   data <-
     readr::read_delim(
-      file = filename_pma_clean_txt,
+      file =
+        path_clean(
+          filenames_root = filename_root,
+          download_directory = download_directory
+        ),
       delim = "|",
       col_types = col_types
     ) %>%
