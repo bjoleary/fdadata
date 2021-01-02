@@ -245,8 +245,7 @@ refresh_files <- function(filenames_root, download_directory = "data/") {
     file_remove(filepaths_clean[i])
     file_remove(filepaths_accessed[i])
     # Download new files
-    try(
-      {
+    try({
         download_generic(
           filename_roots = c(filenames_root[i]),
           filename_accessed_datetime = filepaths_accessed[i],
@@ -256,8 +255,7 @@ refresh_files <- function(filenames_root, download_directory = "data/") {
         write(header_string, file = filepaths_clean[i], append = FALSE)
         clean_string <- clean_raw_text_file(filepaths_txt[i])
         write(clean_string, file = filepaths_clean[i], append = TRUE)
-      }
-    )
+      })
   }
   errors <- lapply(files, function(x) {
     if (!file.exists(x)) {

@@ -121,7 +121,7 @@ test_that("determining filenames and paths works", {
       "pmn9195",
       "pmn96cur"
     )
-  download_directory = "data/"
+  download_directory <- "data/"
   filenames_zip <-
     c(
       "data/foiclass.zip",
