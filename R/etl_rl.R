@@ -36,7 +36,7 @@ rl_cleanup <- function(df) {
 etl_rl <- function(refresh_data = FALSE,
                     download_directory = "data/") {
   # Set some initial values ----------------------------------------------------
-  filename_roots <-
+  filenames_root <-
     c(
       "contact_addresses",
       "listing_estabtypes",
@@ -53,107 +53,98 @@ etl_rl <- function(refresh_data = FALSE,
       "Reg_Imp_ID_by_Manu"
     )
 
-  filename_rl_txt <- paste0(download_directory, filename_roots, ".txt")
-  filename_rl_clean_txt <-
-    paste0(download_directory, "clean_", filename_roots, ".txt")
-  filename_accessed_datetime <- paste0(download_directory, "rl_accessed.txt")
-
-  # Refresh the data if appropriate --------------------------------------------
+  # Refresh data if appropriate ------------------------------------------------
   if (refresh_data == TRUE) {
-    message(paste("Deleting old download files..."))
-    lapply(c(filename_rl_txt, filename_rl_clean_txt), function(x) {
-      file_remove(x)
-    })
-    file_remove(filename_accessed_datetime)
-    download_generic(
-      filename_roots = filename_roots,
-      filename_accessed_datetime = filename_accessed_datetime,
-      download_directory = "data/"
+    refresh_files(
+      filenames_root = filenames_root,
+      download_directory = download_directory
     )
-    # Clean the data -----------------------------------------------------------
-    for (i in seq_along(filename_rl_txt)) {
-      header_string <- readr::read_lines(filename_rl_txt[i], n_max = 1)
-      data_string <- clean_raw_text_file(filename_rl_txt[i])
-      if (filename_roots[i] == "contact_addresses") {
-        # Line 38470 has extra pipe characters as of 2020-12-19
-        data_string <-
-          stringr::str_replace(
-            string = data_string,
-            pattern =
-              stringr::fixed(
-                pattern = "Obour|EG-C|Al Qahirah",
-                ignore_case = TRUE
-              ),
-            replacement = "Obour EG-C Al Qahirah"
-          )
-      } else if (filename_roots[i] == "Registration") {
-        # Line 4477 has extra pipe characters as of 2020-12-19
-        data_string <-
-          stringr::str_replace(
-            string = data_string,
-            pattern =
-              stringr::fixed(
-                pattern = "Suite 100 | Houston, Texas 77040||Houston|TX|US|",
-                ignore_case = TRUE
-              ),
-            replacement = "Suite 100 ||Houston|TX|US|"
-          ) %>%
-          # Line 17055 has extra pipe characters as of 2020-12-19
-          stringr::str_replace(
-            pattern =
-              stringr::fixed(
-                pattern =
-                  paste0(
-                    "| Block 13023 | Building 8 Obour city | ",
-                    "Cairo - Egypt  ZIP code :   11828 | P.O.Box : 29|"
-                  ),
-                ignore_case = TRUE
-              ),
-            replacement = " Block 13023 Building 8 Obour city P.O.Box : 29|"
-          ) %>%
-          # Line 41953 has extra pipe characters as of 2020-12-19
-          stringr::str_replace(
-            pattern =
-              stringr::fixed(
-                pattern = "| Milford, OH |||Day Heights|OH|",
-                ignore_case = TRUE
-              ),
-            replacement = "||Day Heights|OH|"
-          )
-      }  else if (filename_roots[i] == "Non_Reg_Imp_ID_by_Manu") {
-        data_string <-
-          # Line 6978 has extra pipe characters as of 2020-12-19
-          stringr::str_replace(
-            string = data_string,
-            pattern =
-              stringr::fixed(
-                pattern = "| Tamarac, FL 33321||Fort Lauderdale |FL|33321|",
-                ignore_case = TRUE
-              ),
-            replacement = "FL|33321|"
-          )
-      }
+    # Additional cleaning for some files ---------------------------------------
+    # Contact addresses
+    readr::read_lines(
+      file = path_clean("contact_addresses", download_directory)
+    ) %>%
+      stringr::str_replace(
+        string = .,
+        pattern =
+          stringr::fixed(
+            pattern = "Obour|EG-C|Al Qahirah",
+            ignore_case = TRUE
+          ),
+        replacement = "Obour EG-C Al Qahirah"
+      ) %>%
       readr::write_lines(
-        x = c(header_string, data_string),
-        file = filename_rl_clean_txt[i],
+        x = .,
+        file = path_clean("contact_addresses", download_directory),
         append = FALSE
       )
-    }
+
+    # Registration
+    # Line 4477 has extra pipe characters as of 2020-12-19
+    readr::read_lines(
+      file = path_clean("Registration", download_directory)
+    ) %>%
+      stringr::str_replace(
+        string = .,
+        pattern =
+          stringr::fixed(
+            pattern = "Suite 100 | Houston, Texas 77040||Houston|TX|US|",
+            ignore_case = TRUE
+          ),
+        replacement = "Suite 100 ||Houston|TX|US|"
+      ) %>%
+      # Line 17055 has extra pipe characters as of 2020-12-19
+      stringr::str_replace(
+        string = .,
+        pattern =
+          stringr::fixed(
+            pattern =
+              paste0(
+                "| Block 13023 | Building 8 Obour city | ",
+                "Cairo - Egypt  ZIP code :   11828 | P.O.Box : 29|"
+              ),
+            ignore_case = TRUE
+          ),
+        replacement = " Block 13023 Building 8 Obour city P.O.Box : 29|"
+      ) %>%
+      # Line 41953 has extra pipe characters as of 2020-12-19
+      stringr::str_replace(
+        string = .,
+        pattern =
+          stringr::fixed(
+            pattern = "| Milford, OH |||Day Heights|OH|",
+            ignore_case = TRUE
+          ),
+        replacement = "||Day Heights|OH|"
+      ) %>%
+      readr::write_lines(
+        x = .,
+        file = path_clean("Registration", download_directory),
+        append = FALSE
+      )
+
+    # Non_Reg_Imp_ID_by_Manu
+    readr::read_lines(
+      file = path_clean("Non_Reg_Imp_ID_by_Manu", download_directory)
+    ) %>%
+      # Line 6978 has extra pipe characters as of 2020-12-19
+      stringr::str_replace(
+        string = .,
+        pattern =
+          stringr::fixed(
+            pattern = "| Tamarac, FL 33321||Fort Lauderdale |FL|33321|",
+            ignore_case = TRUE
+          ),
+        replacement = "FL|33321|"
+      ) %>%
+      readr::write_lines(
+        x = .,
+        file = path_clean("Non_Reg_Imp_ID_by_Manu", download_directory),
+        append = FALSE
+      )
   }
 
-  # Check for the file we need -------------------------------------------------
-  files <- c(filename_rl_clean_txt, filename_accessed_datetime)
-  errors <- lapply(files, function(x) {
-    if (!file.exists(x)) {
-      paste("\n\tMissing file:", x)
-    }
-  }) %>%
-    unlist()
-  if (!is.null(errors)) {
-    stop(paste(errors, collapse = "\n"))
-  }
   # Read the files -------------------------------------------------------------
-
   estabtypes <-
     readr::read_delim(
       file = paste0(download_directory, "clean_estabtypes.txt"),
@@ -175,7 +166,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   contact_addresses <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_contact_addresses.txt"),
+      file = path_clean("contact_addresses", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -194,7 +185,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   listing_estabtypes <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_listing_estabtypes.txt"),
+      file = path_clean("listing_estabtypes", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -213,7 +204,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   listing_pcd <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_Listing_PCD.txt"),
+      file = path_clean("Listing_PCD", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -228,7 +219,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   listing_proprietary_name <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_Listing_Proprietary_Name.txt"),
+      file = path_clean("Listing_Proprietary_Name", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -241,7 +232,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   official_correspondent <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_Official_Correspondent.txt"),
+      file = path_clean("Official_Correspondent", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -258,7 +249,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   owner_operator <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_Owner_Operator.txt"),
+      file = path_clean("Owner_Operator", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -272,7 +263,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   registration <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_Registration.txt"),
+      file = path_clean("Registration", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -321,7 +312,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   registration_listing <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_registration_listing.txt"),
+      file = path_clean("registration_listing", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -335,7 +326,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   us_agent <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_us_agent.txt"),
+      file = path_clean("us_agent", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -386,7 +377,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   manu_id_by_imp <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_Manu_ID_by_Imp.txt"),
+      file = path_clean("Manu_ID_by_Imp", download_directory),
       delim = "|",
       col_types =
         readr::cols(
@@ -400,7 +391,7 @@ etl_rl <- function(refresh_data = FALSE,
 
   reg_imp_id_by_manu <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_Reg_Imp_ID_by_Manu.txt"),
+      file = path_clean("Reg_Imp_ID_by_Manu", download_directory),
       delim = "|",
       col_types =
         readr::cols(
