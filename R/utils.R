@@ -202,3 +202,135 @@ file_remove <- function(filepath) {
     file.remove(filepath)
   }
 }
+
+#' Refresh Files
+#'
+#' @param filenames_root A vector of filenames (without extensions)
+#' to download from the FDA website. For example, for 510(k)s:
+#' c("pmn7680", "pmn8185", ' "pmn8690", "pmn9195", "pmn96cur").
+#' @param download_directory Defaults to \code{data/}.
+#'
+#' @return \code{NULL}
+#' @export
+#'
+refresh_files <- function(filenames_root, download_directory = "data/") {
+  # Set up filenames -----------------------------------------------------------
+  filepaths_zip <-
+    path_zip(
+      filenames_root = filenames_root,
+      download_directory = download_directory
+    )
+  filepaths_txt <-
+    path_raw(
+      filenames_root = filenames_root,
+      download_directory = download_directory
+    )
+  filepaths_clean <-
+    path_clean(
+      filenames_root = filenames_root,
+      download_directory = download_directory
+    )
+  filepaths_accessed <-
+    path_accessed(
+      filenames_root = filenames_root,
+      download_directory = download_directory
+    )
+  files <- c(filepaths_accessed, filepaths_clean)
+
+  # Download new files and datetimes accessed ----------------------------------
+  for (i in seq_along(filenames_root)) {
+    # Delete existing files
+    file_remove(filepaths_zip[i])
+    file_remove(filepaths_txt[i])
+    file_remove(filepaths_clean[i])
+    file_remove(filepaths_accessed[i])
+    # Download new files
+    try(
+      {
+        download_generic(
+          filename_roots = c(filenames_root[i]),
+          filename_accessed_datetime = filepaths_accessed[i],
+          download_directory = download_directory
+        )
+        header_string <- readr::read_lines(filepaths_txt[i], n_max = 1)
+        write(header_string, file = filepaths_clean[i], append = FALSE)
+        clean_string <- clean_raw_text_file(filepaths_txt[i])
+        write(clean_string, file = filepaths_clean[i], append = TRUE)
+      }
+    )
+  }
+  errors <- lapply(files, function(x) {
+    if (!file.exists(x)) {
+      paste("\n\tMissing file:", x)
+    }
+  }) %>%
+    unlist()
+  if (!is.null(errors)) {
+    stop(paste(errors, collapse = "\n"))
+  }
+}
+
+#' Path to Clean Text File
+#'
+#' @param filenames_root A vector of filenames (without extensions) For
+#' example, for 510(k)s:
+#' \code{c("pmn7680", "pmn8185", "pmn8690", "pmn9195", "pmn96cur")}.
+#' @param download_directory Defaults to \code{data/}.
+#'
+#' @return A clean text file path, such as \code{data/pmn7680_clean.txt}
+#' @export
+#'
+path_clean <- function(filenames_root, download_directory = "data/") {
+  paste0(
+    download_directory, filenames_root, "_clean.txt"
+  )
+}
+
+#' Path to Text File that documents Datetime Accessed
+#'
+#' @param filenames_root A vector of filenames (without extensions) For
+#' example, for 510(k)s:
+#' \code{c("pmn7680", "pmn8185", "pmn8690", "pmn9195", "pmn96cur")}.
+#' @param download_directory Defaults to \code{data/}.
+#'
+#' @return A file path to when the data was downloaded, such as
+#' \code{data/pmn7680_accessed.txt}
+#' @export
+#'
+path_accessed <- function(filenames_root, download_directory = "data/") {
+  paste0(
+    download_directory, filenames_root, "_accessed.txt"
+  )
+}
+
+#' Path to Zip File
+#'
+#' @param filenames_root A vector of filenames (without extensions) For
+#' example, for 510(k)s:
+#' \code{c("pmn7680", "pmn8185", "pmn8690", "pmn9195", "pmn96cur")}.
+#' @param download_directory Defaults to \code{data/}.
+#'
+#' @return A zip file path, such as \code{data/pmn7680_clean.zip}
+#' @export
+#'
+path_zip <- function(filenames_root, download_directory = "data/") {
+  paste0(
+    download_directory, filenames_root, ".zip"
+  )
+}
+
+#' Path to Raw Text File
+#'
+#' @param filenames_root A vector of filenames (without extensions) For
+#' example, for 510(k)s:
+#' \code{c("pmn7680", "pmn8185", "pmn8690", "pmn9195", "pmn96cur")}.
+#' @param download_directory Defaults to \code{data/}.
+#'
+#' @return A raw text file path, such as \code{data/pmn7680_raw.txt}
+#' @export
+#'
+path_raw <- function(filenames_root, download_directory = "data/") {
+  paste0(
+    download_directory, filenames_root, ".txt"
+  )
+}
