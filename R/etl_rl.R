@@ -147,7 +147,7 @@ etl_rl <- function(refresh_data = FALSE,
   # Read the files -------------------------------------------------------------
   estabtypes <-
     readr::read_delim(
-      file = paste0(download_directory, "clean_estabtypes.txt"),
+      file = path_clean("estabtypes", download_directory),
       delim = "|",
       col_names =
         c(
