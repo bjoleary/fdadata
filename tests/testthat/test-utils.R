@@ -175,3 +175,20 @@ test_that("determining filenames and paths works", {
     expected = filenames_accessed
   )
 })
+
+test_that("fy calculation works (())", {
+  result_table <-
+  tibble::tribble(
+    ~date, ~fy_expected,
+    "2020-10-01", 2021,
+    "2020-09-30", 2020,
+    "2020-01-01", 2020,
+    "2022-05-07", 2022,
+    "1998-08-25", 1998,
+    "1982-10-01", 1983
+  ) %>%
+    dplyr::mutate(
+      fy_calculated = fy(lubridate::ymd(.data$date))
+    )
+  expect_equal(result_table$fy_expected, result_table$fy_calculated)
+})
