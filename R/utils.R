@@ -5,6 +5,7 @@
 #' @param panel_code A two letter panel code
 #'
 #' @return The full, human-readable panel as a factor
+#' @export
 #'
 expand_panels <- function(panel_code) {
   dplyr::case_when(
@@ -330,5 +331,21 @@ path_zip <- function(filenames_root, download_directory = "data/") {
 path_raw <- function(filenames_root, download_directory = "data/") {
   paste0(
     download_directory, filenames_root, ".txt"
+  )
+}
+
+#' Calculate Fiscal Year
+#'
+#' @param date A date
+#'
+#' @return The fiscal year
+#' @export
+#'
+#' @examples
+#' fy(lubridate::mdy("10/01/2020"))
+fy <- function(date) {
+  dplyr::case_when(
+    lubridate::month(date) <= 9 ~ lubridate::year(date),
+    TRUE ~ lubridate::year(date) + 1
   )
 }
