@@ -56,6 +56,11 @@ test_that("review links are correct", {
       nct = readr::col_skip()
     )
   ) %>%
+    # Some of the earlier submission test cases are from before reviews were
+    # posted online.
+    dplyr::filter(
+      !is.na(.data$review_link_verified)
+    ) %>%
     # Calculate expected values
     dplyr::mutate(
       review_link = public_link_review(.data$submission_number)

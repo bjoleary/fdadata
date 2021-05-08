@@ -63,6 +63,12 @@ check_big_companies <- function(string) {
           "baxter"
         ) %>%
         prep_regex(),
+      "diasorin" =
+        c(
+          "diasorin",
+          "luminex"
+        ) %>%
+        prep_regex(),
       "fresenius" =
         c(
           "app pharmaceuticals",
@@ -669,7 +675,8 @@ check_big_companies <- function(string) {
         prep_regex(),
       "roche" =
         c(
-          "roche"
+          "roche",
+          "genmark"
         ) %>%
         prep_regex(),
       "apple" =

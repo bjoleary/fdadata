@@ -151,7 +151,7 @@ year_folder <- function(submission_number) {
   # Okay. Now we have all the pieces, and we can put them together:
   dplyr::case_when(
     # Folders started in 2002, so nothing fancy needed before then:
-    year <= 2001 ~ "",
+    year <= 2001 ~ "pdf/",
     # 2002 and up:
     year >= 2002 ~
       paste0(
