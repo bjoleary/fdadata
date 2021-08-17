@@ -47,7 +47,12 @@ download_generic <- function(filename_roots, filename_accessed_datetime,
     message(paste("Unzipping ", zipname, "...", sep = ""))
     utils::unzip(zipname,
       overwrite = TRUE,
-      exdir = download_directory
+      exdir =
+        stringr::str_remove(
+          string = download_directory,
+          # Remove trailing slashes
+          pattern = stringr::regex("\\/$")
+        )
     )
     file_remove(zipname)
   })
