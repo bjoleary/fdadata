@@ -1,6 +1,6 @@
 Package: fdadata
 Title: Access US FDA Data
-Version: 0.0.0.9005
+Version: 0.0.0.9006
 Authors@R: 
     person(given = "Brendan",
            family = "O'Leary",
@@ -13,7 +13,8 @@ License: file LICENSE
 Suggests: 
     testthat
 Encoding: UTF-8
-LazyData: false
+LazyData: true
+LazyDataCompression: xz
 Imports:
     magrittr,
     rlang,
@@ -27,3 +28,5 @@ Imports:
     forcats
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)

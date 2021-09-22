@@ -6,3 +6,4 @@ scratchpad.R
 ^README\.Rmd$
 ^cran-comments\.md$
 ^\.github$
+^data-raw$
