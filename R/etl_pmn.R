@@ -68,7 +68,8 @@ etl_pmn <- function(refresh_data = FALSE,
       readr::read_delim(
         file = path_clean(filename_root, download_directory),
         delim = "|",
-        col_types = col_types
+        col_types = col_types,
+        locale = readr::locale(encoding = "Latin1")
       )
     }
   ) %>%
