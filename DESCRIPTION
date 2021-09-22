@@ -13,7 +13,8 @@ License: file LICENSE
 Suggests: 
     testthat
 Encoding: UTF-8
-LazyData: false
+LazyData: true
+LazyDataCompression: xz
 Imports:
     magrittr,
     rlang,

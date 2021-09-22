@@ -4,7 +4,7 @@ devtools::load_all()
 
 pmn <- etl_pmn(refresh_data = TRUE, download_directory = "data-raw/")
 
-usethis::use_data(pmn, overwrite = TRUE)
+usethis::use_data(pmn, overwrite = TRUE, compress = "xz")
 
 # Document the dataset ---------------------------------------------------------
 
