@@ -14,7 +14,7 @@ expand_panels <- function(panel_code) {
     panel_code == "CH" ~ "Clinical Chemistry",
     panel_code == "DE" ~ "Dental",
     panel_code == "EN" ~ "Ear, Nose, & Throat",
-    panel_code == "GU" ~ "Gastroenterology & ",
+    panel_code == "GU" ~ "Gastroenterology & Urology",
     panel_code == "HO" ~ "General Hospital",
     panel_code == "HE" ~ "Hematology",
     panel_code == "IM" ~ "Immunology",
