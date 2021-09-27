@@ -4,7 +4,7 @@
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
 #' @param download_directory Defaults to \code{data/}.
 #' @return PMA data as a tibble
-#' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
+#' @source Data is downloaded from \url{https://go.usa.gov/xMQET}.
 #' @export
 etl_pma <- function(refresh_data = FALSE,
                     download_directory = "data/") {
@@ -37,8 +37,8 @@ etl_pma <- function(refresh_data = FALSE,
     CITY = readr::col_character(),
     STATE = readr::col_character(),
     ZIP = readr::col_character(),
-    ZIP_EXT = readr::col_skip(),
-    GENERICNAME = readr::col_skip(),
+    ZIP_EXT = readr::col_character(),
+    GENERICNAME = readr::col_character(),
     TRADENAME = readr::col_character(),
     PRODUCTCODE = readr::col_character(),
     ADVISORYCOMMITTEE = readr::col_character(),
@@ -84,16 +84,64 @@ etl_pma <- function(refresh_data = FALSE,
       product_code = .data$PRODUCTCODE,
       track = .data$SUPPLEMENTTYPE,
       reason = .data$SUPPLEMENTREASON,
-      device = .data$TRADENAME
+      device = .data$TRADENAME,
+      dplyr::everything()
     ) %>%
     # Clean up the fields
     dplyr::mutate(
       type = "PMA",
       track = forcats::as_factor(.data$track),
+      panel_code = .data$panel,
       panel = expand_panels(.data$panel),
+      zip_code =
+        dplyr::case_when(
+          is.na(.data$ZIP_EXT) ~ .data$zip_code,
+          TRUE ~ paste(.data$zip_code, .data$ZIP_EXT, sep = "-")
+        ),
+      # Clean up expedited column
+      expedited =
+        dplyr::case_when(
+          .data$REVIEWGRANTEDYN == "Y" ~ "Expedited",
+          .data$REVIEWGRANTEDYN == "N" ~ "Not Expedited",
+          TRUE ~ NA_character_
+        ) %>%
+        forcats::as_factor(),
       # Determine the decision
       decision = decode_decision(.data$decision_code),
-      decision_category = categorize_decision(.data$decision_code)
+      decision_category = categorize_decision(.data$decision_code),
+      country =
+        dplyr::case_when(
+          .data$state %in% us_states() ~ "USA",
+          TRUE ~ NA_character_
+        )
     ) %>%
-    dplyr::arrange(.data$date_start, .data$submission_number)
+    dplyr::arrange(.data$date_start, .data$submission_number) %>%
+    dplyr::select(
+      .data$submission_number,
+      .data$sponsor,
+      .data$address_line_1,
+      .data$address_line_2,
+      .data$city,
+      .data$state,
+      .data$country,
+      .data$zip_code,
+      .data$date_start,
+      .data$date_decision,
+      date_federal_register = .data$FEDREGNOTICEDATE,
+      .data$decision_code,
+      .data$panel_code,
+      .data$product_code,
+      generic_name = .data$GENERICNAME,
+      .data$track,
+      .data$reason,
+      .data$expedited,
+      .data$device,
+      .data$type,
+      .data$panel,
+      .data$decision,
+      .data$decision_category,
+      docket_number = .data$DOCKETNUMBER,
+      approval_order_statement = .data$AOSTATEMENT
+    )
 }
+
