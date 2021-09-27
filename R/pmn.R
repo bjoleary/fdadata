@@ -27,7 +27,7 @@
 #' \item{track}{fct Traditional, Traditional, Traditional, Traditio…}
 #' \item{third_party_review}{chr "N", "N", "N", "N", "N", "N", "N", "N", "N",
 #' "N…}
-#' \item{expedited}{fct NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…}
+#' \item{expedited}{fct Not Expedited, Not Expedited, Not Expedited, No…}
 #' \item{device}{chr "ARCH SUPPORT (ARCH AID)", "KNEE AID", "CAST MA…}
 #' \item{type}{fct 510(k), 510(k), 510(k), 510(k), 510(k), 510(k),…}
 #' \item{panel}{fct "Physical Medicine", "Physical Medicine", "Phys…}
