@@ -105,7 +105,14 @@ etl_pma <- function(refresh_data = FALSE,
           .data$REVIEWGRANTEDYN == "N" ~ "Not Expedited",
           TRUE ~ NA_character_
         ) %>%
-        forcats::as_factor(),
+        forcats::as_factor() %>%
+        forcats::fct_expand(
+          f= .,
+          c(
+            "Expedited",
+            "Not Expedited"
+          )
+        ),
       # Determine the decision
       decision = decode_decision(.data$decision_code),
       decision_category = categorize_decision(.data$decision_code),
