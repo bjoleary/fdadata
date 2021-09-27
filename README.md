@@ -27,9 +27,38 @@ Install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("bjoleary/fdadata")
 ```
 
-<!-- ## Example -->
-<!-- This is a basic example which shows you how to solve a common problem: -->
-<!-- ```{r example} -->
-<!-- library(fdadata) -->
-<!-- ## basic example code -->
-<!-- ``` -->
+## Example
+
+Access FDA premarket data:
+
+``` r
+library(fdadata)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+fdadata::premarket %>% 
+  dplyr::sample_n(5) %>% 
+  print()
+#> # A tibble: 5 × 30
+#>   submission_number sponsor  company_clean  company_group contact address_line_1
+#>   <chr>             <chr>    <chr>          <chr>         <chr>   <chr>         
+#> 1 P080025/S143      MEDTRON… MEDTRONIC NEU… MEDTRONIC     <NA>    7000 CENTRAL …
+#> 2 N970003/S244      Boston … BOSTON SCIENT… BOSTON SCIEN… <NA>    4100 HAMLINE …
+#> 3 K990399           ROCHE D… ROCHE DIAGNOS… ROCHE         JENNIF… 9115 HAGUE RD.
+#> 4 K865003           A-BEC M… A-BEC MOBILITY A-BEC MOBILI… KEITH … 20460 GRAMERC…
+#> 5 K951709           MARDX D… MARDX DIAGNOS… MARDX DIAGNO… ARTHUR… 5919 FARNSWOR…
+#> # … with 24 more variables: address_line_2 <chr>, city <chr>, state <chr>,
+#> #   country <chr>, zip_code <chr>, date_start <date>, date_decision <date>,
+#> #   decision_code <chr>, panel_code <chr>, product_code <chr>, summary <fct>,
+#> #   track <fct>, third_party_review <chr>, expedited <fct>, device <chr>,
+#> #   type <chr>, panel <fct>, decision <fct>, decision_category <fct>,
+#> #   date_federal_register <date>, generic_name <chr>, reason <chr>,
+#> #   docket_number <chr>, approval_order_statement <chr>
+```
