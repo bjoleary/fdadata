@@ -110,10 +110,18 @@ etl_pmn <- function(refresh_data = FALSE,
       expedited =
         dplyr::case_when(
           .data$expedited == "Y" ~ "Expedited",
+          .data$expedited == "N" ~ "Not Expedited",
           !is.na(.data$expedited) ~ .data$expedited,
           TRUE ~ NA_character_
         ) %>%
-        forcats::as_factor(),
+        forcats::as_factor() %>%
+        forcats::fct_expand(
+          f= .,
+          c(
+            "Expedited",
+            "Not Expedited"
+          )
+        ),
       # Replace panel codes with names
       panel = expand_panels(.data$panel_code),
       # Add Third Party to the Track

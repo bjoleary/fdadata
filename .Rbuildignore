@@ -7,3 +7,4 @@ scratchpad.R
 ^cran-comments\.md$
 ^\.github$
 ^data-raw$
+^Makefile$

@@ -14,7 +14,7 @@ expand_panels <- function(panel_code) {
     panel_code == "CH" ~ "Clinical Chemistry",
     panel_code == "DE" ~ "Dental",
     panel_code == "EN" ~ "Ear, Nose, & Throat",
-    panel_code == "GU" ~ "Gastroenterology & ",
+    panel_code == "GU" ~ "Gastroenterology & Urology",
     panel_code == "HO" ~ "General Hospital",
     panel_code == "HE" ~ "Hematology",
     panel_code == "IM" ~ "Immunology",
@@ -347,5 +347,22 @@ fy <- function(date) {
   dplyr::case_when(
     lubridate::month(date) <= 9 ~ lubridate::year(date),
     TRUE ~ lubridate::year(date) + 1
+  )
+}
+
+#' US States
+#'
+#' Provide a list of US state abbreivations.
+#'
+#' @return A vector of US state abbreviations
+#'
+us_states <- function() {
+  c(
+    "AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC",
+    "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY",
+    "LA", "ME", "MD", "MH", "MA", "MI", "FM", "MN", "MS", "MO",
+    "MT", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH",
+    "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX",
+    "UT", "VT", "VA", "VI", "WA", "WV", "WI", "WY"
   )
 }
