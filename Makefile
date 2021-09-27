@@ -6,7 +6,7 @@ update := data-raw/update.txt
 all: $(update) data document install
 
 # Make all data
-data: data/pmn.rda data/pma.rda R/pmn.R R/pma.R $(update)
+data: data/pmn.rda data/pma.rda R/pmn.R R/pma.R data/premarket.rda R/premarket.R $(update)
 	$(info ** Updated Datasets **)
 
 # Force data update 
@@ -21,6 +21,10 @@ data/pmn.rda R/pmn.R: data-raw/pmn.R $(update)
 
 data/pma.rda R/pma.R: data-raw/pma.R $(update)
 	$(info ** Updating pma Dataset **)
+	R $(r_opts) "source('$<')"
+
+data/premarket.rda R/premarket.R: data-raw/premarket.R data/pma.rda data/pmn.rda $(update)
+	$(info ** Updating premarket Dataset **)
 	R $(r_opts) "source('$<')"
 
 # Make all documentation
