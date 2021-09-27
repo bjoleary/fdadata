@@ -349,3 +349,20 @@ fy <- function(date) {
     TRUE ~ lubridate::year(date) + 1
   )
 }
+
+#' US States
+#'
+#' Provide a list of US state abbreivations.
+#'
+#' @return A vector of US state abbreviations
+#'
+us_states <- function() {
+  c(
+    "AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC",
+    "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY",
+    "LA", "ME", "MD", "MH", "MA", "MI", "FM", "MN", "MS", "MO",
+    "MT", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH",
+    "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX",
+    "UT", "VT", "VA", "VI", "WA", "WV", "WI", "WY"
+  )
+}
