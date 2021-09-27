@@ -36,7 +36,6 @@
 #' Equival…}
 #' }
 #'
-#' @source
-#' [fda.gov](https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files)
+#' @source [FDA 510(k) Download Files](https://go.usa.gov/xEKmh)
 #' accessed 2021-09-22.
 "pmn"

@@ -64,11 +64,7 @@ documentation_text <-
       unlist() ,
     "}",
     "",
-    "@source ",
-    paste0(
-      "[fda.gov](https://www.fda.gov/medical-devices/510k-clearances/",
-      "downloadable-510k-files)"
-    ),
+    "@source [FDA 510(k) Download Files](https://go.usa.gov/xEKmh)",
     paste0("accessed ", lubridate::today(), ".")
   ) %>%
   paste0("#' ", .) %>%
