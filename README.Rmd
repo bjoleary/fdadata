@@ -36,12 +36,15 @@ Install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("bjoleary/fdadata")
 ```
-<!-- ## Example -->
+## Example
 
-<!-- This is a basic example which shows you how to solve a common problem: -->
+Access FDA premarket data:
 
-<!-- ```{r example} -->
-<!-- library(fdadata) -->
-<!-- ## basic example code -->
-<!-- ``` -->
+```{r example}
+library(fdadata)
+library(dplyr)
 
+fdadata::premarket %>% 
+  dplyr::sample_n(5) %>% 
+  print()
+```
