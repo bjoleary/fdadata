@@ -176,7 +176,7 @@ test_that("determining filenames and paths works", {
   )
 })
 
-test_that("fy calculation works (())", {
+test_that("fy calculation works", {
   result_table <-
   tibble::tribble(
     ~date, ~fy_expected,
@@ -191,4 +191,19 @@ test_that("fy calculation works (())", {
       fy_calculated = fy(lubridate::ymd(.data$date))
     )
   expect_equal(result_table$fy_expected, result_table$fy_calculated)
+})
+
+test_that("us_states works", {
+  expect_equal(
+    "ZZ" %in% us_states(),
+    FALSE
+  )
+  expect_equal(
+    "MD" %in% us_states(),
+    TRUE
+  )
+  expect_equal(
+    length(us_states()),
+    58L # Including US Territories
+  )
 })
