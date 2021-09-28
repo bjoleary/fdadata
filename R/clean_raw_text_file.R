@@ -8,6 +8,8 @@ clean_raw_text_file <- function(filepath) {
   message("Cleaning string from ", filepath, sep = "")
   cleaner_string <- readLines(filepath, skipNul = TRUE, encoding = "Latin-1")
   cleaner_string <- gsub("\"", "", cleaner_string[-1])
+  # Remove null character
+  cleaner_string <- gsub("\\0", "", cleaner_string[-1])
   # Remove carriage return, keep line feed
   cleaner_string <-
     stringr::str_remove_all(
