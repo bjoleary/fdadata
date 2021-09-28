@@ -61,7 +61,8 @@ etl_pma <- function(refresh_data = FALSE,
           download_directory = download_directory
         ),
       delim = "|",
-      col_types = col_types
+      col_types = col_types,
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     # Rename the fields
     dplyr::mutate(Submission_Number = dplyr::case_when(

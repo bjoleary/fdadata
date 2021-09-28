@@ -62,7 +62,8 @@ etl_rl <- function(refresh_data = FALSE,
     # Additional cleaning for some files ---------------------------------------
     # Contact addresses
     readr::read_lines(
-      file = path_clean("contact_addresses", download_directory)
+      file = path_clean("contact_addresses", download_directory),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
       stringr::str_replace(
         string = .,
@@ -82,7 +83,8 @@ etl_rl <- function(refresh_data = FALSE,
     # Registration
     # Line 4477 has extra pipe characters as of 2020-12-19
     readr::read_lines(
-      file = path_clean("Registration", download_directory)
+      file = path_clean("Registration", download_directory),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
       stringr::str_replace(
         string = .,
@@ -125,7 +127,8 @@ etl_rl <- function(refresh_data = FALSE,
 
     # Non_Reg_Imp_ID_by_Manu
     readr::read_lines(
-      file = path_clean("Non_Reg_Imp_ID_by_Manu", download_directory)
+      file = path_clean("Non_Reg_Imp_ID_by_Manu", download_directory),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
       # Line 6978 has extra pipe characters as of 2020-12-19
       stringr::str_replace(
@@ -160,7 +163,8 @@ etl_rl <- function(refresh_data = FALSE,
           establishment_type_id = readr::col_character(),
           establishment_activity = readr::col_character(),
           establishment_type = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -179,7 +183,8 @@ etl_rl <- function(refresh_data = FALSE,
           STATE_PROVINCE = readr::col_character(),
           ISO_COUNTRY_CODE = readr::col_character(),
           POSTAL_CODE = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -192,7 +197,8 @@ etl_rl <- function(refresh_data = FALSE,
           REG_KEY = readr::col_character(),
           REGISTRATION_LISTING_ID = readr::col_character(),
           ESTABLISHMENT_TYPE_ID  = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup() %>%
     dplyr::left_join(
@@ -213,9 +219,17 @@ etl_rl <- function(refresh_data = FALSE,
           CREATED_DATE = readr::col_character(),
           OWNER_OPERATOR_NUMBER = readr::col_character(),
           EXEMPT = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
-    rl_cleanup()
+    rl_cleanup() %>%
+    dplyr::rename(
+      product_code_created_date = .data$created_date
+    ) %>%
+    dplyr::mutate(
+      product_code_created_date =
+        lubridate::dmy(.data$product_code_created_date)
+    )
 
   listing_proprietary_name <-
     readr::read_delim(
@@ -226,9 +240,18 @@ etl_rl <- function(refresh_data = FALSE,
           LISTING_PROP_NAME_ID = readr::col_character(),
           key_val = readr::col_character(),
           PROPRIETARY_NAME = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
-    rl_cleanup()
+    rl_cleanup() %>%
+    # Why on earth is there a trailing .0 on every key val?
+    dplyr::mutate(
+      key_val =
+        stringr::str_remove(
+          string = .data$key_val,
+          pattern = stringr::regex("\\.0$")
+        )
+    )
 
   official_correspondent <-
     readr::read_delim(
@@ -243,7 +266,8 @@ etl_rl <- function(refresh_data = FALSE,
           LAST_NAME = readr::col_character(),
           SUBACCOUNT_COMPANY_NAME = readr::col_character(),
           PHONE_NUMBER = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -257,7 +281,8 @@ etl_rl <- function(refresh_data = FALSE,
           CONTACT_ID = readr::col_character(),
           FIRM_NAME = readr::col_character(),
           OWNER_OPERATOR_NUMBER = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -282,7 +307,8 @@ etl_rl <- function(refresh_data = FALSE,
           ISO_COUNTRY_CODE = readr::col_character(),
           ZIP_CODE = readr::col_character(),
           POSTAL_CODE = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup() %>%
     dplyr::mutate(
@@ -320,7 +346,8 @@ etl_rl <- function(refresh_data = FALSE,
           REG_KEY = readr::col_character(),
           KEY_VAL = readr::col_character(),
           PREMARKET_SUBMISSION_NUMBER = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -339,7 +366,8 @@ etl_rl <- function(refresh_data = FALSE,
           FAX_AREA_CODE = readr::col_character(),
           FAX_NUM = readr::col_character(),
           EMAIL_ADDRESS = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -371,7 +399,8 @@ etl_rl <- function(refresh_data = FALSE,
   #         POSTAL_CODE = readr::col_character(),
   #         BUS_PHONE_COUNTRY_CODE = readr::col_character(),
   #         FAX_COUNTRY_CODE = readr::col_character()
-  #       )
+  #       ),
+  #       locale = readr::locale(encoding = "Latin1")
   #   ) %>%
   # rl_cleanup()
 
@@ -385,7 +414,8 @@ etl_rl <- function(refresh_data = FALSE,
           REG_KEY = readr::col_character(),
           MANUFACTURER_REG_KEY = readr::col_character(),
           KEY_VAL = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -398,7 +428,8 @@ etl_rl <- function(refresh_data = FALSE,
           KEY_VAL = readr::col_character(),
           IMPORTER_REG_KEY = readr::col_character(),
           ESTABLISHMENT_REG_KEY = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
