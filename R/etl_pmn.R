@@ -117,7 +117,7 @@ etl_pmn <- function(refresh_data = FALSE,
         ) %>%
         forcats::as_factor() %>%
         forcats::fct_expand(
-          f= .,
+          f = .,
           c(
             "Expedited",
             "Not Expedited"

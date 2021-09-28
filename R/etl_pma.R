@@ -107,7 +107,7 @@ etl_pma <- function(refresh_data = FALSE,
         ) %>%
         forcats::as_factor() %>%
         forcats::fct_expand(
-          f= .,
+          f = .,
           c(
             "Expedited",
             "Not Expedited"
@@ -151,4 +151,3 @@ etl_pma <- function(refresh_data = FALSE,
       approval_order_statement = .data$AOSTATEMENT
     )
 }
-
