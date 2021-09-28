@@ -83,5 +83,3 @@ documentation_text <-
     file = "R/pma.R",
     append = FALSE
   )
-
-devtools::document()

@@ -1,13 +1,12 @@
 ## code to prepare `premarket` dataset goes here
 library(magrittr)
 library(dplyr)
-library(rlang)
 devtools::load_all()
 
 premarket <-
   dplyr::bind_rows(
-    pmn,
-    pma
+    fdadata::pmn,
+    fdadata::pma
   ) %>%
   dplyr::arrange(.data$date_decision, .data$date_start) %>%
   dplyr::mutate(
@@ -161,5 +160,3 @@ documentation_text <-
     file = "R/premarket.R",
     append = FALSE
   )
-
-devtools::document()

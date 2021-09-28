@@ -1,6 +1,7 @@
 ## code to prepare `reglist` dataset goes here
 
 library(magrittr)
+library(dplyr)
 devtools::load_all()
 
 rl_list <- etl_rl(refresh_data = TRUE, download_directory = "data-raw/")
@@ -164,5 +165,3 @@ documentation_text <-
     file = "R/reglist.R",
     append = FALSE
   )
-
-devtools::document()
