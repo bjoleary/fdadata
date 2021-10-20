@@ -84,4 +84,3 @@ documentation_text <-
     append = FALSE
   )
 
-devtools::document()

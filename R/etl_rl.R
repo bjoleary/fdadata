@@ -48,7 +48,8 @@ etl_rl <- function(refresh_data = FALSE,
       "registration_listing",
       "us_agent",
       "estabtypes",
-      "Non_Reg_Imp_ID_by_Manu",
+      # Non_Reg_Imp_ID_by_Manu is, I think, the reverse of Reg_Imp_ID_by_Manu,
+      # but I am not sure.
       "Manu_ID_by_Imp",
       "Reg_Imp_ID_by_Manu"
     )
@@ -62,16 +63,28 @@ etl_rl <- function(refresh_data = FALSE,
     # Additional cleaning for some files ---------------------------------------
     # Contact addresses
     readr::read_lines(
-      file = path_clean("contact_addresses", download_directory)
+      file = path_clean("contact_addresses", download_directory),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
+      # Line 36617 has the same problematic Obour City address as registration
+      # below
       stringr::str_replace(
         string = .,
         pattern =
           stringr::fixed(
-            pattern = "Obour|EG-C|Al Qahirah",
+            pattern =
+              paste0(
+                "80773566|69357559|First Industrial zone| Block 13023 | ",
+                "Building 8 Obour city | Cairo - Egypt  ZIP code :   11828 | ",
+                "P.O.Box : 29||Obour|EG-C|Al Qahirah|EG|11828"
+              ),
             ignore_case = TRUE
           ),
-        replacement = "Obour EG-C Al Qahirah"
+        replacement =
+          paste0(
+            "80773566|69357559|First Industrial zone Block 13023|",
+            "Building 8 P.O. Box: 29|Obour|EG-C|Al Qahirah|EG|11828"
+          )
       ) %>%
       readr::write_lines(
         x = .,
@@ -82,7 +95,8 @@ etl_rl <- function(refresh_data = FALSE,
     # Registration
     # Line 4477 has extra pipe characters as of 2020-12-19
     readr::read_lines(
-      file = path_clean("Registration", download_directory)
+      file = path_clean("Registration", download_directory),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
       stringr::str_replace(
         string = .,
@@ -93,19 +107,27 @@ etl_rl <- function(refresh_data = FALSE,
           ),
         replacement = "Suite 100 ||Houston|TX|US|"
       ) %>%
-      # Line 17055 has extra pipe characters as of 2020-12-19
+      # Line 44310 has extra pipe characters as of 2021-10-20
       stringr::str_replace(
         string = .,
         pattern =
           stringr::fixed(
             pattern =
               paste0(
-                "| Block 13023 | Building 8 Obour city | ",
-                "Cairo - Egypt  ZIP code :   11828 | P.O.Box : 29|"
+                "282130|3017840042|3017840042|1|N|2021|F|TAISIER MED S.A.E|",
+                "First Industrial zone| Block 13023 | Building 8 Obour city ",
+                "| Cairo - Egypt  ZIP code :   11828 | P.O.Box : 29||",
+                "Obour Al Qahirah||EG||11828"
               ),
             ignore_case = TRUE
           ),
-        replacement = " Block 13023 Building 8 Obour city P.O.Box : 29|"
+        replacement =
+          paste0(
+            "282130|3017840042|3017840042|1|N|2021|F|TAISIER MED S.A.E|",
+            "First Industrial zone Block 13023|",
+            "Building 8 P.O.Box : 29|",
+            "Obour Al Qahirah||EG||11828"
+          )
       ) %>%
       # Line 41953 has extra pipe characters as of 2020-12-19
       stringr::str_replace(
@@ -123,23 +145,31 @@ etl_rl <- function(refresh_data = FALSE,
         append = FALSE
       )
 
-    # Non_Reg_Imp_ID_by_Manu
+    # us_agent
     readr::read_lines(
-      file = path_clean("Non_Reg_Imp_ID_by_Manu", download_directory)
+      file = path_clean("us_agent", download_directory),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
-      # Line 6978 has extra pipe characters as of 2020-12-19
+      # Line 4374 has an extra pipe
       stringr::str_replace(
         string = .,
         pattern =
           stringr::fixed(
-            pattern = "| Tamarac, FL 33321||Fort Lauderdale |FL|33321|",
-            ignore_case = TRUE
+            paste0(
+              "291580|Jennifer Hughes|Altenloh. Brinck & Co. US Inc. | ",
+              "Life Sciences & Medical|616|8135171||||",
+              "jennifer.hughes@sabeu.com"
+            )
           ),
-        replacement = "FL|33321|"
+        replacement =
+          paste0(
+            "291580|Jennifer Hughes|Altenloh. Brinck & Co. US Inc. ",
+            "Life Sciences & Medical|616|8135171||||jennifer.hughes@sabeu.com"
+          )
       ) %>%
       readr::write_lines(
         x = .,
-        file = path_clean("Non_Reg_Imp_ID_by_Manu", download_directory),
+        file = path_clean("us_agent", download_directory),
         append = FALSE
       )
   }
@@ -160,7 +190,8 @@ etl_rl <- function(refresh_data = FALSE,
           establishment_type_id = readr::col_character(),
           establishment_activity = readr::col_character(),
           establishment_type = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -179,7 +210,8 @@ etl_rl <- function(refresh_data = FALSE,
           STATE_PROVINCE = readr::col_character(),
           ISO_COUNTRY_CODE = readr::col_character(),
           POSTAL_CODE = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -192,7 +224,8 @@ etl_rl <- function(refresh_data = FALSE,
           REG_KEY = readr::col_character(),
           REGISTRATION_LISTING_ID = readr::col_character(),
           ESTABLISHMENT_TYPE_ID  = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup() %>%
     dplyr::left_join(
@@ -213,9 +246,17 @@ etl_rl <- function(refresh_data = FALSE,
           CREATED_DATE = readr::col_character(),
           OWNER_OPERATOR_NUMBER = readr::col_character(),
           EXEMPT = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
-    rl_cleanup()
+    rl_cleanup() %>%
+    dplyr::rename(
+      product_code_created_date = .data$created_date
+    ) %>%
+    dplyr::mutate(
+      product_code_created_date =
+        lubridate::mdy(.data$product_code_created_date)
+    )
 
   listing_proprietary_name <-
     readr::read_delim(
@@ -226,9 +267,18 @@ etl_rl <- function(refresh_data = FALSE,
           LISTING_PROP_NAME_ID = readr::col_character(),
           key_val = readr::col_character(),
           PROPRIETARY_NAME = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
-    rl_cleanup()
+    rl_cleanup() %>%
+    # Why on earth is there a trailing .0 on every key val?
+    dplyr::mutate(
+      key_val =
+        stringr::str_remove(
+          string = .data$key_val,
+          pattern = stringr::regex("\\.0$")
+        )
+    )
 
   official_correspondent <-
     readr::read_delim(
@@ -243,7 +293,8 @@ etl_rl <- function(refresh_data = FALSE,
           LAST_NAME = readr::col_character(),
           SUBACCOUNT_COMPANY_NAME = readr::col_character(),
           PHONE_NUMBER = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -257,7 +308,8 @@ etl_rl <- function(refresh_data = FALSE,
           CONTACT_ID = readr::col_character(),
           FIRM_NAME = readr::col_character(),
           OWNER_OPERATOR_NUMBER = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -282,7 +334,8 @@ etl_rl <- function(refresh_data = FALSE,
           ISO_COUNTRY_CODE = readr::col_character(),
           ZIP_CODE = readr::col_character(),
           POSTAL_CODE = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup() %>%
     dplyr::mutate(
@@ -320,7 +373,8 @@ etl_rl <- function(refresh_data = FALSE,
           REG_KEY = readr::col_character(),
           KEY_VAL = readr::col_character(),
           PREMARKET_SUBMISSION_NUMBER = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -339,41 +393,10 @@ etl_rl <- function(refresh_data = FALSE,
           FAX_AREA_CODE = readr::col_character(),
           FAX_NUM = readr::col_character(),
           EMAIL_ADDRESS = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
-
-  # non_reg_imp_id_by_manu <-
-  #   readr::read_delim(
-  #     file = paste0(download_directory, "clean_Non_Reg_Imp_ID_by_Manu.txt"),
-  #     delim = "|",
-  #     col_types =
-  #       readr::cols(
-  #         ESTABLISHMENT_REG_KEY = readr::col_character(),
-  #         KEY_VAL = readr::col_character(),
-  #         IMPORTER_ADDRESS_ID = readr::col_character(),
-  #         DUNS_NUM = readr::col_character(),
-  #         BUSINESS_NAME = readr::col_character(),
-  #         ADDRESS_LINE_1 = readr::col_character(),
-  #         ADDRESS_LINE_2 = readr::col_character(),
-  #         CITY = readr::col_character(),
-  #         STATE_ID = readr::col_character(),
-  #         ZIP_CODE = readr::col_character(),
-  #         COUNTRY_NAME = readr::col_character(),
-  #         EMAIL_ADDRESS = readr::col_character(),
-  #         BUS_PHONE_AREA_CODE = readr::col_character(),
-  #         BUS_PHONE_NUM = readr::col_character(),
-  #         BUS_PHONE_EXTN = readr::col_character(),
-  #         FAX_AREA_CODE = readr::col_character(),
-  #         FAX_NUM = readr::col_character(),
-  #         IMPORTER_TYPE = readr::col_character(),
-  #         SUBDIVISION_CODE = readr::col_character(),
-  #         POSTAL_CODE = readr::col_character(),
-  #         BUS_PHONE_COUNTRY_CODE = readr::col_character(),
-  #         FAX_COUNTRY_CODE = readr::col_character()
-  #       )
-  #   ) %>%
-  # rl_cleanup()
 
   manu_id_by_imp <-
     readr::read_delim(
@@ -385,7 +408,8 @@ etl_rl <- function(refresh_data = FALSE,
           REG_KEY = readr::col_character(),
           MANUFACTURER_REG_KEY = readr::col_character(),
           KEY_VAL = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -398,7 +422,8 @@ etl_rl <- function(refresh_data = FALSE,
           KEY_VAL = readr::col_character(),
           IMPORTER_REG_KEY = readr::col_character(),
           ESTABLISHMENT_REG_KEY = readr::col_character()
-        )
+        ),
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     rl_cleanup()
 
@@ -409,7 +434,6 @@ etl_rl <- function(refresh_data = FALSE,
     "listing_pcd" = listing_pcd,
     "listing_proprietary_name" = listing_proprietary_name,
     "manu_id_by_imp" = manu_id_by_imp,
-    # "non_reg_imp_id_by_manu" = non_reg_imp_id_by_manu,
     "official_correspondent" = official_correspondent,
     "owner_operator" = owner_operator,
     "reg_imp_id_by_manu" = reg_imp_id_by_manu,
@@ -417,4 +441,92 @@ etl_rl <- function(refresh_data = FALSE,
     "registration_listing" = registration_listing,
     "us_agent" = us_agent
   )
+}
+
+#' Join Registration and Listing
+#'
+#' @param rl_list The output of \code{etl_rl()}.
+#'
+#' @return A single, massive table joining all the subcomponents of the list output by \code{etl_rl()}.
+#' @export
+#'
+join_rl <- function(rl_list) {
+  dplyr::full_join(
+    x = rl_list$registration,
+    y = rl_list$registration_listing,
+    by = c("reg_key" = "reg_key")
+  ) %>%
+    dplyr::full_join(
+      x = .,
+      y = rl_list$owner_operator,
+      by = c("reg_key" = "reg_key")
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y = rl_list$official_correspondent,
+      by =
+        c(
+          "reg_key" = "reg_key",
+          "contact_id" = "contact_id"
+        )
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y =
+        rl_list$contact_addresses %>%
+        dplyr::rename_all(.funs = ~ paste0("contact_", .x))
+      ,
+      by = c("contact_id" = "contact_contact_id")
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y =
+        rl_list$us_agent %>%
+        dplyr::rename_all(.funs = ~ paste0("us_agent_", .x))
+      ,
+      by = c("reg_key" = "us_agent_reg_key")
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y =
+        rl_list$manu_id_by_imp %>%
+        dplyr::rename(importer_reg_key = .data$reg_key),
+      by =
+        c(
+          "reg_key" = "manufacturer_reg_key",
+          "key_val" = "key_val"
+        )
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y = rl_list$reg_imp_id_by_manu,
+      by =
+        c(
+          "importer_reg_key" = "importer_reg_key",
+          "key_val" = "key_val"
+        )
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y = rl_list$listing_proprietary_name,
+      by = c("key_val" = "key_val")
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y = rl_list$listing_pcd,
+      by =
+        c(
+          "owner_operator_number" = "owner_operator_number",
+          "key_val" = "key_val"
+        )
+    ) %>%
+    dplyr::full_join(
+      x = .,
+      y = rl_list$listing_estabtypes,
+      by =
+        c(
+          "reg_key" = "reg_key",
+          "registration_listing_id" = "registration_listing_id"
+        )
+    )
 }

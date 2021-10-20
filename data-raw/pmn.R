@@ -82,5 +82,3 @@ documentation_text <-
     file = "R/pmn.R",
     append = FALSE
   )
-
-devtools::document()

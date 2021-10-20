@@ -61,7 +61,8 @@ etl_pma <- function(refresh_data = FALSE,
           download_directory = download_directory
         ),
       delim = "|",
-      col_types = col_types
+      col_types = col_types,
+      locale = readr::locale(encoding = "Latin1")
     ) %>%
     # Rename the fields
     dplyr::mutate(Submission_Number = dplyr::case_when(
@@ -107,7 +108,7 @@ etl_pma <- function(refresh_data = FALSE,
         ) %>%
         forcats::as_factor() %>%
         forcats::fct_expand(
-          f= .,
+          f = .,
           c(
             "Expedited",
             "Not Expedited"
@@ -151,4 +152,3 @@ etl_pma <- function(refresh_data = FALSE,
       approval_order_statement = .data$AOSTATEMENT
     )
 }
-
