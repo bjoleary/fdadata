@@ -4,87 +4,7 @@ library(magrittr)
 library(dplyr)
 devtools::load_all()
 
-rl_list <- etl_rl(refresh_data = TRUE, download_directory = "data-raw/")
-
-reglist <-
-  dplyr::full_join(
-    x = rl_list$registration,
-    y = rl_list$registration_listing,
-    by = c("reg_key" = "reg_key")
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y = rl_list$owner_operator,
-    by = c("reg_key" = "reg_key")
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y = rl_list$official_correspondent,
-    by =
-      c(
-        "reg_key" = "reg_key",
-        "contact_id" = "contact_id"
-        )
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y =
-      rl_list$contact_addresses %>%
-      dplyr::rename_all(.funs = ~ paste0("contact_", .x))
-      ,
-    by = c("contact_id" = "contact_contact_id")
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y =
-      rl_list$us_agent %>%
-      dplyr::rename_all(.funs = ~ paste0("us_agent_", .x))
-    ,
-    by = c("reg_key" = "us_agent_reg_key")
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y =
-      rl_list$manu_id_by_imp %>%
-      dplyr::rename(importer_reg_key = .data$reg_key),
-    by =
-      c(
-        "reg_key" = "manufacturer_reg_key",
-        "key_val" = "key_val"
-        )
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y = rl_list$reg_imp_id_by_manu,
-    by =
-      c(
-        "importer_reg_key" = "importer_reg_key",
-        "key_val" = "key_val"
-      )
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y = rl_list$listing_proprietary_name,
-    by = c("key_val" = "key_val")
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y = rl_list$listing_pcd,
-    by =
-      c(
-        "owner_operator_number" = "owner_operator_number",
-        "key_val" = "key_val"
-      )
-  ) %>%
-  dplyr::full_join(
-    x = .,
-    y = rl_list$listing_estabtypes,
-    by =
-      c(
-        "reg_key" = "reg_key",
-        "registration_listing_id" = "registration_listing_id"
-      )
-  )
+reglist <- etl_rl(refresh_data = TRUE, download_directory = "data-raw/")
 
 usethis::use_data(reglist, overwrite = TRUE, compress = "xz")
 
@@ -98,27 +18,34 @@ documentation_text <-
     "",
     "Get the latest data using \\code{fdadata::etl_reglist()}.",
     "",
-    paste0(
-      "@format A tibble with ",
-      nrow(reglist),
-      " rows and ",
-      length(reglist),
-      " fields: "
-    ),
+    "@format A list of tibbles.",
     "",
     "\\describe{",
     dplyr::glimpse(reglist, width = 76) %>%
       utils::capture.output(type = c("output")) %>%
-      magrittr::extract(-c(1:2)) %>%
+      magrittr::extract(-c(1)) %>%
       stringr::str_replace(
         string = .,
-        pattern = "(^\\$\\s\\w*\\s*)", # the column name
+        pattern = "(^\\s{0,2}\\$\\s\\w*\\s*)", # the column name
         replacement =
           paste0(
             "  \\\\item{",
             stringr::str_extract(
               string = .,
-              pattern = "(?<=^\\$\\s)\\b\\w*\\b"
+              pattern = "(?<=^\\s{0,2}\\$\\s)\\b\\w*\\b"
+            ),
+            "}{"
+          )
+      ) %>%
+      stringr::str_replace(
+        string = .,
+        pattern = "(^\\s{0,2}\\.{2}\\$\\s\\w*\\s*)", # the column name
+        replacement =
+          paste0(
+            "  \\\\item{",
+            stringr::str_extract(
+              string = .,
+              pattern = "(?<=^\\s{0,2}\\.{2}\\$\\s)\\b\\w*\\b"
             ),
             "}{"
           )
@@ -146,7 +73,7 @@ documentation_text <-
       unlist() ,
     "}",
     "",
-    # TODO: Get go.usa.gov link for this page
+    # TODO: Find go.usa.gov link for this page
     "@source [FDA R&L Download Files]()",
     paste0("accessed ", lubridate::today(), ".")
   ) %>%
