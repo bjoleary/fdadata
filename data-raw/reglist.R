@@ -21,56 +21,18 @@ documentation_text <-
     "@format A list of tibbles.",
     "",
     "\\describe{",
-    dplyr::glimpse(reglist, width = 76) %>%
-      utils::capture.output(type = c("output")) %>%
-      magrittr::extract(-c(1)) %>%
-      stringr::str_replace(
-        string = .,
-        pattern = "(^\\s{0,2}\\$\\s\\w*\\s*)", # the column name
-        replacement =
-          paste0(
-            "  \\\\item{",
-            stringr::str_extract(
-              string = .,
-              pattern = "(?<=^\\s{0,2}\\$\\s)\\b\\w*\\b"
-            ),
-            "}{"
-          )
-      ) %>%
-      stringr::str_replace(
-        string = .,
-        pattern = "(^\\s{0,2}\\.{2}\\$\\s\\w*\\s*)", # the column name
-        replacement =
-          paste0(
-            "  \\\\item{",
-            stringr::str_extract(
-              string = .,
-              pattern = "(?<=^\\s{0,2}\\.{2}\\$\\s)\\b\\w*\\b"
-            ),
-            "}{"
-          )
-      ) %>%
-      paste0(., "}") %>%
-      # Square brackets are a link in Roxygen. Replace:
-      stringr::str_remove_all(
-        string = .,
-        pattern = "\\[|\\]|\\<|\\>"
-      ) %>%
-      # Remove formatting strings
-      stringr::str_remove_all(
-        string = .,
-        pattern = stringr::fixed("\0333m\03338;5;246m")
-      ) %>%
-      stringr::str_remove_all(
-        string = .,
-        pattern = stringr::fixed("\03339m\03323m")
-      ) %>%
-      stringr::str_wrap(
-        string = .,
-        width = 76
-      ) %>%
-      stringr::str_split(pattern = "\\n") %>%
-      unlist() ,
+    "\\item{contact_addresses}{A table of contact addresses.}",
+    "\\item{estabtypes}{Mapping establishments to establishment types.}",
+    "\\item{listing_estabtypes}{Mapping listing facilities to estabtypes.}",
+    "\\item{listing_pcd}{Mapping listings to product codes.}",
+    "\\item{listing_proprietary_name}{Mapping listings to device names.}",
+    "\\item{man_id_by_imp}{Mapping manufacturers to importers.}",
+    "\\item{official_correspondent}{Official Correspondent information.}",
+    "\\item{owner_operator}{Owner operator information.}",
+    "\\item{reg_imp_id_by_manu}{Mapping establishments to importers.}",
+    "\\item{registration}{Registration information.}",
+    "\\item{registration_listing}{Listing information.}",
+    "\\item{us_agent}{US Agent information. }",
     "}",
     "",
     # TODO: Find go.usa.gov link for this page
