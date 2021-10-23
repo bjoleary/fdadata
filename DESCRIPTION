@@ -1,6 +1,6 @@
 Package: fdadata
 Title: Access US FDA Data
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: 
     person(given = "Brendan",
            family = "O'Leary",
@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0001-8753-917X"))
 Description: Allows the user to access and explore US FDA data on medical 
     devices. 
-License: file LICENSE
+License: MIT + file LICENSE
 Suggests: 
     testthat
 Encoding: UTF-8
