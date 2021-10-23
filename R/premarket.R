@@ -62,5 +62,5 @@
 #' @source FDA's
 #' [PMA database download file](https://go.usa.gov/xMQET) and
 #' [510(k) database download files](https://go.usa.gov/xEKmh)
-#' accessed 2021-10-20.
+#' accessed 2021-10-23.
 "premarket"
