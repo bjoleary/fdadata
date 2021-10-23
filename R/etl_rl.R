@@ -22,6 +22,10 @@ rl_cleanup <- function(df) {
     dplyr::mutate_if(
       is.character,
       ~dplyr::na_if(., "-")
+    ) %>%
+    dplyr::mutate_if(
+      is.character,
+      ~dplyr::na_if(., "--")
     )
 }
 
