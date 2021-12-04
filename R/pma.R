@@ -5,7 +5,7 @@
 #'
 #' Get the latest data using \code{fdadata::etl_pma()}.
 #'
-#' @format A tibble with 46312 rows and 25 fields:
+#' @format A tibble with 46523 rows and 25 fields:
 #'
 #' \describe{
 #' \item{submission_number}{chr "N18143/S001", "N50009", "N50042", "N5016…}
@@ -37,5 +37,5 @@
 #' }
 #'
 #' @source [FDA PMA Download File](https://go.usa.gov/xMQET)
-#' accessed 2021-10-23.
+#' accessed 2021-12-04.
 "pma"
