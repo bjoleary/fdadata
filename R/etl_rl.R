@@ -451,7 +451,8 @@ etl_rl <- function(refresh_data = FALSE,
 #'
 #' @param rl_list The output of \code{etl_rl()}.
 #'
-#' @return A single, massive table joining all the subcomponents of the list output by \code{etl_rl()}.
+#' @return A single, massive table joining all the subcomponents of the list
+#'   output by \code{etl_rl()}.
 #' @export
 #'
 join_rl <- function(rl_list) {
