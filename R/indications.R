@@ -49,13 +49,13 @@ get_indications <- function(submission_number) {
         ifu_page <-
           dplyr::inner_join(
             x = pdf_grams,
-            y = ifu_form_text,
+            y = fdadata::ifu_form_text,
             by = c("word" = "word")
           ) %>%
           dplyr::group_by(.data$page) %>%
           dplyr::count() %>%
           dplyr::arrange(dplyr::desc(.data$n)) %>%
-          head(1) %>%
+          utils::head(1) %>%
           dplyr::pull(.data$page) %>%
           as.integer()
 
