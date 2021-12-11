@@ -10,7 +10,8 @@ join_rl(rl_list)
 \item{rl_list}{The output of \code{etl_rl()}.}
 }
 \value{
-A single, massive table joining all the subcomponents of the list output by \code{etl_rl()}.
+A single, massive table joining all the subcomponents of the list
+output by \code{etl_rl()}.
 }
 \description{
 Join Registration and Listing

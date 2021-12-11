@@ -6,11 +6,11 @@ update := data-raw/update.txt
 all: $(update) data document install
 
 # Make all data
-data: data/pmn.rda data/pma.rda R/pmn.R R/pma.R data/premarket.rda R/premarket.R data/reglist.rda R/reglist.R data/product_codes.rda R/product_codes.R $(update)
+data: data/pmn.rda data/pma.rda R/pmn.R R/pma.R data/premarket.rda R/premarket.R data/product_codes.rda R/product_codes.R $(update)
 	$(info ** Updated Datasets **)
 
-# Force data update 
-$(update): 
+# Force data update
+$(update):
 	$(info ** Forcing Dataset Updates **)
 	touch $(update)
 
@@ -27,10 +27,6 @@ data/premarket.rda R/premarket.R: data-raw/premarket.R data/pma.rda data/pmn.rda
 	$(info ** Updating premarket Dataset **)
 	R $(r_opts) "source('$<')"
 
-data/reglist.rda R/reglist.rda: data-raw/reglist.R $(update)
-	$(info ** Updating reglist Dataset **)
-	R $(r_opts) "source('$<')"
-
 data/product_codes.rda R/product_codes.R: data-raw/product_codes.R $(update)
 	$(info ** Updating product_codes Dataset **)
 	R $(r_opts) "source('$<')"
@@ -43,11 +39,11 @@ README.md: README.Rmd
 	$(info ** Updating README **)
 	R $(r_opts) "devtools::build_readme()"
 
-$(documentation): $(scripts) 
+$(documentation): $(scripts)
 	$(info ** Updating Documentation **)
 	R $(r_opts) "devtools::document()"
 
 # Install
-install: data document 
+install: data document
 	$(info ** Installing Package **)
 	R $(r_opts) "devtools::install(upgrade = TRUE)"
