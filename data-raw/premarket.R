@@ -141,8 +141,16 @@ documentation_text <-
     "}",
     "",
     "@source FDA's ",
-    "[PMA database download file](https://go.usa.gov/xMQET) and ",
-    "[510(k) database download files](https://go.usa.gov/xEKmh)",
+    paste0(
+      "[PMA database download file](",
+      "https://www.fda.gov/medical-devices/",
+      "device-approvals-denials-and-clearances/pma-approvals",
+      ") and ",
+      "[510(k) database download files](",
+      "https://www.fda.gov/medical-devices/510k-clearances/",
+      "downloadable-510k-files",
+      ")"
+    ),
     paste0("accessed ", lubridate::today(), ".")
   ) %>%
   paste0("#' ", .) %>%

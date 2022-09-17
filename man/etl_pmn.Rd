@@ -4,7 +4,8 @@
 \alias{etl_pmn}
 \title{ETL 510(k) and De Novo data from the FDA website.}
 \source{
-Data is downloaded from \url{https://go.usa.gov/xEKmh}.
+Data is downloaded from
+\url{https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files}.
 }
 \usage{
 etl_pmn(refresh_data = FALSE, download_directory = "data/")

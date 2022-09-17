@@ -4,7 +4,8 @@
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
 #' @param download_directory Defaults to \code{data/}.
 #' @return PMA data as a tibble
-#' @source Data is downloaded from \url{https://go.usa.gov/xMQET}.
+#' @source Data is downloaded from
+#' \url{https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals}.
 #' @export
 etl_pma <- function(refresh_data = FALSE,
                     download_directory = "data/") {

@@ -4,7 +4,8 @@
 \alias{etl_procodes}
 \title{ETL Product Code data from the FDA website.}
 \source{
-Data is downloaded from \url{https://go.usa.gov/xEKmh}.
+Data is downloaded from
+\url{https://www.fda.gov/medical-devices/classify-your-medical-device/download-product-code-classification-files}.
 }
 \usage{
 etl_procodes(refresh_data = FALSE, download_directory = "data/")

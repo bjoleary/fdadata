@@ -35,7 +35,8 @@ rl_cleanup <- function(df) {
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
 #' @param download_directory Defaults to \code{data/}.
 #' @return Registration and Listing data as a tibble
-#' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
+#' @source Data is downloaded from
+#' \url{https://www.fda.gov/medical-devices/device-registration-and-listing/establishment-registration-and-medical-device-listing-files-download}.
 #' @export
 etl_rl <- function(refresh_data = FALSE,
                     download_directory = "data/") {

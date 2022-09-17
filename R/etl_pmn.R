@@ -4,7 +4,8 @@
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
 #' @param download_directory Defaults to \code{data/}.
 #' @return 510(k) and De Novo data as a tibble
-#' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
+#' @source Data is downloaded from
+#' \url{https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files}.
 #' @export
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ".data"

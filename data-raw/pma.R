@@ -65,7 +65,12 @@ documentation_text <-
       unlist() ,
     "}",
     "",
-    "@source [FDA PMA Download File](https://go.usa.gov/xMQET)",
+    paste0(
+      "@source [FDA PMA Download File](",
+      "https://www.fda.gov/medical-devices/",
+      "device-approvals-denials-and-clearances/pma-approvals",
+      ")"
+    ),
     paste0("accessed ", lubridate::today(), ".")
   ) %>%
   paste0("#' ", .) %>%
@@ -83,4 +88,3 @@ documentation_text <-
     file = "R/pma.R",
     append = FALSE
   )
-

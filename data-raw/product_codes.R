@@ -82,5 +82,3 @@ documentation_text <-
     file = "R/product_codes.R",
     append = FALSE
   )
-
-
