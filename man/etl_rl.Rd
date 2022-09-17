@@ -4,7 +4,8 @@
 \alias{etl_rl}
 \title{ETL Registration and Listing data from the FDA website.}
 \source{
-Data is downloaded from \url{https://go.usa.gov/xEKmh}.
+Data is downloaded from
+\url{https://www.fda.gov/medical-devices/device-registration-and-listing/establishment-registration-and-medical-device-listing-files-download}.
 }
 \usage{
 etl_rl(refresh_data = FALSE, download_directory = "data/")

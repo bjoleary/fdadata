@@ -4,7 +4,8 @@
 #' fda.gov. When \code{FALSE}, data is read in from a text file on the disk.
 #' @param download_directory Defaults to \code{data/}.
 #' @return Medical Device product code data as a tibble
-#' @source Data is downloaded from \url{https://go.usa.gov/xEKmh}.
+#' @source Data is downloaded from
+#' \url{https://www.fda.gov/medical-devices/classify-your-medical-device/download-product-code-classification-files}.
 #' @export
 etl_procodes <- function(refresh_data = FALSE,
                          download_directory = "data/") {

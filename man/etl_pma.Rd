@@ -4,7 +4,8 @@
 \alias{etl_pma}
 \title{ETL PMA data from the FDA website.}
 \source{
-Data is downloaded from \url{https://go.usa.gov/xMQET}.
+Data is downloaded from
+\url{https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals}.
 }
 \usage{
 etl_pma(refresh_data = FALSE, download_directory = "data/")

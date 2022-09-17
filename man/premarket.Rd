@@ -5,7 +5,7 @@
 \alias{premarket}
 \title{Premarket}
 \format{
-A tibble with 207204 rows and 30 fields:
+A tibble with 211247 rows and 30 fields:
 
 \describe{
 \item{submission_number}{chr "N12159", "N61034", "N50100", "N50016", "…}
@@ -13,12 +13,12 @@ A tibble with 207204 rows and 30 fields:
 \item{company_clean}{chr "ETHICON", "THE UPJOHN", "PFIZER", "PFIZE…}
 \item{company_group}{chr "JOHNSON AND JOHNSON", "THE UPJOHN", "PFI…}
 \item{contact}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
-\item{address_line_1}{chr "ROUTE 22 WEST", "7000 PORTAGE ROAD", "23…}
+\item{address_line_1}{chr "1000 Route 202", "7000 PORTAGE ROAD", "2…}
 \item{address_line_2}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
-\item{city}{chr "SOMERVILLE", "KALAMAZOO", "NY", "NY", "N…}
+\item{city}{chr "Raritan", "KALAMAZOO", "NY", "NY", "NY",…}
 \item{state}{chr "NJ", "MI", "NY", "NY", "NY", "NY", "NY",…}
 \item{country}{chr "USA", "USA", "USA", "USA", "USA", "USA",…}
-\item{zip_code}{chr "08876", "49001", "10017", "10017", "1001…}
+\item{zip_code}{chr "08869", "49001", "10017", "10017", "1001…}
 \item{date_start}{date 1960-10-14, 1968-10-09, 1969-09-04, 1969…}
 \item{date_decision}{date 1960-10-14, 1968-10-09, 1969-09-04, 1969…}
 \item{decision_code}{chr "APPR", "APRL", "APRL", "APRL", "APRL", "…}
@@ -43,9 +43,8 @@ N…}
 }
 \source{
 FDA's
-\href{https://go.usa.gov/xMQET}{PMA database download file} and
-\href{https://go.usa.gov/xEKmh}{510(k) database download files}
-accessed 2021-12-11.
+\href{https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals}{PMA database download file} and \href{https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files}{510(k) database download files}
+accessed 2022-09-17.
 }
 \usage{
 premarket
@@ -67,11 +66,11 @@ acquisitions. See \code{?fdadata::company_clean()}.
 
 Going from \code{sponsor} to \code{company_clean} reduces the number
 of unique company names from
-35263 to 29530, a reduction of 5733 or approximately 16\%.
+36229 to 30168, a reduction of 6061 or approximately 17\%.
 
 \code{company_group} has
-28557 unique company names -- 973 less that \code{company_clean} (roughly a
-3\% reduction) and 6706 less than \code{sponsor} -- for a total reduction of
+29172 unique company names -- 996 less that \code{company_clean} (roughly a
+3\% reduction) and 7057 less than \code{sponsor} -- for a total reduction of
 about 19\%.
 }
 \keyword{datasets}
