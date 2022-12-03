@@ -49,20 +49,20 @@ fdadata::premarket %>%
   dplyr::sample_n(5) %>% 
   print()
 #> # A tibble: 5 × 30
-#>   submission_number sponsor  company_clean  company_group contact address_line_1
-#>   <chr>             <chr>    <chr>          <chr>         <chr>   <chr>         
-#> 1 K004002           DIAGNOS… DIAGNOSTIC PR… DIAGNOSTIC P… EDWARD… 5700 WEST 96T…
-#> 2 K142163           MEDICFI… MEDICFIT TECH… MEDICFIT TEC… JIGAR … 55 NORTHERN B…
-#> 3 K150312           STEREOT… STEREOTAXIS    STEREOTAXIS   JOHN  … 4320 FOREST P…
-#> 4 K183440           Precisi… PRECISION BIO… PRECISION BI… Karen … 140 Eileen St…
-#> 5 K882418           HEALTH … HEALTH TEC     HEALTH TEC    ANTHON… FIRST ST.     
-#> # … with 24 more variables: address_line_2 <chr>, city <chr>, state <chr>,
-#> #   country <chr>, zip_code <chr>, date_start <date>, date_decision <date>,
-#> #   decision_code <chr>, panel_code <chr>, product_code <chr>, summary <fct>,
-#> #   track <fct>, third_party_review <chr>, expedited <fct>, device <chr>,
-#> #   type <chr>, panel <fct>, decision <fct>, decision_category <fct>,
-#> #   date_federal_register <date>, generic_name <chr>, reason <chr>,
-#> #   docket_number <chr>, approval_order_statement <chr>
+#>   submissi…¹ sponsor compa…² compa…³ contact addre…⁴ addre…⁵ city  state country
+#>   <chr>      <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr>  
+#> 1 P820056/S… PARAGO… PARAGO… PARAGO… <NA>    947 EA… <NA>    MESA  AZ    USA    
+#> 2 K210554    Limaco… LIMACO… LIMACO… Giusep… Via Na… <NA>    Udine <NA>  IT     
+#> 3 K823667    WARM &… WARM A… WARM A… <NA>    4221 R… <NA>    Walk… MI    US     
+#> 4 P930029/S… MEDTRO… MEDTRO… MEDTRO… <NA>    8200 C… MS MV … MOUN… MN    USA    
+#> 5 K872586    INVACA… INVACA… INVACA… JAMES … 899 CL… P.O. B… ELYR… OH    US     
+#> # … with 20 more variables: zip_code <chr>, date_start <date>,
+#> #   date_decision <date>, decision_code <chr>, panel_code <chr>,
+#> #   product_code <chr>, summary <fct>, track <fct>, third_party_review <chr>,
+#> #   expedited <fct>, device <chr>, type <chr>, panel <fct>, decision <fct>,
+#> #   decision_category <fct>, date_federal_register <date>, generic_name <chr>,
+#> #   reason <chr>, docket_number <chr>, approval_order_statement <chr>, and
+#> #   abbreviated variable names ¹​submission_number, ²​company_clean, …
 ```
 
 Additional datasets include `fdadata::reglist`, `fdadata::pmn` (510(k)s

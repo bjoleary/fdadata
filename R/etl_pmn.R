@@ -113,7 +113,6 @@ etl_pmn <- function(refresh_data = FALSE,
           .data$expedited == "Y" ~ "Expedited",
           .data$expedited == "N" ~ "Not Expedited",
           !is.na(.data$expedited) ~ .data$expedited,
-          is.na(.data$expedited) ~ "Not Expedited",
           TRUE ~ NA_character_
         ) %>%
         forcats::as_factor() %>%

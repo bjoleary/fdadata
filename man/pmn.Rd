@@ -5,7 +5,7 @@
 \alias{pmn}
 \title{PMN (510(k)s)}
 \format{
-A tibble with 163065 rows and 23 fields:
+A tibble with 163821 rows and 23 fields:
 
 \describe{
 \item{submission_number}{chr "K760001", "K760002", "K760003", "K760004",
@@ -23,11 +23,11 @@ A tibble with 163065 rows and 23 fields:
 \item{decision_code}{chr "SESE", "SESE", "SESE", "SESE", "SESE", "SESE",…}
 \item{panel_code}{chr "PM", "PM", "PM", "HO", "HO", "CH", "HE", "DE",…}
 \item{product_code}{chr NA, "IQI", "ITG", "FMF", "FMF", NA, "GKJ", "DZE…}
-\item{summary}{fct , , , , , , , , , , , , , , , , , , , , , , , , }
+\item{summary}{fct NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…}
 \item{track}{fct Traditional, Traditional, Traditional, Traditio…}
 \item{third_party_review}{chr "N", "N", "N", "N", "N", "N", "N", "N", "N",
 "N…}
-\item{expedited}{fct Not Expedited, Not Expedited, Not Expedited, No…}
+\item{expedited}{fct NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…}
 \item{device}{chr "ARCH SUPPORT (ARCH AID)", "KNEE AID", "CAST MA…}
 \item{type}{fct 510(k), 510(k), 510(k), 510(k), 510(k), 510(k),…}
 \item{panel}{fct "Physical Medicine", "Physical Medicine", "Phys…}
@@ -38,7 +38,7 @@ Equival…}
 }
 \source{
 \href{https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files}{FDA 510(k) Download Files}
-accessed 2022-09-17.
+accessed 2022-12-03.
 }
 \usage{
 pmn
