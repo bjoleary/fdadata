@@ -1,6 +1,6 @@
 Package: fdadata
 Title: Access US FDA Data
-Version: 0.0.0.9016
+Version: 0.0.0.9017
 Authors@R: 
     person(given = "Brendan",
            family = "O'Leary",
@@ -33,6 +33,6 @@ Imports:
     tidyselect,
     tidytext
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)

@@ -7,7 +7,7 @@ filename <- "c2021_disease.bin"
 directory <- "data-raw/"
 filepath <- paste0(directory, filename)
 url_root <-
-  "https://nlmpubs.nlm.nih.gov/projects/mesh/MESH_FILES/asciimesh/"
+  "https://nlmpubs.nlm.nih.gov/projects/mesh/2021/asciimesh/"
 if (!file.exists(filepath)) {
   download.file(
     url = paste0(url_root, filename),
@@ -71,7 +71,6 @@ documentation_text <-
     "\\item{terms}{A table of terms.}",
     "\\item{synonyms}{A table of synonyms.}",
     "\\item{subject_headings}{A table of subject headings.}",
-    "\\item{listing_pcd}{Mapping listings to product codes.}",
     "}",
     "",
     "@source NIH National Library of Medicine (NLM(R)) via",

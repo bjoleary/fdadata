@@ -12,13 +12,12 @@ synonyms, and subject_headings.
 \item{terms}{A table of terms.}
 \item{synonyms}{A table of synonyms.}
 \item{subject_headings}{A table of subject headings.}
-\item{listing_pcd}{Mapping listings to product codes.}
 }
 }
 \source{
 NIH National Library of Medicine (NLM(R)) via
-\href{https://nlmpubs.nlm.nih.gov/projects/mesh/MESH_FILES/asciimesh/}{nlmpubs}
-accessed 2021-12-11.
+\href{https://nlmpubs.nlm.nih.gov/projects/mesh/2021/asciimesh/}{nlmpubs}
+accessed 2023-01-16.
 }
 \usage{
 mesh
