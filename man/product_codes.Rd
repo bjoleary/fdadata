@@ -5,7 +5,7 @@
 \alias{product_codes}
 \title{Product Codes}
 \format{
-A tibble with 6778 rows and 17 fields:
+A tibble with 6783 rows and 17 fields:
 
 \describe{
 \item{review_panel}{fct "Anesthesiology", "Anesthesiology", …}
@@ -30,7 +30,7 @@ rep…}
 }
 \source{
 \url{FDA Product Code Database}
-accessed 2022-12-03.
+accessed 2023-01-16.
 }
 \usage{
 product_codes
