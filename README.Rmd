@@ -16,9 +16,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/bjoleary/fdadata/workflows/R-CMD-check/badge.svg)](https://github.com/bjoleary/fdadata/actions?query=workflow%3AR-CMD-check)
-[![codecov](https://codecov.io/gh/bjoleary/fdadata/branch/main/graph/badge.svg?token=1AZQLVTB0B)](https://codecov.io/gh/bjoleary/fdadata)
-[![lint](https://github.com/bjoleary/fdadata/workflows/lint/badge.svg)](https://github.com/bjoleary/fdadata/actions?query=workflow%3Alint)
+[![R-CMD-check](https://github.com/bjoleary/fdadata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bjoleary/fdadata/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/bjoleary/fdadata/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bjoleary/fdadata?branch=main)
 <!-- badges: end -->
 
 The goal of fdadata is to access public information from the [FDA website](https://www.fda.gov).

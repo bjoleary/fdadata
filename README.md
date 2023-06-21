@@ -7,9 +7,9 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/bjoleary/fdadata/workflows/R-CMD-check/badge.svg)](https://github.com/bjoleary/fdadata/actions?query=workflow%3AR-CMD-check)
-[![codecov](https://codecov.io/gh/bjoleary/fdadata/branch/main/graph/badge.svg?token=1AZQLVTB0B)](https://codecov.io/gh/bjoleary/fdadata)
-[![lint](https://github.com/bjoleary/fdadata/workflows/lint/badge.svg)](https://github.com/bjoleary/fdadata/actions?query=workflow%3Alint)
+[![R-CMD-check](https://github.com/bjoleary/fdadata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bjoleary/fdadata/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/bjoleary/fdadata/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bjoleary/fdadata?branch=main)
 <!-- badges: end -->
 
 The goal of fdadata is to access public information from the [FDA
@@ -51,11 +51,11 @@ fdadata::premarket %>%
 #> # A tibble: 5 × 30
 #>   submission_number sponsor   company_clean company_group contact address_line_1
 #>   <chr>             <chr>     <chr>         <chr>         <chr>   <chr>         
-#> 1 K052229           COLOPLAS… COLOPLAST     COLOPLAST     ELIZAB… 1940 COMMERCE…
-#> 2 K951647           WELCH AL… WELCH ALLYN   WELCH ALLYN   MARY K… 4619 JORDAN R…
-#> 3 K875277           XOMED, I… XOMED         XOMED         DONALD… 6743 SOUTHPOI…
-#> 4 N17600/S030       DAVOL, I… DAVOL SUB CR… DAVOL SUB CR… <NA>    100 Crossings…
-#> 5 K950607           ALOKA CO… ALOKA         ALOKA         PAUL D… 10 FAIRFIELD …
+#> 1 K854635           ELECTRA … ELECTRA EQUI… ELECTRA EQUI… JAMES … 326 PARIS AVE.
+#> 2 P840024/S050      Cochlear… COCHLEAR AME… COCHLEAR      <NA>    10350 Park Me…
+#> 3 K000522           DRUG DET… DRUG DETECTI… DRUG DETECTI… PATRIC… 6820 MEADOWRI…
+#> 4 K840062           ORGANON … ORGANON TEKN… ORGANON TEKN… <NA>    803 N. Front …
+#> 5 DEN150010         DIGNITAN… DIGNITANA     DIGNITANA     JAN  R… TRAKTORGRANDE…
 #> # ℹ 24 more variables: address_line_2 <chr>, city <chr>, state <chr>,
 #> #   country <chr>, zip_code <chr>, date_start <date>, date_decision <date>,
 #> #   decision_code <chr>, panel_code <chr>, product_code <chr>, summary <fct>,
