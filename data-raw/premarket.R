@@ -5,8 +5,8 @@ devtools::load_all()
 
 premarket <-
   dplyr::bind_rows(
-    fdadata::pmn,
-    fdadata::pma
+    pmn,
+    pma
   ) %>%
   dplyr::arrange(.data$date_decision, .data$date_start) %>%
   dplyr::mutate(
@@ -14,10 +14,10 @@ premarket <-
     company_group = clean_company_names(.data$sponsor, thorough = TRUE)
   ) %>%
   dplyr::select(
-    .data$submission_number,
-    .data$sponsor,
-    .data$company_clean,
-    .data$company_group,
+    "submission_number",
+    "sponsor",
+    "company_clean",
+    "company_group",
     dplyr::everything()
   )
 

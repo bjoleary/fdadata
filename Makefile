@@ -6,7 +6,7 @@ update := data-raw/update.txt
 all: $(update) data document install
 
 # Make all data
-data: data/ifu_form_text.rda R/ifu_form_text.R data/mesh.rda data/pmn.rda data/pma.rda R/mesh.R R/pmn.R R/pma.R data/premarket.rda R/premarket.R data/product_codes.rda R/product_codes.R $(update)
+data: data/ifu_form_text.rda R/ifu_form_text.R data/pmn.rda data/pma.rda R/pmn.R R/pma.R data/premarket.rda R/premarket.R data/product_codes.rda R/product_codes.R $(update)
 	$(info ** Updated Datasets **)
 
 # Force data update
@@ -29,10 +29,6 @@ data/premarket.rda R/premarket.R: data-raw/premarket.R data/pma.rda data/pmn.rda
 
 data/product_codes.rda R/product_codes.R: data-raw/product_codes.R $(update)
 	$(info ** Updating product_codes Dataset **)
-	R $(r_opts) "source('$<')"
-
-data/mesh.rda R/mesh.R: data-raw/mesh.R $(update)
-	$(info ** Updating mesh Dataset **)
 	R $(r_opts) "source('$<')"
 
 data/ifu_form_text.rda R/ifu_form_text.R: data-raw/ifu_form_text.R $(update)

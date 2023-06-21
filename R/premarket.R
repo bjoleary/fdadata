@@ -16,14 +16,14 @@
 #'
 #' Going from \code{sponsor} to \code{company_clean} reduces the number
 #' of unique company names from
-#' 36658 to 30435, a reduction of 6223 or approximately 17%.
+#' 37164 to 30766, a reduction of 6398 or approximately 17%.
 #'
 #' \code{company_group} has
-#' 29432 unique company names -- 1003 less that \code{company_clean} (roughly a
-#' 3% reduction) and 7226 less than \code{sponsor} -- for a total reduction of
+#' 29754 unique company names -- 1012 less that \code{company_clean} (roughly a
+#' 3% reduction) and 7410 less than \code{sponsor} -- for a total reduction of
 #' about 20%.
 #'
-#' @format A tibble with 213154 rows and 30 fields:
+#' @format A tibble with 215377 rows and 30 fields:
 #'
 #' \describe{
 #' \item{submission_number}{chr "N12159", "N61034", "N50100", "N50016", "…}
@@ -40,7 +40,7 @@
 #' \item{date_start}{date 1960-10-14, 1968-10-09, 1969-09-04, 1969…}
 #' \item{date_decision}{date 1960-10-14, 1968-10-09, 1969-09-04, 1969…}
 #' \item{decision_code}{chr "APPR", "APRL", "APRL", "APRL", "APRL", "…}
-#' \item{panel_code}{chr "SU", "MI", "MI", "MI", "MI", "MI", "MI",…}
+#' \item{panel_code}{chr "OR", "MI", "MI", "MI", "MI", "MI", "MI",…}
 #' \item{product_code}{chr "LMG", "JTT", "JTT", "JTT", "JTT", "LON",…}
 #' \item{summary}{fct NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
 #' \item{track}{fct NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
@@ -48,7 +48,7 @@
 #' \item{expedited}{fct Not Expedited, Not Expedited, Not Expedit…}
 #' \item{device}{chr "SURGICEL BRAND ABSORBABLE HEMOSTAT", "LI…}
 #' \item{type}{chr "PMA", "PMA", "PMA", "PMA", "PMA", "PMA",…}
-#' \item{panel}{fct "General & Plastic Surgery", "Microbiolog…}
+#' \item{panel}{fct "Orthopedic", "Microbiology", "Microbiolo…}
 #' \item{decision}{fct Approved, Approved - Reclassified, Approv…}
 #' \item{decision_category}{fct Approved, Approved, Approved, Approved, A…}
 #' \item{date_federal_register}{date NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …}
@@ -61,5 +61,5 @@
 #'
 #' @source FDA's
 #' [PMA database download file](https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals) and [510(k) database download files](https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files)
-#' accessed 2023-01-16.
+#' accessed 2023-06-21.
 "premarket"

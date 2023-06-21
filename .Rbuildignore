@@ -8,3 +8,4 @@ scratchpad.R
 ^\.github$
 ^data-raw$
 ^Makefile$
+^codecov\.yml$
