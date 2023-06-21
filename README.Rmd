@@ -50,20 +50,5 @@ fdadata::premarket %>%
   print()
 ```
 
-Additional datasets include `fdadata::reglist`, `fdadata::pmn` (510(k)s and 
-De Novos), `fdadata::pma`, and `fdadata::product_codes`. The registration and 
-listing data can be joined into a single table using 
-`fdadata::join_rl(fdadata::reglist)`. 
-
-## Notes
-
-This is a hobby project and is built on my own time. It is not from my employer 
-and it is definitely not endorsed by my employer. For that matter, it’s not 
-even endorsed by me. (Also, see the license for some important disclaimers.) 
-The government ethics experts I checked in with told me that open sourcing a 
-hobby project isn’t a problem though, so here we go.
-
-They also said it was important that it is not intended for therapeutic use: 
-So, don’t try to use this to make any health decisions or anything, okay? I’m 
-not sure how you could, but I’m pretty sure anything you could come up with 
-along those lines would be a pretty bad idea…
+Additional datasets include `fdadata::pmn` (510(k)s and De Novos), 
+`fdadata::pma`, and `fdadata::product_codes`. 
