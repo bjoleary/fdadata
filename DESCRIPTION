@@ -30,7 +30,8 @@ Imports:
     pdftools,
     purrr,
     tidytext,
-    stringi
+    stringi,
+    clipr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends: 
