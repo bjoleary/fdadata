@@ -105,6 +105,54 @@ public_link_labeling <- function(submission_number) {
   )
 }
 
+#' Public database link
+#'
+#' @param unique_id The submission number or product code
+#' @param clip Defaults to \code{FALSE}. Write to clipboard.
+#'
+#' @return A string.
+#' @export
+#'
+public_link_database <- function(unique_id, clip = FALSE) {
+  # Checks: to add later...
+  # K number length
+  # PMA number length, including slashes
+  # Product code handling
+  root_pma <-
+    "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm?id="
+  root_pmn <-
+    "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID="
+  root_denovo <-
+    "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/denovo.cfm?id="
+  root_pc <-
+    paste0(
+      "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpcd/",
+      "classification.cfm?start_search=1&productcode="
+    )
+  link <-
+    dplyr::case_when(
+      nchar(unique_id) == 3 ~ paste0(root_pc, unique_id),
+      stringr::str_starts(unique_id, "P|p") ~
+        paste0(
+          root_pma,
+          stringr::str_remove_all(unique_id, "\\/")
+        ),
+      stringr::str_starts(unique_id, "K|k") ~
+        paste0(
+          root_pmn,
+          unique_id
+        ),
+      stringr::str_starts(unique_id, stringr::regex("DEN", TRUE)) ~
+        paste0(
+          root_denovo,
+          unique_id
+        ),
+      TRUE ~ NA_character_
+    )
+  if (clip) clipr::write_clip(link)
+  link
+}
+
 #' Determine the calendar year the submission was numbered
 #'
 #' @param submission_number The unique identifier of the submission
