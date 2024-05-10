@@ -5,7 +5,7 @@
 \alias{pma}
 \title{PMA}
 \format{
-A tibble with 49789 rows and 25 fields:
+A tibble with 51738 rows and 25 fields:
 
 \describe{
 \item{submission_number}{chr "N18143/S001", "N50009", "N50042", "N5016…}
@@ -20,7 +20,7 @@ A tibble with 49789 rows and 25 fields:
 \item{date_decision}{date 1979-05-22, 1970-02-27, 1970-02-27, 1970…}
 \item{date_federal_register}{date NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …}
 \item{decision_code}{chr "APPR", "APRL", "APRL", "APRL", "APPR", "…}
-\item{panel_code}{chr "OP", "MI", "MI", "MI", "HO", "OR", "OP",…}
+\item{panel_code}{chr "OP", "MI", "MI", "MI", "HO", "SU", "OP",…}
 \item{product_code}{chr "LPN", "JTT", "JTT", "JTT", "KGP", "LMG",…}
 \item{generic_name}{chr "Accessories, soft lens products", "Susce…}
 \item{track}{fct NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
@@ -38,7 +38,7 @@ N…}
 }
 \source{
 \href{https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals}{FDA PMA Download File}
-accessed 2023-06-21.
+accessed 2024-05-09.
 }
 \usage{
 pma
