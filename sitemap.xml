@@ -1,138 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>/ISSUE_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/categorize_decision.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_big_companies.html</loc>
-  </url>
-  <url>
-    <loc>/reference/clean_company_names.html</loc>
-  </url>
-  <url>
-    <loc>/reference/clean_raw_text_file.html</loc>
-  </url>
-  <url>
-    <loc>/reference/decode_decision.html</loc>
-  </url>
-  <url>
-    <loc>/reference/download_generic.html</loc>
-  </url>
-  <url>
-    <loc>/reference/etl_pma.html</loc>
-  </url>
-  <url>
-    <loc>/reference/etl_pmn.html</loc>
-  </url>
-  <url>
-    <loc>/reference/etl_procodes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/etl_rl.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expand_panels.html</loc>
-  </url>
-  <url>
-    <loc>/reference/extract_submission_year.html</loc>
-  </url>
-  <url>
-    <loc>/reference/file_remove.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_indications.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ifu_form_text.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/join_rl.html</loc>
-  </url>
-  <url>
-    <loc>/reference/path_accessed.html</loc>
-  </url>
-  <url>
-    <loc>/reference/path_clean.html</loc>
-  </url>
-  <url>
-    <loc>/reference/path_raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/path_zip.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pma.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pmn.html</loc>
-  </url>
-  <url>
-    <loc>/reference/premarket.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prep_regex.html</loc>
-  </url>
-  <url>
-    <loc>/reference/product_codes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/public_link_labeling.html</loc>
-  </url>
-  <url>
-    <loc>/reference/public_link_review.html</loc>
-  </url>
-  <url>
-    <loc>/reference/public_link_submission.html</loc>
-  </url>
-  <url>
-    <loc>/reference/public_link_summary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/refresh_files.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rl_cleanup.html</loc>
-  </url>
-  <url>
-    <loc>/reference/submission_url.html</loc>
-  </url>
-  <url>
-    <loc>/reference/us_states.html</loc>
-  </url>
-  <url>
-    <loc>/reference/year_folder.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/CONTRIBUTING.html</loc></url>
+<url><loc>/ISSUE_TEMPLATE.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/SUPPORT.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/categorize_decision.html</loc></url>
+<url><loc>/reference/check_big_companies.html</loc></url>
+<url><loc>/reference/clean_company_names.html</loc></url>
+<url><loc>/reference/clean_raw_text_file.html</loc></url>
+<url><loc>/reference/decode_decision.html</loc></url>
+<url><loc>/reference/download_generic.html</loc></url>
+<url><loc>/reference/etl_pma.html</loc></url>
+<url><loc>/reference/etl_pmn.html</loc></url>
+<url><loc>/reference/etl_procodes.html</loc></url>
+<url><loc>/reference/etl_rl.html</loc></url>
+<url><loc>/reference/expand_panels.html</loc></url>
+<url><loc>/reference/extract_submission_year.html</loc></url>
+<url><loc>/reference/file_remove.html</loc></url>
+<url><loc>/reference/fy.html</loc></url>
+<url><loc>/reference/get_indications.html</loc></url>
+<url><loc>/reference/ifu_form_text.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/join_rl.html</loc></url>
+<url><loc>/reference/path_accessed.html</loc></url>
+<url><loc>/reference/path_clean.html</loc></url>
+<url><loc>/reference/path_raw.html</loc></url>
+<url><loc>/reference/path_zip.html</loc></url>
+<url><loc>/reference/pma.html</loc></url>
+<url><loc>/reference/pmn.html</loc></url>
+<url><loc>/reference/premarket.html</loc></url>
+<url><loc>/reference/prep_regex.html</loc></url>
+<url><loc>/reference/product_codes.html</loc></url>
+<url><loc>/reference/public_link_database.html</loc></url>
+<url><loc>/reference/public_link_labeling.html</loc></url>
+<url><loc>/reference/public_link_review.html</loc></url>
+<url><loc>/reference/public_link_submission.html</loc></url>
+<url><loc>/reference/public_link_summary.html</loc></url>
+<url><loc>/reference/refresh_files.html</loc></url>
+<url><loc>/reference/rl_cleanup.html</loc></url>
+<url><loc>/reference/submission_url.html</loc></url>
+<url><loc>/reference/us_states.html</loc></url>
+<url><loc>/reference/year_folder.html</loc></url>
 </urlset>
+
