@@ -132,7 +132,7 @@ public_link_database <- function(unique_id, clip = FALSE) {
   link <-
     dplyr::case_when(
       nchar(unique_id) == 3 ~ paste0(root_pc, unique_id),
-      stringr::str_starts(unique_id, "P|p") ~
+      stringr::str_starts(unique_id, "P|p|N|n") ~
         paste0(
           root_pma,
           stringr::str_remove_all(unique_id, "\\/")
