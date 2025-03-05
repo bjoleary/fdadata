@@ -5,7 +5,7 @@
 \alias{premarket}
 \title{Premarket}
 \format{
-A tibble with 224625 rows and 30 fields:
+A tibble with 224736 rows and 30 fields:
 
 \describe{
 \item{submission_number}{chr "N12159", "N61034", "N50100", "N50016", "…}
@@ -44,7 +44,7 @@ N…}
 \source{
 FDA's
 \href{https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals}{PMA database download file} and \href{https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files}{510(k) database download files}
-accessed 2025-02-25.
+accessed 2025-03-05.
 }
 \usage{
 premarket
@@ -66,11 +66,11 @@ acquisitions. See \code{?fdadata::company_clean()}.
 
 Going from \code{sponsor} to \code{company_clean} reduces the number
 of unique company names from
-39096 to 31992, a reduction of 7104 or approximately 18\%.
+39115 to 32003, a reduction of 7112 or approximately 18\%.
 
 \code{company_group} has
-30943 unique company names -- 1049 less that \code{company_clean} (roughly a
-3\% reduction) and 8153 less than \code{sponsor} -- for a total reduction of
+30952 unique company names -- 1051 less that \code{company_clean} (roughly a
+3\% reduction) and 8163 less than \code{sponsor} -- for a total reduction of
 about 21\%.
 }
 \keyword{datasets}
