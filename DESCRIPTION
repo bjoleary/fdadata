@@ -1,6 +1,6 @@
 Package: fdadata
 Title: Access US FDA Data
-Version: 0.0.0.9025
+Version: 0.0.0.9026
 Authors@R: 
     person(given = "Brendan",
            family = "O'Leary",
