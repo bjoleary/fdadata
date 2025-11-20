@@ -5,7 +5,7 @@
 #'
 #' Get the latest data using \code{fdadata::etl_pma()}.
 #'
-#' @format A tibble with 54989 rows and 25 fields:
+#' @format A tibble with 55256 rows and 25 fields:
 #'
 #' \describe{
 #' \item{submission_number}{chr "N18143/S001", "N50009", "N50042", "N5016…}
@@ -37,5 +37,5 @@
 #' }
 #'
 #' @source [FDA PMA Download File](https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals)
-#' accessed 2025-10-03.
+#' accessed 2025-11-20.
 "pma"
