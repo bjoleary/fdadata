@@ -5,16 +5,16 @@
 \alias{pmn}
 \title{PMN (510(k)s)}
 \format{
-A tibble with 173412 rows and 23 fields:
+A tibble with 173527 rows and 23 fields:
 
 \describe{
 \item{submission_number}{chr "K760001", "K760002", "K760003", "K760004",
 "K7…}
-\item{sponsor}{chr "ZIMMER, INC.", "ZIMMER, INC.", "ZIMMER, INC.",…}
+\item{sponsor}{chr "Zimmer, Inc.", "Zimmer, Inc.", "Zimmer, Inc.",…}
 \item{contact}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…}
-\item{address_line_1}{chr "4221 Richmond Rd., N.W.", NA, "803 N. Front St…}
+\item{address_line_1}{chr "4221 Richmond Rd., NW", NA, "803 N. Front St. …}
 \item{address_line_2}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…}
-\item{city}{chr "Walker", NA, "McHenry", "McHenry", "McHenry", …}
+\item{city}{chr "Walker", "1831 Olive St. St. Louis", "Mchenry"…}
 \item{state}{chr "MI", "MO", "IL", "IL", "IL", "MI", "IL", "IL",…}
 \item{country}{fct US, US, US, US, US, US, US, US, US, US, US, US,…}
 \item{zip_code}{chr "49534", NA, "60050", "60050", "60050", "49534"…}
@@ -38,7 +38,7 @@ Equival…}
 }
 \source{
 \href{https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files}{FDA 510(k) Download Files}
-accessed 2025-11-20.
+accessed 2025-12-02.
 }
 \usage{
 pmn
