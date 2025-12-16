@@ -18,7 +18,7 @@ fdadata::pma."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fdadata</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9037</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9038</span>
       </span>
     </div>
 
@@ -51,12 +51,12 @@ fdadata::pma."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
 
     <div id="format">
     <h2>Format</h2>
-    <p>A tibble with 228668 rows and 30 fields:</p>
+    <p>A tibble with 228823 rows and 30 fields:</p>
 <dl><dt>submission_number</dt>
 <dd><p>chr "N12159", "N61034", "N50100", "N50016", "…</p></dd>
 
 <dt>sponsor</dt>
-<dd><p>chr "ETHICON, INC.", "THE UPJOHN CO.", "PFIZE…</p></dd>
+<dd><p>chr "Ethicon, Inc.", "The Upjohn Co.", "Pfize…</p></dd>
 
 <dt>company_clean</dt>
 <dd><p>chr "ETHICON", "THE UPJOHN", "PFIZER", "PFIZE…</p></dd>
@@ -68,13 +68,13 @@ fdadata::pma."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
 <dd><p>chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</p></dd>
 
 <dt>address_line_1</dt>
-<dd><p>chr "1000 Route 202", "7000 PORTAGE ROAD", "2…</p></dd>
+<dd><p>chr "1000 Route 202", "7000 Portage Rd.", "23…</p></dd>
 
 <dt>address_line_2</dt>
 <dd><p>chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</p></dd>
 
 <dt>city</dt>
-<dd><p>chr "Raritan", "KALAMAZOO", "NY", "NY", "NY",…</p></dd>
+<dd><p>chr "Raritan", "Kalamazoo", "Ny", "Ny", "Ny",…</p></dd>
 
 <dt>state</dt>
 <dd><p>chr "NJ", "MI", "NY", "NY", "NY", "NY", "NY",…</p></dd>
@@ -149,7 +149,7 @@ N…</p></dd>
     <h2>Source</h2>
     <p>FDA's
 <a href="https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals" class="external-link">PMA database download file</a> and <a href="https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files" class="external-link">510(k) database download files</a>
-accessed 2025-11-20.</p>
+accessed 2025-12-02.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -164,11 +164,11 @@ submissions from some of the largest companies based on known
 acquisitions. See <code>?fdadata::company_clean()</code>.</p>
 <p>Going from <code>sponsor</code> to <code>company_clean</code> reduces the number
 of unique company names from
-39902 to 32510, a reduction of 7392 or approximately 19%.</p>
+34323 to 32084, a reduction of 2239 or approximately 7%.</p>
 <p><code>company_group</code> has
-31444 unique company names – 1066 less that <code>company_clean</code> (roughly a
-3% reduction) and 8458 less than <code>sponsor</code> – for a total reduction of
-about 21%.</p>
+31037 unique company names – 1047 less that <code>company_clean</code> (roughly a
+3% reduction) and 3286 less than <code>sponsor</code> – for a total reduction of
+about 10%.</p>
     </div>
 
   </div>
