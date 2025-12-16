@@ -5,14 +5,14 @@
 \alias{pma}
 \title{PMA}
 \format{
-A tibble with 55256 rows and 25 fields:
+A tibble with 55296 rows and 25 fields:
 
 \describe{
 \item{submission_number}{chr "N18143/S001", "N50009", "N50042", "N5016…}
-\item{sponsor}{chr "ALCON LABORATORIES", "PFIZER, INC.", "PF…}
-\item{address_line_1}{chr "6201 S FREEWAY", "235 E 42ND ST.", "235 …}
+\item{sponsor}{chr "Alcon Laboratories", "Pfizer, Inc.", "Pf…}
+\item{address_line_1}{chr "6201 S. Freeway", "235 E. 42nd St.", "23…}
 \item{address_line_2}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
-\item{city}{chr "FT WORTH", "NY", "NY", "KALAMAZOO", "KEO…}
+\item{city}{chr "Fort Worth,", "Ny", "Ny", "Kalamazoo", "…}
 \item{state}{chr "TX", "NY", "NY", "MI", "IA", "NJ", "TX",…}
 \item{country}{chr "USA", "USA", "USA", "USA", "USA", "USA",…}
 \item{zip_code}{chr "76134", "10017", "10017", "49001", "5263…}
@@ -38,7 +38,7 @@ N…}
 }
 \source{
 \href{https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals}{FDA PMA Download File}
-accessed 2025-11-20.
+accessed 2025-12-02.
 }
 \usage{
 pma
