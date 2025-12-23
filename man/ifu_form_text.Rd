@@ -5,7 +5,7 @@
 \alias{ifu_form_text}
 \title{Indications For Use Form Text}
 \format{
-A tibble with 93 rows and 2 fields:
+A tibble with 94 rows and 2 fields:
 
 \describe{
 \item{word}{chr "information", "collection", "burden", "form", "pra",
