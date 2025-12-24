@@ -5,7 +5,7 @@
 #' Used by \code{fdadata::get_indications()} to identify promising IFU
 #' pages in summary documents.
 #'
-#' @format A tibble with 93 rows and 2 fields:
+#' @format A tibble with 94 rows and 2 fields:
 #'
 #' \describe{
 #' \item{word}{chr "information", "collection", "burden", "form", "pra",
