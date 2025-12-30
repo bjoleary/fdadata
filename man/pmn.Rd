@@ -5,7 +5,7 @@
 \alias{pmn}
 \title{PMN (510(k)s)}
 \format{
-A tibble with 173739 rows and 23 fields:
+A tibble with 173800 rows and 23 fields:
 
 \describe{
 \item{submission_number}{chr "K760001", "K760002", "K760003", "K760004",
@@ -38,7 +38,7 @@ Equival…}
 }
 \source{
 \href{https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files}{FDA 510(k) Download Files}
-accessed 2025-12-23.
+accessed 2025-12-30.
 }
 \usage{
 pmn
