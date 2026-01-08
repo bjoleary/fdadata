@@ -5,7 +5,7 @@
 #'
 #' Get the latest data using \code{fdadata::etl_pmn()}.
 #'
-#' @format A tibble with 173800 rows and 23 fields:
+#' @format A tibble with 173823 rows and 23 fields:
 #'
 #' \describe{
 #' \item{submission_number}{chr "K760001", "K760002", "K760003", "K760004",
@@ -37,5 +37,5 @@
 #' }
 #'
 #' @source [FDA 510(k) Download Files](https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files)
-#' accessed 2025-12-30.
+#' accessed 2026-01-08.
 "pmn"
