@@ -5,7 +5,7 @@
 \alias{pma}
 \title{PMA}
 \format{
-A tibble with 55573 rows and 25 fields:
+A tibble with 55617 rows and 25 fields:
 
 \describe{
 \item{submission_number}{chr "N18143/S001", "N50009", "N50042", "N5016…}
@@ -38,7 +38,7 @@ N…}
 }
 \source{
 \href{https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals}{FDA PMA Download File}
-accessed 2026-01-13.
+accessed 2026-01-20.
 }
 \usage{
 pma
