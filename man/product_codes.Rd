@@ -30,7 +30,7 @@ rep…}
 }
 \source{
 \url{FDA Product Code Database}
-accessed 2026-01-27.
+accessed 2026-02-03.
 }
 \usage{
 product_codes
