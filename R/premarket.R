@@ -16,14 +16,14 @@
 #'
 #' Going from \code{sponsor} to \code{company_clean} reduces the number
 #' of unique company names from
-#' 34426 to 32172, a reduction of 2254 or approximately 7%.
+#' 34439 to 32183, a reduction of 2256 or approximately 7%.
 #'
 #' \code{company_group} has
-#' 31124 unique company names -- 1048 less that \code{company_clean} (roughly a
-#' 3% reduction) and 3302 less than \code{sponsor} -- for a total reduction of
+#' 31135 unique company names -- 1048 less that \code{company_clean} (roughly a
+#' 3% reduction) and 3304 less than \code{sponsor} -- for a total reduction of
 #' about 10%.
 #'
-#' @format A tibble with 229647 rows and 30 fields:
+#' @format A tibble with 229718 rows and 30 fields:
 #'
 #' \describe{
 #' \item{submission_number}{chr "N12159", "N61034", "N50100", "N50016", "…}
@@ -61,5 +61,5 @@
 #'
 #' @source FDA's
 #' [PMA database download file](https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals) and [510(k) database download files](https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files)
-#' accessed 2026-01-27.
+#' accessed 2026-02-03.
 "premarket"
