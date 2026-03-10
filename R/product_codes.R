@@ -5,7 +5,7 @@
 #'
 #' Get the latest data using \code{fdadata::etl_procodes()}.
 #'
-#' @format A tibble with 7047 rows and 17 fields:
+#' @format A tibble with 7050 rows and 17 fields:
 #'
 #' \describe{
 #' \item{review_panel}{fct "Anesthesiology", "Anesthesiology", …}
@@ -29,5 +29,5 @@
 #' }
 #'
 #' @source [FDA Product Code Database]()
-#' accessed 2026-03-03.
+#' accessed 2026-03-10.
 "product_codes"
