@@ -5,14 +5,14 @@
 #'
 #' Get the latest data using \code{fdadata::etl_pma()}.
 #'
-#' @format A tibble with 56002 rows and 25 fields:
+#' @format A tibble with 56041 rows and 25 fields:
 #'
 #' \describe{
 #' \item{submission_number}{chr "N18143/S001", "N50009", "N50042", "N5016…}
 #' \item{sponsor}{chr "Alcon Laboratories", "Pfizer, Inc.", "Pf…}
-#' \item{address_line_1}{chr "6201 S. Freeway", "235 E. 42nd St.", "23…}
+#' \item{address_line_1}{chr "6201 S. Fwy.", "235 E. 42nd St.", "235 E…}
 #' \item{address_line_2}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
-#' \item{city}{chr "Fort Worth,", "Ny", "Ny", "Kalamazoo", "…}
+#' \item{city}{chr "Fort Worth", "Ny", "Ny", "Kalamazoo", "K…}
 #' \item{state}{chr "TX", "NY", "NY", "MI", "IA", "NJ", "TX",…}
 #' \item{country}{chr "USA", "USA", "USA", "USA", "USA", "USA",…}
 #' \item{zip_code}{chr "76134", "10017", "10017", "49001", "5263…}
@@ -37,5 +37,5 @@
 #' }
 #'
 #' @source [FDA PMA Download File](https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals)
-#' accessed 2026-03-17.
+#' accessed 2026-03-24.
 "pma"
