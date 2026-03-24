@@ -16,22 +16,22 @@
 #'
 #' Going from \code{sponsor} to \code{company_clean} reduces the number
 #' of unique company names from
-#' 34526 to 32263, a reduction of 2263 or approximately 7%.
+#' 34538 to 32271, a reduction of 2267 or approximately 7%.
 #'
 #' \code{company_group} has
-#' 31216 unique company names -- 1047 less that \code{company_clean} (roughly a
-#' 3% reduction) and 3310 less than \code{sponsor} -- for a total reduction of
+#' 31225 unique company names -- 1046 less that \code{company_clean} (roughly a
+#' 3% reduction) and 3313 less than \code{sponsor} -- for a total reduction of
 #' about 10%.
 #'
-#' @format A tibble with 230404 rows and 30 fields:
+#' @format A tibble with 230518 rows and 30 fields:
 #'
 #' \describe{
 #' \item{submission_number}{chr "N12159", "N61034", "N50100", "N50016", "…}
-#' \item{sponsor}{chr "Ethicon, Inc.", "The Upjohn Co.", "Pfize…}
+#' \item{sponsor}{chr "ETHICON, Inc.", "The Upjohn Co.", "Pfize…}
 #' \item{company_clean}{chr "ETHICON", "THE UPJOHN", "PFIZER", "PFIZE…}
 #' \item{company_group}{chr "JOHNSON AND JOHNSON", "THE UPJOHN", "PFI…}
 #' \item{contact}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
-#' \item{address_line_1}{chr "1000 Route 202", "7000 Portage Rd.", "23…}
+#' \item{address_line_1}{chr "1000 Rte. 202", "7000 Portage Rd.", "235…}
 #' \item{address_line_2}{chr NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…}
 #' \item{city}{chr "Raritan", "Kalamazoo", "Ny", "Ny", "Ny",…}
 #' \item{state}{chr "NJ", "MI", "NY", "NY", "NY", "NY", "NY",…}
@@ -61,5 +61,5 @@
 #'
 #' @source FDA's
 #' [PMA database download file](https://www.fda.gov/medical-devices/device-approvals-denials-and-clearances/pma-approvals) and [510(k) database download files](https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files)
-#' accessed 2026-03-17.
+#' accessed 2026-03-24.
 "premarket"
