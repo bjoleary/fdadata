@@ -29,5 +29,5 @@
 #' }
 #'
 #' @source [FDA Product Code Database]()
-#' accessed 2026-03-31.
+#' accessed 2026-04-07.
 "product_codes"
